@@ -131,6 +131,6 @@ A reason CS2030/S chooses to use Java is due to its type system.  CS2030/S will 
 
 ### Eliminating Side Effects
 
-We have discussed how functions can compartmentalize computations and limit their complexity within their body.  For this approach to be effective, the function must not have any side effects -- such as updating a variable that is not within the function.  Such functions, called _pure _functions_, are one of the key principles of the functional programming paradigm and is something that we will explore to kick off the section on functional paradigm in CS2030/S.
+We have discussed how functions can compartmentalize computations and limit their complexity within their body.  For this approach to be effective, the function must not have any side effects -- such as updating a variable that is not within the function.  Such functions, called _pure functions_, are one of the key principles of the functional programming paradigm and is something that we will explore to kick off the section on functional paradigm in CS2030/S.
 
 A related idea in object-oriented programming we will cover in CS2030/S is _immutability_ -- once we create an object, the object cannot be changed.  In order to update an object, we need to create a new one.  With immutability and pure functions, we can guarantee that the same function invoked on the same objects will always return the same value.  This certainty can help in understanding and reasoning about the code behavior.

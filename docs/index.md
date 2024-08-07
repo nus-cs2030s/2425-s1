@@ -6,4 +6,5 @@ You can explore the links on the menu on the left, or search for keywords in the
 
 ### Other Web Resources
 - [Canvas](https://canvas.nus.edu.sg/courses/62270)
-- [Piazza](https://piazza.com/class/ll80a6ikns03ev/)
+- [Ed](https://edstem.org/us/courses/61668/discussion/)
+- [CS2030S Ticketing System](https://mysoc.nus.edu.sg/app/cs2030s/)

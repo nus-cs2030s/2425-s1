@@ -127,7 +127,7 @@ Try this exercise: At the end of the file `jfk.txt`, there are some typos:
 libertyi. liberty.
 ```
 
-Change `libertyi. liberty.` to `libtery.` by positioning the cursor on the second `i` and deleting it.  Then use ++shift+d++ to delete the extra `liberty.` at the end of the sentence.
+Change `libertyi. liberty.` to `liberty.` by positioning the cursor on the second `i` and deleting it.  Then use ++shift+d++ to delete the extra `liberty.` at the end of the sentence.
 
 ### Step 4: Visual Mode
 
@@ -226,7 +226,7 @@ Now let's try ++o++ (_open_).
 
 ### Step 4: Substitute
 
-Now let's try ++o++ (_open_).
+Now let's try ++s++ (_substitute_).
 
 1. Place your cursor anywhere.
 2. Press ++s++.
