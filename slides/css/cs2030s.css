@@ -1,0 +1,55 @@
+.basic h3 {
+  font-size: 36px;
+}
+.basic h4 {
+  font-size: 32px;
+}
+.basic h5 {
+  font-size: 30px;
+}
+.basic h6 {
+  font-size: 28px;
+}
+
+.subsections {
+  margin: 35px 20px 0 0;
+  height: 535px;
+}
+.subsections h3 {
+  font-size: 20px;
+}
+.subsections h4 {
+  font-size: 16px;
+}
+
+.oldsection h3 {
+  margin-top: 25px;
+}
+
+.footnote {
+  left: 175px;
+}
+
+.cards .content p, .cards .content li {
+  font-size: 24px;
+}
+.cards .addendum p, .cards .addendum li {
+  font-size: 20px;
+}
+
+.remark-code {
+  font-size: 22px;
+}
+
+.hljs-num .hljs {
+  overflow-x: hidden;
+  background: rgba(255,255,255,0);
+}
+.hljs-num .hljs-number {
+  color: rgb(0,0,0);
+}
+
+.mrq {
+  bottom: -50px !important;
+  width: calc(100% - 230px) !important;
+}
