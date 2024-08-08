@@ -13,6 +13,8 @@ class: bottom, titles
 ## Programming Methodology II
 ### L01: Introduction
 
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
 ---
 
 name: Java_Basic
@@ -303,16 +305,16 @@ We say that *S* is a ***supertype*** of *T*.
 ]
 ]
 
-.col60[
+.col70[
 .card.bg-g[
 ##### Properties
 .content.tight.flexcard[
-.col30[
+.col35[
 - **Reflexive**
 - **Transitive**
-- **Anti-**<br>**Symmetric**
+- **Anti-Symmetric**
 ]
-.nol.col70[
+.nol.col65[
 - *T* <: *T*
 - if *T* <: *S* and *S* <: *U*, then *T* <: *U*
 - if *T* <: *S* and *S* <: *T*, then *T* = *S*<br>.note20[(prevents cyclic subtyping)]
@@ -320,7 +322,7 @@ We say that *S* is a ***supertype*** of *T*.
 ]
 ]
 ]
-.col40[
+.col30[
 ![Diagram](img/01-Subtype.jpg)
 ]
 ]
@@ -376,13 +378,12 @@ Java allows putting a value of type *T* into a variable of type *S* if and only 
 ### Compilation
 ### Type System
 ### Subtyping
-#### Basic
-#### Primitive
-#### Quiz
+### Quizzes
+#### Quiz #1
 ]
 .ft88.oldsection[
-### Subtyping
-#### Quiz
+### Quizzes
+#### Quiz #1
 
 .col100[
 .card.bg-r[
@@ -491,11 +492,69 @@ const fac5  = fact(5);
 ]
 ]
 ]
-.abs.top3.rt1.ft[
-.card.bg-r[
-##### Quick Quiz
-.content.tight[
-What is the problem with the code below?
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+#### List
+]
+.ft88.oldsection[
+### Composite
+#### List
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col88[
+```py
+def Circle(x, y, r):
+  return (x, y, r)
+```
+]
+]
+
+.col50[
+##### Instantiation
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```py[copy=nones]
+c = Circle(1, 2, 5);
+c[0]; # returns 1
+c[1]; # returns 2
+c[2]; # returns 5
+```
+]
+
+##### Functions
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```py[copy=nones]
+def getArea(c):
+  return 3.14 * c[0] * c[0]
+  ​
+circle_area = getArea(c);
+```
 ]
 ]
 ]
@@ -507,6 +566,7 @@ What is the problem with the code below?
 .ft10.subsections[
 ### Functions
 ### Composite
+#### List
 #### Dispatch
 ]
 .ft88.oldsection[
@@ -577,10 +637,10 @@ c("r"); // returns 5
 ]
 .col93[
 ```js[copy=nones]
-function circle_area(c) {
+function getArea(c) {
   return 3.14 * c("r") * c("r");
 }
-const area = circle_area(c);
+const circle_area = getArea(c);
 ```
 ]
 ]
@@ -593,6 +653,7 @@ const area = circle_area(c);
 .ft10.subsections[
 ### Functions
 ### Composite
+#### List
 #### Dispatch
 #### Struct
 ]
@@ -650,10 +711,10 @@ c.r = 5.0; // set r to 5.0
 ]
 .col93[
 ```c[copy=nones]
-double circle_area(Circle c) {
+double getArea(Circle c) {
   return 3.14 * c.r * c.r;
 }
-double area = circle_area(c);
+double circle_area = getArea(c);
 ```
 ]
 ]
@@ -666,6 +727,7 @@ double area = circle_area(c);
 .ft10.subsections[
 ### Functions
 ### Composite
+#### List
 #### Dispatch
 #### Struct
 #### Class
@@ -689,7 +751,7 @@ double area = circle_area(c);
 ```
 ]
 .col88[
-```java
+```java[lite=6-9]
 class Circle {
   double x;
   double y;
@@ -717,13 +779,13 @@ class Circle {
 ```
 ]
 .col93[
-```c[copy=nones]
+```c[copy=nones|lite=6]
 Circle c = new Circle();
 c.x = 1.0; // set x to 1.0
 c.y = 2.0; // set y to 2.0
 c.r = 5.0; // set r to 5.0
 ​
-double area = c.getArea();
+double circle_area = c.getArea();
 ```
 
 .card.bg-g[
@@ -892,22 +954,144 @@ c1.r = 10.0;
 ### Paradigm
 #### OOP Paradigm
 
+.col47[
 .card.bg-b[
 ##### Object-Oriented Programming
 .content.tight[
-In **object-oriented programming**, a program runs by .uline[_instantiating_] objects of different classes that interact with each other by .uline[_calling_] each others' methods.
+- Instantiate objects .note20[(different classes)].
+- Interact by invoking each others' methods.
 ]
 ]
 
-.col15[
+.col30[
 ![Bank01](img/01-Bank01.png)
 
 ![Bank03](img/01-Bank03.png)
 ]
-.col15[
+.col30[
 ![Bank02](img/01-Bank02.png)
 
 ![Bank04](img/01-Bank04.png)
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+### Paradigm
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the Java code snippet on the right.
+Which of the following would be printed by the code snippet on the right?
+]
+]
+]
+.col50[
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col93[
+```c[copy=nones]
+Circle c1;
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+System.out.println(c1.r);
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`0.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+2. .quiz-choice[`3.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+3. .quiz-choice[`10.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+4. .quiz-choice[Compilation Error] .quiz-ans[1] .quiz-hint[YES: line 2 is an error because `c1` is uninitialized]
+5. .quiz-choice[Runtime Error] .quiz-ans[0] .quiz-hint[NO: cannot even compile]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+### Paradigm
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the Java code snippet on the right.
+Which of the following would be printed by the code snippet on the right?
+]
+]
+]
+.col50[
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col93[
+```c[copy=nones]
+Circle c1 = new Circle();
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+System.out.println(c1.r);
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`0.0`] .quiz-ans[0] .quiz-hint[NO: no longer default]
+2. .quiz-choice[`3.0`] .quiz-ans[1] .quiz-hint[YES: `c1.r` and `c2.r` are aliased]
+3. .quiz-choice[`10.0`] .quiz-ans[0] .quiz-hint[NO: `c1.r` and `c2.r` are aliased]
+4. .quiz-choice[Compilation Error] .quiz-ans[0] .quiz-hint[NO: no error]
+5. .quiz-choice[Runtime Error] .quiz-ans[0] .quiz-hint[NO: no error]
+
+.quizzes-time[120]
 ]
 ]
 
