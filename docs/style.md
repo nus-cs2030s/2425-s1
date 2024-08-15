@@ -15,7 +15,15 @@ Many major companies enforce coding styles, and some have published them.  For C
 
 ## CS2030/S Coding Style
 
-1. No tabs.  Use only whitespace.  
+!!! note "For CS2030S"
+
+    When marked with [☻], these options are already included in the `~/.vimrc` file if you follow the [Vim setup guide](vim/setup.md). In fact, we recommend you follow the [Vim setup guide](vim/setup.md) instead and don't manually manage your own version of your `~/.vimrc` file.
+
+    Most other source code editors have similar configuration.  
+
+### Spacing and Indentation
+
+1. No tabs.  Use only whitespace.  [☻]
 
     !!! info "VIM Setting"
         For `vim` users, you can add the following line in your `~/.vimrc` file:
@@ -24,51 +32,9 @@ Many major companies enforce coding styles, and some have published them.  For C
         set expandtab
         ```
         
-        So that when you press ++tab++ it is expanded to whitespace.
-    
-    !!! note "For CS2030S"
-    
-        This option is already included in the `~/.vimrc` file if you follow the [Vim setup guide](vim/setup.md). In fact, we recommend you follow the [Vim setup guide](vim/setup.md) instead and don't manually manage your own version of your `~/.vimrc` file.
+        So that when you press ++tab++ it is expanded to whitespace. 
 
-        Most other source code editors have similar configuration.  
-
-2. Exactly one blank line after import statements and exactly one top-level (_i.e., non-nested_) class.
-
-3. Each top-level class resides in a source file of its own.
-
-4. When a class has overladed methods (_e.g., multiple constructors or methods of the same name_), they appear sequentially with no other code in between.
-
-5. Braces are always used (_even if the body is empty or contains a single statement_)
-
-6. Use "[Egyptian brackets](https://en.wikipedia.org/wiki/Indentation_style#K&R_style)": 
-
-    - Opening brace have no line break before; but has line break after
-    - Closing brace has a line break before; and has a line break after (_except when there is `else` or comma following a closing brace_).
-
-    !!! success "Good Example"
-        ```Java
-        if (x == 0) {
-          x++;
-        } 
-        ```
-
-    !!! failure "Bad Example"
-        ```Java
-        if (x == 0) { x++; }
-        ```
-        ```Java
-        if (x == 0) // Allman style (do not use)
-        {
-          x++;
-        }
-        ```
-        ```Java
-        if (x == 0) // Pico style (do not use)
-        {
-          x++; }
-        ```
-
-7. Block indentation is exactly two spaces.
+2. Block indentation is exactly two spaces. [☻]
 
     ```Java
     if (x == 0) { 
@@ -93,132 +59,57 @@ Many major companies enforce coding styles, and some have published them.  For C
 
         To help you with indentation.
 
-    
-    !!! note "For CS2030S"
-    
-        These options are already included in the `~/.vimrc` file if you follow the [Vim setup guide](vim/setup.md). In fact, we recommend you follow the [Vim setup guide](vim/setup.md) instead and don't manually manage your own version of your `~/.vimrc` file.
-    
-        Most other source code editors have similar configuration.  
-
-8. Each statement is followed by a line break, no matter how short the statement is.
-
-    !!! success "Good Example"
-    
-        ```Java
-        x++; 
-        i++;
-        ```
-
-    !!! failure "Bad Example"
-
-        ```Java
-        x++; i++;
-        ```
-
-9. Each line is limited to 80 characters in length.  You can break a long
+3. Each line is limited to 80 characters in length.  You can break a long
     line into multiple lines to enhance readability, this is called _line wrapping_.  When you do so, each continuation line is indented at least 4 spaces from the original line.
 
     !!! success "Good Example"
 
         ```Java
-        System.out.println("Daenerys of the House Targaryen," + 
-            "the First of Her Name, The Unburnt, Queen of the Andals," +
-            "the Rhoynar and the First Men, Queen of Meereen," +
-            "Khaleesi of the Great Grass Sea, Protector of the Realm," +
-            "Lady Regnant of the Seven Kingdoms, Breaker of Chains and" +
-            "Mother of Dragon");
+        void foo(double a, double b, double c, double d
+            double e, double f) {
+          if ((a > b) && (b > c) && (c > d) && (d > e) &&
+            (e > f)) {
+          }
+        }
         ```
         
-        Note the 4 spaces indentation at line 2 to line 6.
+        Note the 4 spaces indentation at line 2 and line 4.
 
     !!! failure "Bad Example"
     
         ```Java
-        System.out.println("Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regnant of the Seven Kingdoms, Breaker of Chains and Mother of Dragon");
+        void foo(double a, double b, double c, double d double e, double f, double g, double h, double i) {
+          if ((a > b) && (b > c) && (c > d) && (d > e) && (e > f)) {
+          }
+        }
         ```
 
+        In the example above, we have over 80 characters in line 1.
+    
         ```Java
-        System.out.println("Daenerys of the House Targaryen, the First of" +
-        " Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the" +
-        " First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, P" +
-        "rotector of the Realm, Lady Regnant of the Seven Kingdoms, Break" +
-        "er of Chains and Mother of Dragon");
+        void foo(double a, double b, double c, double d
+          double e, double f) {
+            if ((a > b) && (b > c) && (c > d) && (d > e) &&
+              (e > f)) {
+            }
+        }
         ```
-        
-        This bad example omitted the 4 spaces indentations.
+    
+        ```Java
+        void foo(double a, double b, double c, double d
+        double e, double f) {
+          if ((a > b) && (b > c) && (c > d) && (d > e) &&
+          (e > f)) {
+          }
+        }
+        ```
+
+        In the example above, we omitted the 4 spaces indentation for the continuation line.
 
     !!! note "80 vs 100"
         While we prefer lines to be limited to 80, we are OK if the length is up to 100.  Any longer, however, will be frowned upon.
 
-10. There should be a blank line between constructors, methods, nested classes and static initializers.  Blank lines can be used between fields to create logical groupings.
-
-11. White space should separate Java keywords from parenthesis and braces, and be added on both sides of binary operators (_`+`, `-`, `/`, etc_) as well as `:` in enhanced for-loop.  Space should also appears before and after `//` comments
-
-    !!! success "Good Example"
-
-        ```Java
-        if (x == 0) { 
-          x++; // to make sure x is at least one.
-          for (i = 0; i < x; i++) {
-            x += i;
-          }
-        }
-        ```
-
-    !!! failure "Bad Example"
-
-        ```Java
-        if(x==0){ 
-          x++;//to make sure x is at least one.
-          for(i=0;i<x;i++){
-            x+=i;
-          }
-        }
-        ```
-
-12. One variable per declaration.  
-
-    !!! success "Good Example"
-
-        ```Java
-        int x;
-        int y;
-        ```
-
-    !!! failure "Bad Example"
-
-        ```Java
-        int x, y;
-        ```
-
-13. No C-style array declaration
-
-    !!! success "Good Example"
-
-        ```Java
-        String[] args;
-        ```
-
-    !!! failure "Bad Example"
-
-        ```Java
-        String args[];
-        ```
-
-14. Switch statement always include a `default` case.
-
-15. One annotation per line.
-
-16. Always use `@Override`.
-
-    ```Java
-    @Override
-    public boolean equals(Object o) {
-        :
-    }
-    ```
-
-17. Indent comments at the same level as the surrounding code.  For multiple comments, align `*` with the previous line.
+4. Indent comments at the same level as the surrounding code.  For multiple comments, align `*` with the previous line.
 
     !!! success "Good Example"
 
@@ -254,7 +145,127 @@ Many major companies enforce coding styles, and some have published them.  For C
           */
         ```
 
-18. Class modifier appears in the following order:
+5. White space should separate Java keywords from parenthesis and braces, and be added on both sides of binary operators (_`+`, `-`, `/`, etc_) as well as `:` in enhanced for-loop.  Space should also appears before and after `//` comments
+
+    !!! success "Good Example"
+
+        ```Java
+        if (x == 0) { 
+          x++; // to make sure x is at least one.
+          for (i = 0; i < x; i++) {
+            x += i;
+          }
+        }
+        ```
+
+    !!! failure "Bad Example"
+
+        ```Java
+        if(x==0){ 
+          x++;//to make sure x is at least one.
+          for(i=0;i<x;i++){
+            x+=i;
+          }
+        }
+        ```
+
+
+### Classes
+
+1. Each file contains exactly one top-level (_i.e., non-nested_) class.
+
+2. Each top-level class resides in a source file of its own.
+
+3. When a class has overladed methods (_e.g., multiple constructors or methods of the same name_), they appear sequentially with no other code in between.
+
+
+### Braces
+
+1. Braces are always used (_even if the body is empty or contains a single statement_).
+
+2. Use "[Egyptian brackets](https://en.wikipedia.org/wiki/Indentation_style#K&R_style)": 
+
+    - Opening brace have no line break before; but has line break after
+    - Closing brace has a line break before; and has a line break after (_except when there is `else` or comma following a closing brace_).
+
+    !!! success "Good Example"
+        ```Java
+        if (x == 0) {
+          x++;
+        } 
+        ```
+
+    !!! failure "Bad Example"
+        ```Java
+        if (x == 0) { x++; }
+        ```
+        ```Java
+        if (x == 0) // Allman style (do not use)
+        {
+          x++;
+        }
+        ```
+        ```Java
+        if (x == 0) // Pico style (do not use)
+        {
+          x++; }
+        ```
+
+
+### Lines
+
+1. Exactly one blank line after `import` statements.
+
+2. Each statement is followed by a line break, no matter how short the statement is.
+
+    !!! success "Good Example"
+    
+        ```Java
+        x++; 
+        i++;
+        ```
+
+    !!! failure "Bad Example"
+
+        ```Java
+        x++; i++;
+        ```
+
+3. There should be a blank line between constructors, methods, nested classes and static initializers.  Blank lines can be used between fields to create logical groupings.
+
+
+### Declarations, Identifiers, and Keywords
+
+1. One variable per declaration.  
+
+    !!! success "Good Example"
+
+        ```Java
+        int x;
+        int y;
+        ```
+
+    !!! failure "Bad Example"
+
+        ```Java
+        int x, y;
+        ```
+
+2. No C-style array declaration
+
+    !!! success "Good Example"
+
+        ```Java
+        String[] args;
+        ```
+
+    !!! failure "Bad Example"
+
+        ```Java
+        String args[];
+        ```
+
+3. Class modifier appears in the following order:
 
     ```Java
     public protected private abstract default static final transient volatile synchronized native strictfp
@@ -272,11 +283,54 @@ Many major companies enforce coding styles, and some have published them.  For C
         static public void main(String[] args)
         ```
 
-19. Class names are writte in UpperCamelCase, method names and field names in lowerCamelCase, constant names in ALL_CAPS_SNAKE_CASE.  Type parameters in single capital letter.
+4. Class names are writte in `UpperCamelCase`, method names and field names in `lowerCamelCase`, constant names in `ALL_CAPS_SNAKE_CASE`.  Type parameters in single capital letter.
 
-20. Caught exceptions should not be ignored.
+5. Static fields and methods must be accessed with class name.
 
-21. Static fields and methods must be accessed with class name.
+
+### Statements and Annotations
+
+1. Switch statement always include a `default` case.
+
+2. One annotation per line.
+
+3. Always use `@Override`.
+
+    ```Java
+    @Override
+    public boolean equals(Object o) {
+        :
+    }
+    ```
+
+4. Caught exceptions should not be ignored.
+
+5. Avoid `import` using wildcards `*`.  Always import the specific class you need.
+
+    !!! success "Good Example"
+        ```java
+        import java.util.ArrayList;
+        import java.util.List;
+        ```
+
+    !!! failure "Bad Example"
+        ```java
+        import java.util.*;
+        ```
+
+5. `import` statement should be in alphabetical order.
+
+    !!! success "Good Example"
+        ```java
+        import java.util.ArrayList;
+        import java.util.List;
+        ```
+
+    !!! failure "Bad Example"
+        ```java
+        import java.util.List;
+        import java.util.ArrayList;
+        ```
 
 ## Using `checkstyle`
 
@@ -287,5 +341,7 @@ To run,
 ```
 java -jar ~cs2030s/bin/checkstyle.jar -c ~cs2030s/bin/cs2030_checks.xml *.java 
 ```
+
+The exercises and assessments may have different stylecheck configurations.  See the corresponding instructions in the exercises/assessment papers.
 
 Hint: put the command into a `bash` script so that you do not need to type such a long string all the time.
