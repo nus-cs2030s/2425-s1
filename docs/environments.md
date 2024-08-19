@@ -2,7 +2,7 @@
 
 ## Java version
 
-Java is a language that continues to evolve.  A new version is released every six months.  For CS2030S, we will _only_ use Java 17, the most recent version with long-term support.  Specifically, we use `openjdk 17 2021-09-14` on Ubuntu 20.04.5.
+Java is a language that continues to evolve.  A new version is released every six months.  For CS2030S, we will _only_ use Java 21, the most recent version with long-term support.  Specifically, we use `openjdk 21.0.4 2024-07-16` on Ubuntu 20.04.6.
 
 ## PE Hosts
 
@@ -57,6 +57,10 @@ First, you need to set up a Virtual Private Network (_VPN_) (_See [instructions 
 !!! note "SoC VPN vs NUS VPN"
 
     Note that SoC VPN is different from NUS VPN.  Connecting to NUS VPN only allows you access to the NUS internal network, but not the SoC internal network.
+
+!!! note "FortiClient VPN vs FortiClient"
+
+    When you setup the SoC VPN client, please make sure that you download and install "FortiClient VPN Only", and not "FortiClient". The latter is a commercial product that would stop working after the free trial is over. On the other hand, "FortiClient VPN" is a free product.
 
 ### Troubleshooting
 
@@ -124,9 +128,14 @@ You can use the following command on your local computer to generate a pair of k
 ssh-keygen -t rsa
 ```
 
+!!! warning "IMPORTANT"
+    You will be prompted for a passphrase. This is the passphrase to protect your private key on your local computer. You can enter an empty passphrase (at the cost of weaker security) to avoid being prompted for the passphrase whenever you access the private key[^1].
+
+[^1]: Alternatively you can read more about setting up `ssh-agent` with a passphrase for better security. 
+
 This command will generate two keys, a private key `id_rsa`, and a public key `id_rsa.pub`.  Keep the private key `id_rsa` on your local machine in the hidden `~/.ssh` directory and copy the public key `id_rsa.pub` to your account on PE `pe111`.  
 
-There are two methods to do this:
+There are two methods to do this.  {++You only need to apply one of them.++}
 
 ### Method 1: Using `ssh-copy-id`
 

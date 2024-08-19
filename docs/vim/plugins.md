@@ -16,11 +16,11 @@ The following are the officially supported vim extensions in CS2030S.
 
 ## Color Schemes
 
-We installed three color schemes `~cs1010/.vim/colors`.  You may copy them over to your own home directory, by running
+We installed three color schemes `~cs2030s/.vim/colors`.  You may copy them over to your own home directory, by running
 
 ```
 mkdir -p ~/.vim
-cp -r ~cs1010/.vim/colors ~/.vim
+cp -r ~cs2030s/.vim/colors ~/.vim
 ```
 
 The three color schemes are:
@@ -45,7 +45,7 @@ The Vim default color scheme:
 
 ![default](figures/color-scheme-default.png)
 
-The molokai (_CS1010's default_) color scheme:
+The molokai (_CS2030S's default_) color scheme:
 
 ![molokai](figures/color-scheme-molokai.png)
 
