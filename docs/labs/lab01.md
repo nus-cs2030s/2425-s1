@@ -22,25 +22,23 @@
 Alice wants to invest in several companies.
 She decides to create a list of her portfolio and track her progress.
 There are three kinds of companies she can invest in.
-For each company, she will know the following information.
+The information needed for the companies differ depending on the kind of companies.
 
-- The company name.
-- The amount of valuation she holds.
-- The value of expected change to the company valuation.
+- MNC: Only the name and the valuation.
+- Startup: Besides the name and the valuation, we also need to know the number of years for the valuation to double.  We call the number of years as X.
+- SME: Besides the name and the valuation, we also need to know the amount to increase each year.
 
 Depending on the kind of company, the valuation may increase or decrease as follows.
 
-- MNC: The valuation will always be added by the value.  If the value is negative, then the valuation will decrease.
-- Startup: The valuation will always be multiplied by the value.  If the value is less than one, then the valuation will decrease.  You are guaranteed that the value will always be positive.
-- SME: The valuation will always be a positive number between 0 and 1 (_exlude 0 and 1_).  This indicates the percentage increase.  So the new valuation will be the old valuation multiplied by (1 + value).
+- MNC: The valuation will always be the same.
+- Startup: The valuation will double after every X number of years where X is the number stored as above.
+- SME: The valuation will always increase by a fixed amount each year.
 
 Alice wants to keep track of the valuation of the companies in her portfolio for a given number of years.
 At the end, she wants to print the latest valuations.
 
 - MNC: The format will be `[name]: $valuation`.
-- Startup: The format is either one of the following depending on the condition.
-    - `~name~ $valuation` if the `valuation` is less than 1.
-    - `+name+ $valuation` otherwise.
+- Startup: `<name>: $valuation`
 - SME: The format will be `(name): $valuation`.
 
 Note that `valuation` will be printed only up to 3 decimal places.
@@ -101,6 +99,7 @@ On top of that, he mentioned a few other requirements as listed below.
     - Full-time employees and interns can be paid overtime.  This is simply the overtime hours * overtime rate.
 
 Since not all information are useful, the constructor need not receive all information.
+But you are guaranteed that there will be no other kinds of employees besides those listed above.
 
 Initially Alice was tasked to handle this project.
 However, since her timeline is very tight, he rushed this project and the resulting code does not adhere to basic OOP principles.
