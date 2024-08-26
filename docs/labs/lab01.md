@@ -122,14 +122,14 @@ To load the files using JShell, we can either (i) pass the Java file as an argum
 
 ```bash title="Option (i)"
 alice@pe111:~/mini/lab1/mini2$ jshell Employee.java Payroll.java
-|  Welcome to JShell -- Version 17.0.8.1
+|  Welcome to JShell -- Version 21.0.4
 |  For an introduction type: /help intro
 jshell>
 ```
 
 ```bash title="Option (ii)"
 alice@pe111:~/mini/lab1/mini2$ jshell 
-|  Welcome to JShell -- Version 17.0.8.1
+|  Welcome to JShell -- Version 21.0.4
 |  For an introduction type: /help intro
 jshell> /open Employee.java
 jshell> /open Payroll.java
