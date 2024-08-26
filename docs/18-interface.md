@@ -162,37 +162,88 @@ class AI extends A implements I {
 The lesson here is that when we are using typecasting, we are telling the compiler that *we know best*, and therefore it will not warn us or stop us from making bad decisions. It is important to always be sure when you use an explicit typecast.  Still, the compiler being our friend may decide that we are provably wrong.  But if the compiler cannot show that we are provably wrong in the case of type casting, it will allow us to compile and add a run-time check.
 
 
-## Impure Interfaces
+??? question "Impure Interfaces"
 
-As we mentioned at the beginning of this module, it is common for software requirements, and their design, to continuously evolve.  Once we define an interface that is exposed beyond the abstraction barrier, however, it is difficult to change that interface.
+    As we mentioned at the beginning of this module, it is common for software requirements, and their design, to continuously evolve.  Once we define an interface that is exposed beyond the abstraction barrier, however, it is difficult to change that interface.
 
-Suppose that, after we define that `GetAreable` interface, other developers in the team starts to write classes that implement this interface.  One fine day, we realized that we need to add more methods into the `getAreable`.  Perhaps we need methods `getAreaInSquareFeet()` and `getAreaInSquareMeter()` in the interface.  But, one cannot simply add these abstract methods to `getAreable`.  Otherwise, the other developers will have to change their classes to add the implementation of two methods.  Or else, their code would not compile.  Imagine how unhappy they would be!
+    Suppose that, after we define that `GetAreable` interface, other developers in the team starts to write classes that implement this interface.  One fine day, we realized that we need to add more methods into the `getAreable`.  Perhaps we need methods `getAreaInSquareFeet()` and `getAreaInSquareMeter()` in the interface.  But, one cannot simply add these abstract methods to `getAreable`.  Otherwise, the other developers will have to change their classes to add the implementation of two methods.  Or else, their code would not compile.  Imagine how unhappy they would be!
 
-This is what happened to the Java language when they changed from version 7 to version 8.  The language needed to add a bunch of useful methods to standard interfaces provided by the Java library, but doing so would break existing code written in Java version 7 or before, that rely on these interfaces.
+    This is what happened to the Java language when they changed from version 7 to version 8.  The language needed to add a bunch of useful methods to standard interfaces provided by the Java library, but doing so would break existing code written in Java version 7 or before, that rely on these interfaces.
 
-The solution that Java came up with is the allow an interface to provide a _default implementation_ of methods that all implementation subclasses will inherit (_unless they override_).  A method with default implementation is tagged with the `default` keyword.  This design leads to a less elegant situation where an `interface` has some abstract methods and some non-abstract default methods.  In CS2030S, we refer to this as _impure interfaces_ and it is a pain to explain since it breaks our clean distinction between a class and an interface.  _We prefer not to talk about it_ -- but it is there in Java 8 and up.
+    The solution that Java came up with is the allow an interface to provide a _default implementation_ of methods that all implementation subclasses will inherit (_unless they override_).  A method with default implementation is tagged with the `default` keyword.  This design leads to a less elegant situation where an `interface` has some abstract methods and some non-abstract default methods.  In CS2030S, we refer to this as _impure interfaces_ and it is a pain to explain since it breaks our clean distinction between a class and an interface.  _We prefer not to talk about it_ -- but it is there in Java 8 and up.
 
-[^1]: Although in recent Java releases, this is less common.
+    [^1]: Although in recent Java releases, this is less common.
 
-!!! warning "Example"
-    The following example shows a potential use of impure interface.
-    
-    ```java
-    interface Ordered {
-      boolean lessThan(Ordered o);                     // this < o
-      default boolean greaterThan(Ordered o) {         // this > o   -->  o < this
-        return o.lessThan(this);
-      }
-      default boolean greaterThanOrEqual(Ordered o) {  // this >= o  -->  !(this < o)
-        return !this.lessThan(o);
-      }
-      default boolean lessThanOrEqual(Ordered o) {     // this <= o  -->  !(this > o)  -->  !(o < this)
-        return !o.lessThan(this);
-      }
-    }
-    ```
-    
-    So now, if someone implements the `Ordered` interface, they only need to override one method called `lessThan`.  Then, automatically, it has inherited the method `greaterThan`, `greaterThanOrEqual`, and `lessThanEqual`.
+    !!! warning "Example"
+        The following example shows a potential use of impure interface.
+        
+        ```java
+        interface Ordered {
+          boolean lessThan(Ordered o);                     // this < o
+          default boolean greaterThan(Ordered o) {         // this > o   -->  o < this
+            return o.lessThan(this);
+          }
+          default boolean greaterThanOrEqual(Ordered o) {  // this >= o  -->  !(this < o)
+            return !this.lessThan(o);
+          }
+          default boolean lessThanOrEqual(Ordered o) {     // this <= o  -->  !(this > o)  -->  !(o < this)
+            return !o.lessThan(this);
+          }
+        }
+        ```
+        
+        So now, if someone implements the `Ordered` interface, they only need to override one method called `lessThan`.  Then, automatically, it has inherited the method `greaterThan`, `greaterThanOrEqual`, and `lessThanEqual`.
+
+
+## Multiple Inheritance
+
+One of the problems that is solved by (_pure_) interface is the problem of multiple inheritance. Other languages such as Python allows for a class to inherit from multiple parents. This, however, poses a problem of ambiguity in the case of diamond inheritance. Consider the class diagram below.
+
+![Diamond 01](./figures/ClassDiagram18.png){ width="350px" }
+
+Note that the class `U` has no method called `f` but it inherits it. Also note that the class diagram is not valid in Java. Consider the following method invocation.
+
+```java
+U u = new U();
+u.f();
+```
+
+Which method is invoked? Is it `T1::f()` or is it `T2::f()`? Maybe it's both? What if we call `super.f()`? Such problem is hard to solve and it boils down to the "_convention_" used in each programming languages. Python's convention is called [Method Resolution Order or MRO](https://www.python.org/download/releases/2.3/mro/). We will not go into details of this, but just note that it may cause counter-intuitive outcome.
+
+If we are only considering pure interface in Java, then such problem cannot occur. To illustrate that, we will first consider the following class diagram.
+
+![Diamond 02](./figures/ClassDiagram19.png){ width="350px" }
+
+At a glance, you may feel that the class diagram above exhibits all the problem of multiple inheritance. However, if you inspect it more closely, you will realize that such diagram cannot occur in Java because of the following contradiction.
+
+!!! info "Proof by Contradiction"
+    1. Assume `U` is not abstract and it has no implementation for `f()`.
+    2. `U` implements `T1` and `T2` hence `U` <: `T1` and `U` <: `T2`.
+    3. Since `U` <: `T1` and `U` <: `T2`, `U` inherits the abstract method `abstract void f()`.
+    4. Since `U` does not override `void f()` from either `void T1::f()` or `void T2::f()`, `void f()` is abstract in `U`.
+    5. Since `U` has an abstract method `void f()`, `U` must be an abstract class.
+    6. This contradicts (1) that assumes `U` is not abstract.  Hence, either
+        - `U` is abstract and cannot be instantiated, or
+        - `U` is not abstract and implements `void f()`.
+
+Based on the reasoning above, we have two possibilities: 
+
+- `U` is abstract and there is actually no problem of multiple inheritance because we cannot instantiate `U`.
+- `U` is not abstract and implements `void f()`.  In this case, there is no ambiguity which method is invoked because this non-abstract `void f()` is the one invoked.
+
+The second case can actually be represented as the following class diagram.
+
+![Diamond 03](./figures/ClassDiagram20.png){ width="350px" }
+
+In this latest class diagram, we can also see that since `S`, `T1`, and `T2` are interfaces, they cannot be instantiated.  Consider the following code snippet.
+
+```java
+S s = /* instantiation omitted */;
+```
+
+At compile-time, we know that `s` cannot have a run-time type of `S`, `T1`, or `T2`.  This is important because it shows that what we can instantiate are only concrete classes.  Since the run-time type of `s` will be a concret class, it means that during run-time step of dynamic binding, a concrete method will be found.
+
+
 
 !!! info "Class Diagram (_Part 6_)"
     Similar to abstract class, we denote interface with `<<interface>>`.  Furthermore, since all (_non default_) methods in the interface are public abstract methods, it is best to show them as such.  So, use `+` to indicate public method and put the name in _italics_ to indicate that they are abstract methods.

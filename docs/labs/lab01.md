@@ -46,15 +46,15 @@ You do not have to know how this is achieved.
 
 ```title="Sample Input"
 3 5
-Goggle 1 100 10.5
-Bong 3 50 0.05
-QuackQuackGo 2 20 1.25
+1 Goggle 1000
+3 Bong 50 5
+2 QuackQuackGo 20 3
 ```
 
 ```title="Sample Output"
-[Goggle]: $152.500
-(Bong): $63.814
-+QuackQuackGo+: $61.035
+[Goggle]: $1000
+(Bong): $75
+<QuackQuackGo>: $40
 ```
 
 
