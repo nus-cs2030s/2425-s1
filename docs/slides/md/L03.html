@@ -748,7 +748,7 @@ class C extends B {
 
 .mrq[
 1. .quiz-choice[`B::foo(B)`] .quiz-ans[1] .quiz-hint[YES: more specific (although farther in hierarchy)]
-2. .quiz-choice[`C::foo(A);`] .quiz-ans[0] .quiz-hint[NO: less specific (although nearer in hierarchy)]
+2. .quiz-choice[`C::foo(A)`] .quiz-ans[0] .quiz-hint[NO: less specific (although nearer in hierarchy)]
 3. .quiz-choice[Error] .quiz-ans[0] .quiz-hint[NO: we found a method]
 
 .quizzes-time[120]
@@ -801,7 +801,7 @@ class C extends B {
 
 .mrq[
 1. .quiz-choice[`B::foo(B)`] .quiz-ans[0] .quiz-hint[NO: no match for foo(A) in class B or its superclasses]
-2. .quiz-choice[`C::foo(A);`] .quiz-ans[0] .quiz-hint[NO: no match for foo(A) in class B or its superclasses]
+2. .quiz-choice[`C::foo(A)`] .quiz-ans[0] .quiz-hint[NO: no match for foo(A) in class B or its superclasses]
 4. .quiz-choice[Error] .quiz-ans[1] .quiz-hint[YES: no method found]
 
 .quizzes-time[120]
@@ -1184,6 +1184,104 @@ If a class `C` implements an interface `I`, then `C` <: `I`.
 #### Multiple Inheritance Problem
 
 .img35[![Multiple](img/03-Multiple.svg)]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+### Spectrum
+### Subtyping
+### Diamond
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col60[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class definition on the right.
+Does the following code compile?
+]
+]
+
+```java[copy=nones]
+B b = new B();
+D d = (D) b;
+```
+]
+.col40[
+```java
+interface A { }
+class B implements A { }
+interface C { }
+class D implements C { }
+```
+]
+
+.mrq[
+1. .quiz-choice[Yes: compile] .quiz-ans[0] .quiz-hint[NO: definitely incompatible]
+2. .quiz-choice[No: not compile] .quiz-ans[1] .quiz-hint[YES: definitely incompatible]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+### Spectrum
+### Subtyping
+### Diamond
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col60[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class definition on the right.
+Does the following code compile?
+]
+]
+
+```java[copy=nones]
+A a = new B();
+D d = (D) a;
+```
+]
+.col40[
+```java
+interface A { }
+class B implements A { }
+interface C { }
+class D implements C { }
+```
+]
+
+.mrq[
+1. .quiz-choice[Yes: compile] .quiz-ans[1] .quiz-hint[YES: potentially compatible]
+2. .quiz-choice[No: not compile] .quiz-ans[0] .quiz-hint[YES: potentially compatible]
+
+.quizzes-time[120]
+]
 ]
 
 ---
