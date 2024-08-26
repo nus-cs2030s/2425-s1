@@ -1,0 +1,1162 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L03: Polymorphism
+
+---
+
+name: Polymorphism
+class: middle, sections
+
+# Polymorphism
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+]
+.ft88.oldsection[
+### Type Operation
+.col100[
+#### Checking Type
+.card.bg-b[
+##### instanceof
+.content.tight[
+To check _at run-time_ if the **run-time type** of `obj` is a .uline[_subtype_] of `Type` we use:<br><br>
+
+.center[`obj instanceof Type`]
+]
+]
+
+<br>
+
+#### Type Conversion
+.card.bg-b[
+##### (Type)
+.content.tight[
+To _explicitly_ **convert** `obj` to type `Type` _at run-time_ we use:<br><br>
+
+.center[`Type objT = (Type) obj;`]
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+]
+.ft88.oldsection[
+### Polymorphism
+#### Motivation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java[copy=nones]
+void say(Object obj) {
+  System.out.println("Hi, I am " + obj.name());
+}
+```
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+]
+.ft88.oldsection[
+### Polymorphism
+#### Motivation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col95[
+```java[copy=nones]
+void say(Object obj) {
+  if (obj instanceof Point) {
+    Point p = (Point) obj;
+    System.out.println("Hi, I am " + p.name());
+  } else if (obj instanceof Circle) {
+    Circle c = (Circle) obj;
+    System.out.println("Hi, I am " + c.name());
+  }
+}
+```
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+#### Overloading
+]
+.ft88.oldsection[
+### Polymorphism
+#### Overloading
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col95[
+```java[copy=nones]
+void say(Point p) {
+  System.out.println("Hi, I am " + p.name());
+}
+void say(Circle c) {
+  System.out.println("Hi, I am " + c.name());
+}
+```
+]
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+**Method overloading** happens when two or more methods in the same class have .uline[_the same name but different method signature_] .note20[(i.e., cannot just change return type)].
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+#### Overloading
+#### Overriding
+]
+.ft88.oldsection[
+### Polymorphism
+#### Overriding
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col95[
+```java[copy=nones]
+void say(Object obj) {
+  System.out.println("Hi, I am " + obj.toString());
+}
+// Note:
+//   Overriding requires common superclass to have the method defined
+//   in this case, the `toString` method is defined
+```
+]
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+**Method overriding** happens when a subclass defines an _ with .uline[_the same method descriptor_] as superclass .note20[(i.e., the overriding method may return the subclass)].
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+#### Overloading
+#### Overriding
+#### Equals
+]
+.ft88.oldsection[
+### Polymorphism
+#### Equals
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java[copy=nones]
+Point p1 = new Point(0, 0);
+Point p2 = new Point(0, 0);
+p1.equals(p2);
+```
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+#### Motivation
+#### Overloading
+#### Overriding
+#### Equals
+]
+.ft88.oldsection[
+### Polymorphism
+#### Equals
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java[copy=nones]
+Point p1 = new Point(0, 0);
+Point p2 = new Point(0, 0);
+p1.equals(p2);
+```
+]
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=3-6]
+@Override
+public boolean equals(Object obj) {
+  if (obj instanceof Point) {
+    Point point = (Point) obj;
+    return (point.x == this.x && point.y == this.y);
+  }
+  return false;
+}
+```
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+#### Motivation
+]
+.ft88.oldsection[
+### Dynamic Binding
+#### Motivation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=3]
+public boolean contains(Object[] array, Object obj) {
+  for (Object curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which `equals` method are we invoking?
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+#### Motivation
+#### Compile-Time
+]
+.ft88.oldsection[
+### Dynamic Binding
+#### Compile-Time
+
+.col100[
+```java[copy=nones]
+curr.equals(obj)
+```
+
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Determine the compile-time type ***C*** of `curr`.<br><br>
+2. Check the class ***C*** for all .hilite-y[_accessible_] methods named `equals`.
+    - If there is none, then it is an error.<br><br>
+3. Keep only .hilite-y[_compatible_] methods that can accept compile-time type ***T*** of `obj`.
+    - If there is none, then it is an error.<br><br>
+4. Choose the .hilite-y[_most specific_] method and record the .uline[_method descriptor_].
+    - If there is none .note20[(or more than one)], then it is an error.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+#### Motivation
+#### Compile-Time
+]
+.ft88.oldsection[
+### Dynamic Binding
+#### Compile-Time
+
+.col100[
+```java[copy=nones]
+curr.equals(obj)
+```
+
+.card.bg-b[
+##### Accessible
+.content.tight[
+With the appropriate access modifier.
+May be in superclass.
+]
+]
+
+.card.bg-b[
+##### Compatible
+.content.tight[
+Correct number of parameters.
+Can accept superclass of ***T***.
+]
+]
+
+.card.bg-r[
+##### Most Specific
+.content.tight[
+A method ***M*** is more specific than a method ***N*** if the arguments to ***M*** can be passed to ***N*** without compilation error.
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+#### Motivation
+#### Compile-Time
+#### Run-Time
+]
+.ft88.oldsection[
+### Dynamic Binding
+#### Run-Time
+
+.col100[
+```java[copy=nones]
+curr.equals(obj)
+```
+
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Retrieve .uline[_method descriptor_] from Step 1.<br><br>
+2. Determine run-time type ***C*** of `curr`.<br><br>
+3. Search for for .hilite-y[_accessible_] method with .hilite-y[_matching_] method descriptor in ***C***.
+    - If not found, continue searching up the class hierarchy.<br><br>
+4. If still not found even in `Object`, then it is an error.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+#### Motivation
+#### Compile-Time
+#### Run-Time
+]
+.ft88.oldsection[
+### Dynamic Binding
+#### Run-Time
+
+.col100[
+```java[copy=nones]
+curr.equals(obj)
+```
+
+.card.bg-r[
+##### Matching
+.content.tight[
+A method ***M*** matches the method ***N*** if they have the same method signature and the return type of ***M*** is a .uline[_subtype_] of the method ***N***.
+]
+]
+
+.card.bg-y[
+##### Static Binding
+.content.tight[
+Class method do not support _dynamic binding_.
+The method to invoke is resolved statically during compile time.
+]
+]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+]
+.ft88.oldsection[
+### Liskov
+#### LSP: Liskov Substitution Principle
+.col70[
+.card.bg-g[
+##### Definition
+.content.tight[
+The **Liskov Substitution Principle** .note20[(abbreviated LSP)] states<br><br>
+
+.nol[
+- Let ***ϕ(x)*** be a property provable about objects `x` of type ***T***. Then ***ϕ(y)*** should be true for objects `y` of type ***S*** where ***S*** <: ***T***.<br><br><br>
+]
+]
+]
+]
+.col30[
+![Barbara Liskov](img/03-Liskov.jpg)
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+]
+.ft88.oldsection[
+### Liskov
+#### LSP: Liskov Substitution Principle
+.col70[
+.card.bg-g[
+##### Definition
+.content.tight[
+The **Liskov Substitution Principle** .note20[(abbreviated LSP)] states<br><br>
+
+.nol[
+- If ***S*** is a subclass of ***T***, then an object of type ***T*** can be replaced by that of type ***S*** without changing the _desirable property_ of the program.<br><br><br>
+]
+]
+]
+]
+.col30[
+![Barbara Liskov](img/03-Liskov.jpg)
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+]
+.ft88.oldsection[
+### Liskov
+#### LSP: Liskov Substitution Principle
+.col70[
+.card.bg-g[
+##### Definition
+.content.tight[
+The **Liskov Substitution Principle** .note20[(abbreviated LSP)] states<br><br>
+
+.nol[
+- A _subclass_ should not break the expectations set by the _superclass_.<br><br>
+]
+
+We can only substitute with an instance of the same _type_ or a _subtype_.
+]
+]
+
+.card.bg-y[
+##### Still too abstract?
+.content.tight[
+Let's look at some example...
+]
+]
+]
+.col30[
+![Barbara Liskov](img/03-Liskov.jpg)
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+### Final
+]
+.ft88.oldsection[
+### Final
+#### Preventing Changes
+.col100[
+.card.bg-g[
+##### Keyword
+.content.tight[
+The `final` keyword can be used to prevent
+- variable from being re-assigned
+- method from being overidden
+- classes from being inherited
+]
+]
+
+.font18[
+```java
+public final class Point {
+  private final double x;
+  private final double y;
+  // : other methods omitted
+  ​@Override
+  public final String toString() {
+    return "Point(" + this.x + ", " + this.y + ")";
+  }
+}
+```
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+### Final
+]
+.ft88.oldsection[
+### Final
+#### String
+
+<iframe id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs//api/java.base/java/lang/String.html" width="100%" height="450px" frameborder="0" ></iframe>
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+### Final
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+.col60[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class definition on the right.
+Which method is invoked by the following code?
+]
+]
+
+```java[copy=nones]
+C obj = new C();
+C arg = new C();
+obj.foo(arg);
+```
+]
+.col40[
+```java
+class A { }
+class B extends A {
+  public void foo(B b) { }
+}
+class C extends B {
+  public void foo(A a) { }
+}
+```
+]
+
+.mrq[
+1. .quiz-choice[`B::foo(B)`] .quiz-ans[1] .quiz-hint[YES: more specific (although farther in hierarchy)]
+2. .quiz-choice[`C::foo(A);`] .quiz-ans[0] .quiz-hint[NO: less specific (although nearer in hierarchy)]
+3. .quiz-choice[Error] .quiz-ans[0] .quiz-hint[NO: we found a method]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+### Final
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+.col60[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class definition on the right.
+Which method is invoked by the following code?
+]
+]
+
+```java[copy=nones]
+B obj = new C();
+A arg = new C();
+obj.foo(arg);
+```
+]
+.col40[
+```java
+class A { }
+class B extends A {
+  public void foo(B b) { }
+}
+class C extends B {
+  public void foo(A a) { }
+}
+```
+]
+
+.mrq[
+1. .quiz-choice[`B::foo(B)`] .quiz-ans[0] .quiz-hint[NO: no match for foo(A) in class B or its superclasses]
+2. .quiz-choice[`C::foo(A);`] .quiz-ans[0] .quiz-hint[NO: no match for foo(A) in class B or its superclasses]
+4. .quiz-choice[Error] .quiz-ans[1] .quiz-hint[YES: no method found]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Polymorphism
+
+.ft10.subsections[
+### Type Operation
+### Polymorphism
+### Dynamic Binding
+### Liskov
+### Final
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #3
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class definition on the right.
+Will the class compile?
+]
+]
+]
+.col50[
+.font20[
+```java
+class A {
+  private final int x;
+  public A(int x, int y) {
+    if (y > 0) {
+      this.x = x;
+    } else {
+      this.x = -x;
+    }
+  }
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[Yes: compile] .quiz-ans[1] .quiz-hint[YES: only 1 assignment, if-else are disjoint]
+2. .quiz-choice[No: not compile] .quiz-ans[0] .quiz-hint[NO: only 1 assignment, if-else are disjoint]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Abstract_Classes
+class: middle, sections
+
+# Abstract Classes
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+]
+.ft88.oldsection[
+### Motivation
+.col45[
+#### Class Diagram
+![Circle](img/03-Circle.png)
+]
+.col55[
+#### Usage
+.col12.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col88[
+.font20[
+```java[copy=nones]
+double findLargest(Circle[] array) {
+  double maxArea = 0;
+  for (Circle curr : array) {
+    double area = curr.getArea();
+    if (area > maxArea) {
+      maxArea = area;
+    }
+  }
+  return maxArea;
+}
+```
+]
+]
+]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+#### Properties
+]
+.ft88.oldsection[
+### Abstract Class
+#### Properties
+.col100[
+.card.bg-g[
+##### Abstract Class Properties
+.content.tight[
+An **abstract class** is a class that cannot be _instantiated_.<br><br>
+
+- Can be a subclass of other .note20[(concrete)] class.
+- Can have fields.
+- Can have abstract methods .note20[(i.e., methods without implementation)].
+- Can have concrete methods.
+- Is not required to have abstract methods.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+#### Properties
+#### Shape
+]
+.ft88.oldsection[
+### Abstract Class
+#### Shape
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col95[
+```java[copy=nones]
+abstract class Shape {
+  private int numOfAxesOfSymmetry;
+  ​
+  public boolean isSymmetric() {
+    return numOfAxesOfSymmetry > 0;
+  }
+  ​
+  abstract public double getArea();
+}
+```
+]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+#### Properties
+]
+.ft88.oldsection[
+### Interface
+#### Properties
+.col100[
+.card.bg-g[
+##### Interface Properties
+.content.tight[
+An **interface** is typically an abstraction of what the type .uline[_can do_].<br><br>
+
+- Can be a subinterface of other interfaces.
+- Cannot be a subclass of other class.
+- Can only have abstract methods .note20[(cannot have concrete methods)].cite[].
+- Can only have static fields .note20[(cannot have non-static fields)].
+- All methods are _automatically_ `public`.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+#### Properties
+#### GetAreable
+]
+.ft88.oldsection[
+### Interface
+#### GetAreable
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java[copy=nones]
+interface GetAreable {
+  double getArea();
+}
+```
+]
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col95[
+```java[copy=nones]
+class Circle extends Shape implements GetAreable {
+  // : code omitted
+  public double getArea() {
+    // : code omitted
+  }
+}
+```
+]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+### Spectrum
+]
+.ft88.oldsection[
+### Spectrum
+#### From Concrete to Abstract
+.col25[
+##### .center[Concrete Class]
+]
+.col25[
+##### .center[Abstract Class]
+]
+.col25[
+##### .center[.drdtxt[~~Impure Interface~~]]
+]
+.col25[
+##### .center[Pure Interface]
+]
+.col100[
+.img100[![Vline](img/Vline.jpg)]
+]
+.col25[
+```java[copy=nones]
+class
+    Circle {
+  :
+}
+```
+]
+.col25[
+```java[copy=nones]
+abstract class
+    Shape {
+  :
+}
+```
+]
+.col25[
+.card.bg-r[
+##### Warning
+.content.tight[
+We do **NOT** talk about this.
+]
+]
+]
+.col25[
+```java[copy=nones]
+interface
+    GetAreable {
+  :
+}
+```
+]
+]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+### Spectrum
+### Subtyping
+]
+.ft88.oldsection[
+### Subtyping
+#### Subtyping Relationship
+.col100[
+.card.bg-g[
+##### Inheritance Subtyping Relationship
+.content.tight[
+If a class `C` implements an interface `I`, then `C` <: `I`.
+]
+]
+
+<br>
+
+.card.bg-y[
+##### Rule
+.content.tight[
+- A class can extend at most one class.
+- A class can implement zero or more interfaces.
+- An interface can extend zero or more interfaces.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Abstract Classes
+
+.ft10.subsections[
+### Motivation
+### Abstract Class
+### Interface
+### Spectrum
+### Subtyping
+### Diamond
+]
+.ft88.oldsection[
+### Diamond
+#### Multiple Inheritance Problem
+
+.img35[![Multiple](img/03-Multiple.svg)]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]
