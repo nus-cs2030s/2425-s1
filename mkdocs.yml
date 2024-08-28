@@ -20,6 +20,10 @@ nav:
     - 16. LSP: '16-lsp.md'
     - 17. Abstract Class: '17-abstract.md'
     - 18. Interface: '18-interface.md'
+    - 19. Wrapper Class: '19-wrapper.md'
+    - 20. Run-Time Class Mismatch: '20-casting.md'
+    - 21. Variance: '21-variance.md'
+    - 22. Exceptions: '22-exception.md'
   - Lab Guide:
     - Programming Environments: 'environments.md'
     - GitHub Setup: 'github.md'
@@ -37,6 +41,11 @@ nav:
   - Java Guide: 
        - Coding Style: 'style.md'
        - JavaDoc : 'javadoc.md'
+  - Exercises:
+      - Ex0 Circle: 'prog-ex/0-circle.md' 
+#      - Ex1 Simulation I: 'prog-ex/1-simulation1.md' 
+  - Mini Lab:
+      - Lab 01: 'labs/lab01.md' 
 theme: 
   name: material
   features: 

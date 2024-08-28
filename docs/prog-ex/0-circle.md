@@ -178,8 +178,6 @@ The method `estimatePi` is incomplete.  Determine how you should declare `estima
 
 Use a circle centred at (0.5, 0.5) with radius 0.5 for this purpose. Use `long` and `double` within `estimatePi` for computation to ensure that you have the right precision.
 
-![Monte Carlo](MonteCarlo.png){ width=500px }
-
 !!! tip "Tips"
     In Java and many other languages, using `/` on two integers result in an integer division.  Make sure one of the operand of `/` is a floating point number if you intend to use `/` for floating point division.
 
