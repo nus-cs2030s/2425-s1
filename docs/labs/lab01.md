@@ -41,8 +41,6 @@ At the end, she wants to print the latest valuations.
 - Startup: `<name>: $valuation`
 - SME: The format will be `(name): $valuation`.
 
-Note that `valuation` will be printed only up to 3 decimal places.
-You do not have to know how this is achieved.
 
 ```title="Sample Input"
 3 5
