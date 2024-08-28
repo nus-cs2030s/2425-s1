@@ -58,6 +58,14 @@ You do not have to know how this is achieved.
 ```
 
 
+### Potential Changes
+
+As designs are intricately related to potential changes, you should think about the following potential changes.
+
+- We may want to add different kinds of companies.
+- We may want to change the behavior of each kind of companies independently of one another.
+
+
 ### Running and Testing
 
 First, you need to enter the directory `mini1` using the following command.
@@ -105,6 +113,14 @@ Initially Alice was tasked to handle this project.
 However, since her timeline is very tight, he rushed this project and the resulting code does not adhere to basic OOP principles.
 Alice asked for your help to refactor her code and make it more readable and extendable.
 Help Alice improve the quality of the code of this payroll system!
+
+
+### Potential Changes
+
+As designs are intricately related to potential changes, you should think about the following potential changes.
+
+- We may want to add different kinds of employees.
+- We may want to change the behavior of each kind of employees independently of one another.
 
 
 ### Running and Testing
