@@ -97,7 +97,7 @@ The `CoffeeSimulation` class is a concrete implementation of a `Simulation`. Thi
 
 - reading the inputs from the standard inputs,
 
-- initialize the bank counters (_represented with boolean_ `available` _arrays_)
+- initialize the coffee shop counters (_represented with boolean_ `available` _arrays_)
 
 - initialize the events corresponding to customer arrivals
 
