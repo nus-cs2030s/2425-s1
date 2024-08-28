@@ -195,7 +195,7 @@ test 2: passed
 test 3: passed
 test 4: passed
 test 5: passed
-Ex1: passed 🎉
+Ex1: passed everything 🎉
 ```
 
 Note that the given skeleton is a fully working program. Thus, it already passed the test cases.

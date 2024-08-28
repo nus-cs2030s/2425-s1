@@ -43,7 +43,7 @@ nav:
        - JavaDoc : 'javadoc.md'
   - Exercises:
       - Ex0 Circle: 'prog-ex/0-circle.md' 
-#      - Ex1 Simulation I: 'prog-ex/1-simulation1.md' 
+      - Ex1 Simulation I: 'prog-ex/1-simulation1.md' 
   - Mini Lab:
       - Lab 01: 'labs/lab01.md' 
 theme: 
