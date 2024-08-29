@@ -42,14 +42,14 @@ At the end, she wants to print the latest valuations.
 - SME: The format will be `(name): $valuation`.
 
 
-```title="Sample Input"
+```title="Mini1.1.in"
 3 5
 1 Goggle 1000
 3 Bong 50 5
 2 QuackQuackGo 20 3
 ```
 
-```title="Sample Output"
+```title="Mini1.1.out"
 [Goggle]: $1000
 (Bong): $75
 <QuackQuackGo>: $40
@@ -183,5 +183,5 @@ jshell> pr
 pr ==> Manager0 FullTime1 Intern2
 
 jshell> pr.getTotalSalary()
-$14 ==> 21925
+$14 ==> 21500
 ```
