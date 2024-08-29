@@ -16,6 +16,9 @@
     lab2@pe111:~/mini$ cp -r ~cs2030s/mini/lab2/ .
     ```
 
+    The files will only be available on Wednesday, 4 September 2024.
+
+
 !!! warning "Lab 01 Extension"
     This problem is an extension to mini problems of Lab 01.  The solution to the mini problems of Lab 1 can be found in the accompanying directory.
 

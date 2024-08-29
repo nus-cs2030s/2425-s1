@@ -46,6 +46,7 @@ nav:
       - Ex1 Simulation I: 'prog-ex/1-simulation1.md' 
   - Mini Lab:
       - Lab 01: 'labs/lab01.md' 
+      - Lab 02: 'labs/lab02.md' 
 theme: 
   name: material
   features: 
