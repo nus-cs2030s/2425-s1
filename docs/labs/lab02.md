@@ -144,3 +144,4 @@ payroll.register(chief);
 payroll.getTotalSalary(); // 100000
 payroll.getTotalSalary(); // 105000
 payroll.getTotalSalary(); // 110000
+```
