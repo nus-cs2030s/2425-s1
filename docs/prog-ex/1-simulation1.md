@@ -229,7 +229,7 @@ username@pe111:~/ex1-github-username$ vim -d OUT outputs/Ex1.3.out
 Make sure that your code following our [coding style](../style.md) is optional for Programming Exercise 1. If you would like to keep your code neat, tidy, and adhere to the CS2030S style, you can run 
 
 ```
-username@pe111:~/ex1-github-username$ java -jar ~cs2030s/bin/checkstyle.jar -c ex1_style.xml *.java
+username@pe111:~/ex1-github-username$ java -jar ~cs2030s/bin/checkstyle.jar -c ~cs2030s/bin/cs2030_checks.xml *.java
 ```
 
 You should see the following output, with nothing in between the two lines. Any style errors would appear in between the two.
