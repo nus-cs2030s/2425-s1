@@ -1,0 +1,1159 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L04: Types & Exceptions
+
+---
+
+name: Type_Casting
+class: middle, sections
+
+# Type Casting
+
+---
+
+name: Types
+class: middle, sections
+
+# Types
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+]
+.ft88.oldsection[
+### Motivation
+#### Contains
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=1]
+public boolean contains(Object[] array, Object obj) {
+  for (Object curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+#### Motivation
+]
+.ft88.oldsection[
+### Variance
+#### Motivation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=1]
+public boolean contains(Object[] array, Object obj) {
+  for (Object curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```jshell[copy=nones]
+jshell> String[] arr = new String[] { "CS1101S", "CS2030S" }
+jshell> contains(arr, "CS2040S")
+jshell> contains(arr, "CS2030S")
+```
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+#### Motivation
+#### Kinds
+]
+.ft88.oldsection[
+### Variance
+#### Kinds
+
+.col100[
+.card.bg-g[
+##### Variance of Types
+.content.tight[
+Let ***C(T)*** be a complex type based on type ***T***.
+We say a complex type ***C*** is:
+]
+.content.tight.flexcard[
+.col20[
+- **Covariant**
+- **Contravariant**
+- **Invariant**
+]
+.col80.nol[
+- if ***S*** <: ***T*** implies ***C(S)*** <: ***C(T)***
+- if ***S*** <: ***T*** implies ***C(T)*** <: ***C(S)***
+- if ***C*** is _neither_ covariant nor contravariant
+]
+]
+]
+
+.card.bg-b[
+##### Java Array
+.content.tight[
+Java array is **covariant**:
+
+.center[if ***S*** <: ***T***, then ***S[]*** <: ***T***]
+
+<br>
+
+**Example:** `String` <: `Object` implies `String[]` <: `Object[]`.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+#### Motivation
+#### Kinds
+#### Consequence
+]
+.ft88.oldsection[
+### Variance
+#### Consequence
+
+.col100[
+.col65[
+##### Code
+.col12.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col88[
+```java[copy=nones|lite=4]
+Integer[] ints = new Integer[]{ 1, 2 };
+Object[] objs;
+objs = ints;
+objs[0] = "Oh dear";
+```
+]
+]
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+#### Motivation
+#### Kinds
+#### Consequence
+]
+.ft88.oldsection[
+### Variance
+#### Consequence
+
+.col100[
+.col65[
+##### Code
+.col12.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col88[
+```java[copy=nones|lite=4]
+Integer[] ints = new Integer[]{ 1, 2 };
+Object[] objs;
+objs = ints;
+objs[0] = "Oh dear";
+```
+]
+]
+
+.col35[
+##### Compile-Time Type
+```java[copy=nones|lite=4]
+Integer[]
+Object[]
+Integer[] <: Object[]
+// ???
+```
+]
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+### Wrapper
+#### Motivation
+]
+.ft88.oldsection[
+### Wrapper
+#### Motivation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=1]
+public boolean contains(Object[] array, Object obj) {
+  for (Object curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```jshell[copy=nones]
+jshell> int[] arr = new int[] { 1010, 2030 }
+jshell> contains(arr, 2040)
+jshell> contains(arr, 2030)
+```
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+### Wrapper
+#### Motivation
+#### Reference
+]
+.ft88.oldsection[
+### Wrapper
+#### Reference
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **wrapper class** is a class that encapsulates a _type_ .note20[(i.e., a reference type)].
+]
+]
+]
+
+.ft100[
+.col50[
+##### Integer
+
+.col8.hljs-num[
+```text[copy=nones]
+1
+2
+```
+]
+.col92[
+```java[copy=nones|lite=3]
+Integer x = Integer.valueOf(2);
+int i = x.intValue();
+```
+]
+]
+.col50[
+![Ref](img/04-Ref.png)
+]
+]
+
+.ft100[
+##### int
+.col50[
+.col8.hljs-num[
+```text[copy=nones]
+1
+```
+]
+.col92[
+```java[copy=nones|lite=3]
+int i = 2;
+```
+]
+]
+.col50[
+![Prim](img/04-Prim.png)
+]
+]
+]
+.footnote.note20[[Integer wrapper class](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html)]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+### Wrapper
+#### Motivation
+#### Reference
+#### Auto (Un)Boxing
+]
+.ft88.oldsection[
+### Wrapper
+#### Auto (Un)Boxing
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **wrapper class** is a class that encapsulates a _type_ .note20[(i.e., a reference type)].
+]
+]
+]
+
+.ft100[
+.col50[
+##### Auto-Boxing
+
+.col8.hljs-num[
+```text[copy=nones]
+1
+```
+]
+.col92[
+```java[copy=nones|lite=3]
+int i = 5;
+Integer x = i;
+```
+]
+]
+.col50[
+![Box](img/04-Box3.png)
+]
+]
+
+.ft100[
+##### Auto-Unboxing
+.col50[
+.col8.hljs-num[
+```text[copy=nones]
+1
+2
+```
+]
+.col92[
+```java[copy=nones|lite=3]
+Integer x = Integer.valueOf(3);
+int i = x;
+```
+]
+]
+.col50[
+![Unbox](img/04-Unbox3.png)
+]
+]
+]
+.footnote.note20[[Integer wrapper class](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html)]
+
+---
+
+name: Exceptions
+class: middle, sections
+
+# Exceptions
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+]
+.ft88.oldsection[
+### Exceptions
+
+.center[![Random Error](img/04-RandError.png)]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+#### Motivation
+]
+.ft88.oldsection[
+### Exceptions
+#### Motivation
+
+.col65[
+.card.bg-r[
+<br>
+.font48[
+.center[Consider writing a method that reads in a single integer value from a file.]
+
+.center[What can go wrong?]
+]
+]
+]
+.col35[
+<textarea class="text-editor editor20" style="height:450px">
+Write what you think here...
+</textarea>
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+#### Motivation
+#### Try-Catch-Finally
+]
+.ft88.oldsection[
+### Exceptions
+#### Try-Catch-Finally
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones|lite=1,3,5]
+try {
+  // do something that may cause problem
+} catch( /* an exception parameter */ ) {
+  // handle the problem
+} finally {
+  // clean up code
+  // executed even if no exception was thrown
+}
+```
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+#### Motivation
+#### Try-Catch-Finally
+#### Hierarchy
+]
+.ft88.oldsection[
+### Exceptions
+#### Hierarchy
+
+.col50[
+.img80[![Throwable](img/04-Throwable.svg)]
+]
+
+.col50[
+.card.bg-b[
+##### Throwable
+.content.tight[
+The root of all errors.
+]
+]
+.card.bg-g[
+##### Checked Exception
+.content.tight[
+- Programmer has no control.
+- Checked by the compiler.
+    - Either handled or re-thrown.
+]
+]
+.card.bg-r[
+##### Unchecked Exception
+.content.tight[
+- Caused by programmers' errors
+- Not checked by compiler.
+]
+]
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+#### Trace
+]
+.ft88.oldsection[
+### Execution
+
+.col45[
+.col45[
+.font16[
+.col20.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col80[
+```java[copy=nones|lite=3,8]
+void m1() {
+  // :
+  m2();
+  // :
+}
+void m2() {
+  // :
+  m3();
+  // :
+}
+```
+]
+]
+]
+.col55[
+.font16[
+```java[copy=nones|lite=3]
+void m3() {
+  // :
+  m4();
+}
+void m4() {
+  if (/* ... */) {
+    throw new E2();
+  }
+  // :
+}
+```
+]
+]
+
+.col100[
+.font16[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col90[
+```java[copy=nones]
+try {
+  m1();
+} catch (E1 e) {
+  // :
+} catch (E2 e) {
+  // :
+} finally {
+  // :
+}
+```
+]
+]
+]
+]
+.col55[
+#### Trace
+![Exception01](img/04-Exception01.png)
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+#### Trace
+#### Normal
+]
+.ft88.oldsection[
+### Execution
+
+.col45[
+.col45[
+.font16[
+.col20.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col80[
+```java[copy=nones|lite=3,8]
+void m1() {
+  // :
+  m2();
+  // :
+}
+void m2() {
+  // :
+  m3();
+  // :
+}
+```
+]
+]
+]
+.col55[
+.font16[
+```java[copy=nones|lite=3,9|emph=1-5,9,10]
+void m3() {
+  // :
+  m4();
+}
+void m4() {
+  if (/* ... */) {
+    throw new E2();
+  }
+  // :
+}
+```
+]
+]
+
+.col100[
+.font16[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col90[
+```java[copy=nones|emph=1,2,7-9]
+try {
+  m1();
+} catch (E1 e) {
+  // :
+} catch (E2 e) {
+  // :
+} finally {
+  // :
+}
+```
+]
+]
+]
+]
+.col55[
+#### Trace: Normal Execution
+![Exception02](img/04-Exception02.png)
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+#### Trace
+#### Normal
+#### Error
+]
+.ft88.oldsection[
+### Execution
+
+.col45[
+.col45[
+.font16[
+.col20.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col80[
+```java[copy=nones|lite=3,8]
+void m1() {
+  // :
+  m2();
+  // :
+}
+void m2() {
+  // :
+  m3();
+  // :
+}
+```
+]
+]
+]
+.col55[
+.font16[
+```java[copy=nones|lite=3,7|emph=1-8,10]
+void m3() {
+  // :
+  m4();
+}
+void m4() {
+  if (/* ... */) {
+    throw new E2();
+  }
+  // :
+}
+```
+]
+]
+
+.col100[
+.font16[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col90[
+```java[copy=nones|emph=1,2,5-9]
+try {
+  m1();
+} catch (E1 e) {
+  // :
+} catch (E2 e) {
+  // :
+} finally {
+  // :
+}
+```
+]
+]
+]
+]
+.col55[
+#### Trace: Error Thrown
+![Exception03](img/04-Exception03.png)
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+]
+.ft88.oldsection[
+### InvalidCircle
+#### Unchecked Exception
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+]
+.ft88.oldsection[
+### Best Practices
+#### Do Clean Up
+
+.col100[
+.card.bg-g[
+##### Use Finally to Clean Up
+.content.tight.flexcard[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col93[
+```java[copy=nones|lite=7-9]
+public void m2() throws E2 {
+  try {
+    // setup resources
+    m3();
+  } catch (E2 e) {
+    throw e;
+  } finally {
+    // clean up resources
+  }
+}
+```
+]
+]
+]
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+#### No Pokemon
+]
+.ft88.oldsection[
+### Best Practices
+#### No Pokemon
+
+.col40[
+##### Do NOT Catch'em All
+.col12.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col88[
+```java[copy=nones|lite=3]
+try {
+  // your code
+} catch (Exception e) {
+  // do nothing
+}
+```
+]
+]
+.col60[
+![Pokemon](img/04-Pokemon.png)
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+#### No Pokemon
+#### Not Control Flow
+]
+.ft88.oldsection[
+### Best Practices
+#### Not Control Flow
+
+##### Do NOT Use Exception as a Control Flow Mechanism
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col95[
+```java[copy=nones|lite=3]
+try {
+  obj.doSomething();
+} catch (NullPointerException e) {
+  doTheOtherThing();
+}
+```
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+#### No Pokemon
+#### Not Control Flow
+#### Not Overreact
+]
+.ft88.oldsection[
+### Best Practices
+#### Not Overreact
+
+##### Do NOT Overreact
+.img80[![Overreact](img/04-Overreact.jpg)]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+#### No Pokemon
+#### Not Control Flow
+#### Not Overreact
+]
+.ft88.oldsection[
+### Best Practices
+#### Not Overreact
+
+##### Do NOT Overreact
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col95[
+```java[copy=nones|lite=4]
+try {
+  // your code
+} catch (Exception e) {
+  System.exit(0);
+}
+```
+]
+
+.col100[
+.card.bg-b[
+##### Important
+.content.tight[
+But do still try to resolve the error if possible.
+]
+]
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+#### Clean Up
+#### No Pokemon
+#### Not Control Flow
+#### Not Overreact
+#### No Return
+]
+.ft88.oldsection[
+### Best Practices
+#### No Return
+
+##### Do NOT Return from Finally
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+.col95[
+```java[copy=nones|lite=6]
+try {
+  // your code
+} catch (SomeException e) {
+  // handle
+} finally {
+  return 0;
+}
+```
+]
+
+.col100[
+.card.bg-r[
+##### Warning
+.content.tight[
+You may get counter-intuitive result.
+Already disallowed in modern language like C#.
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

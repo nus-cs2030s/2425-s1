@@ -101,3 +101,17 @@
 .btn:focus:not(:active) {
   box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
 }
+
+.text-editor {
+  width: 100%;
+  padding: 5px 15px;
+}
+.editor16 {
+  font-size: 16pt;
+}
+.editor18 {
+  font-size: 18pt;
+}
+.editor20 {
+  font-size: 20pt;
+}
