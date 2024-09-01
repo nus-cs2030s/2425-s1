@@ -13,6 +13,8 @@ class: bottom, titles
 ## Programming Methodology II
 ### L04: Types & Exceptions
 
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
 ---
 
 name: Type_Casting
@@ -447,6 +449,117 @@ int i = x;
 ]
 ]
 .footnote.note20[[Integer wrapper class](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html)]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+### Wrapper
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which statement is not valid .note20[(i.e., produces an error)].
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Double d = 4;`] .quiz-ans[1] .quiz-hint[YES: 4 is auto-boxed to `Integer` </: `Double`]
+2. .quiz-choice[`Double d = 4.0;`] .quiz-ans[0] .quiz-hint[NO: this is standard auto-boxing]
+3. .quiz-choice[`Integer i = 4;`] .quiz-ans[0] .quiz-hint[NO: this is standard auto-boxing]
+3. .quiz-choice[`Object o = 4;`] .quiz-ans[0] .quiz-hint[NO: 4 is auto-boxed to `Integer` <: `Object`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Types
+
+.ft10.subsections[
+### Motivation
+### Variance
+### Wrapper
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col55[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the types on the right and variables below.
+Select the assignment that leads to **compile-time** error.
+]
+]
+]
+
+.col45[
+.font20[
+```java
+interface A { }
+abstract class B implements A { }
+interface C { }
+class D extends B implements C { }
+class E implements A { }
+```
+]
+]
+
+.font20[
+.col20[
+```java[copy=nones]
+A a = new E();
+```
+]
+.col20[
+```java[copy=nones]
+B b = new D();
+```
+]
+.col20[
+```java[copy=nones]
+C c = new D();
+```
+]
+.col20[
+```java[copy=nones]
+D d = new D();
+```
+]
+.col20[
+```java[copy=nones]
+E e = new E();
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`d = (D) a;`] .quiz-ans[0] .quiz-hint[NO: runtime error, but will pass compilation]
+2. .quiz-choice[`d = (B) a;`] .quiz-ans[1] .quiz-hint[YES: `B` </: `D`]
+3. .quiz-choice[`c = (C) b;`] .quiz-ans[0] .quiz-hint[NO: no runtime error too]
+3. .quiz-choice[`a = (A) c;`] .quiz-ans[0] .quiz-hint[NO: no runtime error too]
+3. .quiz-choice[`c = (C) a;`] .quiz-ans[0] .quiz-hint[NO: runtime error, but will pass compilation]
+
+.quizzes-time[180]
+]
+]
 
 ---
 
@@ -1146,6 +1259,113 @@ You may get counter-intuitive result.
 Already disallowed in modern language like C#.
 ]
 ]
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col55[
+.card.bg-r[
+##### Question
+.content.tight[
+Assume `ExcC` <: `ExcB` <: `ExcA`.
+
+<br>
+
+Which of the block on the right would be executed if `method()` threw an `ExcC`?
+]
+]
+]
+
+.col45[
+.font20[
+```java
+try {
+  method();
+} catch (ExcC e) {
+  // Block A
+} catch (ExcA e) {
+  // Block B
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[Block A and then Block B] .quiz-ans[0] .quiz-hint[NO: only one of the catch is executed]
+2. .quiz-choice[Block A only] .quiz-ans[1] .quiz-hint[YES: `ExcC` can be caught by `ExcC`]
+3. .quiz-choice[Block B only] .quiz-ans[0] .quiz-hint[NO: already resolved by Block A]
+3. .quiz-choice[_None of the above_] .quiz-ans[0] .quiz-hint[NO: already resolved by Block A]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Exceptions
+
+.ft10.subsections[
+### Exceptions
+### Execution
+### InvalidCircle
+### Best Practices
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col55[
+.card.bg-r[
+##### Question
+.content.tight[
+Assume `ExcC` <: `ExcB` <: `ExcA`.
+
+<br>
+
+Which of the block on the right would be executed if `method()` threw an `ExcB`?
+]
+]
+]
+
+.col45[
+.font20[
+```java
+try {
+  method();
+} catch (ExcC e) {
+  // Block A
+} catch (ExcA e) {
+  // Block B
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[Block A and then Block B] .quiz-ans[0] .quiz-hint[NO: only one of the catch is executed]
+2. .quiz-choice[Block A only] .quiz-ans[0] .quiz-hint[NO: `ExcB` cannot be caught by `ExcC`]
+3. .quiz-choice[Block B only] .quiz-ans[1] .quiz-hint[YES: `ExcB` can be caught by `ExcA`]
+3. .quiz-choice[_None of the above_] .quiz-ans[0] .quiz-hint[NO: already resolved by Block B]
+
+.quizzes-time[120]
 ]
 ]
 
