@@ -127,10 +127,10 @@ Note that step (1) and (2) is checking if the type cast operation (_i.e.,_ `(C) 
         - This is narrowing and requires run-time checks.
         - Consider `C` <: `B`:
             - If CTT(`b`) = `B` and RTT(`b`) = `C` (_or subtype of_ `C`), then it is allowed at run-time.
-            - If CTT(`b`) = `B` and RTT(`b`) = `C` (_or other subtype of_ `B` _that is not_ `C`), then it not allowed at run-time.
+            - If CTT(`b`) = `B` and RTT(`b`) = `B` (_or other subtype of_ `B` _that is not_ `C`), then it not allowed at run-time.
         Since there is a _possibility_, the compiler will add codes to check at run-time.
     3. Case 3: `C` is an interface
-        - Let RTT(`b`) = `B`.  Then it may have a subclass `A` such that `A` <: `C` (_i.e., implements the interface_ `C`).
+        - Let CTT(`b`) = `B`.  Then it may have a subclass `A` such that `A` <: `C` (_i.e., implements the interface_ `C`).
         ```java
         class A extends B implements C { .. }
         ```
@@ -140,7 +140,7 @@ Note that step (1) and (2) is checking if the type cast operation (_i.e.,_ `(C) 
     There are certain cases where it is _impossible_ for RTT(`b`) to be a subtype of `C`.  We will explain two cases here.
 
     1. Let CTT(`b`) = `B` and let both `B` and `C` be two unrelated classes (_.e.,_ `B` </: `C` _and_ `C` </: `B`).
-        - Then it is impossible for RTT(`b`) to be subtype of `C` because the subclass of `B` must alreadt extends `B`.  As such, it cannot also extends from `C` as Java does not allow a class to extends from two or more classes.
+        - Then it is impossible for RTT(`b`) to be subtype of `C` because the subclass of `B` must already extends `B`.  As such, it cannot also extends from `C` as Java does not allow a class to extend from two or more classes.
     2. Let `C` be an interface and CTT(`b`) be a class with a modifier `final`.
         - Then Case (3) on the possibility does not apply as RTT(`b`) cannot be a subtype of CTT(`b`) since there cannot a subtype in the first place.  Recap: the `final` modifier on a class prevents the class from being inherited.
 
