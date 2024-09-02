@@ -29,6 +29,12 @@
 !!! note "Class Diagram"
     ![Lab1Mini1](img/Lab1Mini1.svg)
 
+    Note the file `Mini1.java` was also modified.  The modification is as follows.
+
+    ![Lab1Mini1Main](img/Lab1Mini1Main.svg){ width="200px" }
+
+    In particular, note that all fields are `private`, including class fields.  All of them are used only inside `Mini1` class and there is no need to make them `public`.
+
 ### Task 1: Printing
 
 Previously, the way Alice prints the companies are not very informative to other people.  Obviously, Alice knows how to read this, but this requires a kind of convention to know the following.
