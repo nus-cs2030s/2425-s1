@@ -133,7 +133,7 @@ Writing code that compiles without any compilation error is the most basic requi
 
 ## Identifying Yourself
 
-In every Java file that you submit, you need to identify yourself by writing your name and lab group. Marks may be deducted if you fail to do so. You need to edit the line:
+In every Java file that you submit, you need to identify yourself by writing your {--name--} {++matric number++} and lab group. Marks may be deducted if you fail to do so. You need to edit the line:
 
 ```
 @author XXXX (Group YYYY)
@@ -142,8 +142,10 @@ In every Java file that you submit, you need to identify yourself by writing you
 and change it to something like:
 
 ```
-@author Deadpool (Group 9A)
+@author D34DP00L (Group 9A)
 ```
+
+where `D34DP00L` is the matric number of the student named `Deadpool`.  As a reminder, the matric number starts with the letter `A`.
 
 ## Method of Submission
 
