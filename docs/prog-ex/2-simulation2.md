@@ -6,7 +6,7 @@
 
 !!! info "Prerequisite"
     - Completed [Programming Exercise 1](1-simulation.md).
-    - Caught up to [Unit 1920](../20-casting.md) of Lecture Notes.
+    - Caught up to [Unit 20](../20-casting.md) of Lecture Notes.
 
 !!! note "Goal"
     This is a continuation of Programming Exercise 1. Programming Exercise 2 changes some of the requirements of Programming Exercise 1 and adds some new things to the world that we are simulating.  The goal is to demonstrate that, when OO principles are applied properly, we can adapt our code to changes in the requirement with less effort.  If your design for Programming Exercise 1 follows the OOP principles, then only about 50 lines of changes/additions are required.
