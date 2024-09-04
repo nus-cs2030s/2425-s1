@@ -90,15 +90,15 @@ r.getArea() // 81.0
 .font18[
 ```java[copy=nones]
 public class Rectangle {
-  private int width;
-  private int height;
+  private double width;
+  private double height;
 
-  public Rectangle(int width, int height) {
+  public Rectangle(double width, double height) {
     this.width = width;
     this.height = height;
   }
 
-  public int getArea() {
+  public double getArea() {
     return this.width * this.height;
   }
 
@@ -155,16 +155,16 @@ Can you identify the following
 .font18[
 ```java[copy=nones]
 public class Rectangle {
-  private int width;
-  private int height;
+  private double width;
+  private double height;
 
   // : code omitted
 
-  public void setHeight(int height) {
+  public void setHeight(double height) {
     this.height = height;
   }
 
-  public void setWidth(int width) {
+  public void setWidth(double width) {
     this.width = width;
   }
 }
@@ -206,13 +206,13 @@ public class Square {
   // : code omitted
 
   @Override
-  public void setHeight(int height) {
+  public void setHeight(double height) {
     super.setHeight(height);
     super.setWidth(height);
   }
 
   @Override
-  public void setWidth(int width) {
+  public void setWidth(double width) {
     super.setHeight(width);
     super.setWidth(width);
   }
@@ -258,7 +258,7 @@ a = (C) b;
 #### Compile-Time
 
 1. Find CTT(`b`).
-2. Is there a ".uline[_possibility_]" of CTT(`b`) to be converted to `C`?<br>.note20[Also consider potential classes to be added in the future.]
+2. Is there a ".uline[_possibility_]" of a type `T` <: CTT(`b`).cite[] to be converted to `C`?<br>.note20[Also consider potential classes to be added in the future.]
 .nol[
 - If yes, continue to step 3.
 - If no, compilation error.
@@ -279,6 +279,7 @@ a = (C) b;
 ]
 ]
 ]
+.footnote[In the online notes, this is simply RTT(`b`) because by definition RTT(`b`) <: CTT(`b`).]
 
 ---
 

@@ -61,12 +61,15 @@
       
       window.$itools.add('question', 'Ed', 'https://edstem.org/us/courses/61668/discussion/?category=Problem%20Sets&subcategory=PS%2002');
       window.$itools.add('poll', 'Poll EV', 'https://pollev-embeds.com/dcsaysp');
-      
+
+      let ans = new Date("2024-09-05");
+      let cur = new Date();
+
       var slideshow = remark.create({
         ratio: '16:9',
         countIncrementalSlides: false,
         highlightStyle: 'idle',
-        sourceUrl: 'md/R02.html',
+        sourceUrl: cur >= ans ? 'md/_R02.html' : 'md/R02.html',
         navigation: {
           scroll: true,
           touch: false,
