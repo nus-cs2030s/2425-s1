@@ -196,7 +196,7 @@ s.toString().. ok
 
     **Note:** We add a generic interface called `SalaryMan<T>`.  This interface has a single abstract method `T higher(T other)`.  The method returns either `this` or `other` depending on the instance with the higher salary
     
-### Task 1: More Interns
+### Task 1: Creating Generic Queue
 
 Bob prefers the use of `Queue` instead of a `Stack` as it is fairer because it is a _first in, first out_ (FIFO) data structure.  In other words, the first element you put in will be the first one taken out.  Similar to how from a queue at the canteen, you enter from the back of the queue. Then, when you reached the front, you may exit the queue.
 
