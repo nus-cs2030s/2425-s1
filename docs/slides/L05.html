@@ -49,6 +49,9 @@
     <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.min.js" integrity="sha512-xylzfb6LZn1im1ge493MNv0fISAU4QkshbKz/jVh6MJFAlZ6T1NRDJa0ZKb7ECuhSTO7fVy8wkXkT95/f4R4nA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/mode-java.min.js" integrity="sha512-UBZMPMFs6XYnJkfZpZC3kd01FZE79okamv1Q1nDNSUfnkzp9sKdtUsaaIY58Cw6BS53gaApcX1aGSPj+Dfj6ag==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/ace.js"></script>
     
     <script type="text/javascript">
       var renderMath = function() {
@@ -58,14 +61,14 @@
         ]});
       };
       
-      window.$itools.add('question', 'Ed', 'https://edstem.org/us/courses/61668/discussion/?category=Lectures&subcategory=L03');
+      window.$itools.add('question', 'Ed', 'https://edstem.org/us/courses/24792/discussion/?category=Lectures&subcategory=Week%201');
       window.$itools.add('poll', 'Poll EV', 'https://pollev-embeds.com/dcsaysp');
       
       var slideshow = remark.create({
         ratio: '16:9',
         countIncrementalSlides: false,
         highlightStyle: 'idle',
-        sourceUrl: 'md/L03.html',
+        sourceUrl: 'md/L05.html',
         navigation: {
           scroll: true,
           touch: false,
@@ -77,7 +80,7 @@
         },
         qanvas: {
           layout: 'horizontal',
-          date: '2024-8-27',
+          date: '2024-9-10',
           pensize: 1
         },
         quizzes: {
@@ -89,6 +92,7 @@
         renderMath();
         initCoding();
         initAhref();
+        editor('pair_editor');
       });
     </script>
   </body>
