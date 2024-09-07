@@ -269,10 +269,11 @@ Integer i = (Integer) p.getFirst();
 .ft10.subsections[
 ### Class
 ### Subclass
+#### Extension
 ]
 .ft88.oldsection[
 ### Subclass
-#### Extending Generic Class
+#### Extension
 
 .col70[
 .col7.hljs-num[
@@ -295,6 +296,35 @@ class DictionaryEntry<T>
 
 .col30[
 ![Pair03](img/05-Pair03.svg)
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+#### Extension
+#### Relationship
+]
+.ft88.oldsection[
+### Subclass
+#### Relationship
+
+.col100[
+##### Covariant?
+
+```java[copy=nones]
+DictionaryEntry<Object> obj = new DictionaryEntry<String>("CS2030S", "Easy");
+```
+
+##### Contravariant?
+
+```java[copy=nones]
+DictionaryEntry<String> str = new DictionaryEntry<Object>("CS2030S", "Easy");
+```
 ]
 ]
 
