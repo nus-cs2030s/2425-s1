@@ -269,11 +269,10 @@ Integer i = (Integer) p.getFirst();
 .ft10.subsections[
 ### Class
 ### Subclass
-#### Extension
 ]
 .ft88.oldsection[
 ### Subclass
-#### Extension
+#### Extending Generic Class
 
 .col70[
 .col7.hljs-num[
@@ -292,41 +291,33 @@ class DictionaryEntry<T>
 }
 ```
 ]
+
+
+.col100[<br>]
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones|lite=5-6]
+DictionaryEntry<Object> obj;
+obj = new DictionaryEntry<String>("K", "V");
+DictionaryEntry<String> str;
+str = new DictionaryEntry<Object>("K", "V");
+```
+]
 ]
 
 .col30[
 ![Pair03](img/05-Pair03.svg)
 ]
 ]
-
----
-
-# Generics
-
-.ft10.subsections[
-### Class
-### Subclass
-#### Extension
-#### Relationship
-]
-.ft88.oldsection[
-### Subclass
-#### Relationship
-
-.col100[
-##### Covariant?
-
-```java[copy=nones]
-DictionaryEntry<Object> obj = new DictionaryEntry<String>("CS2030S", "Easy");
-```
-
-##### Contravariant?
-
-```java[copy=nones]
-DictionaryEntry<String> str = new DictionaryEntry<Object>("CS2030S", "Easy");
-```
-]
-]
+.footnote[Java Generic is **Invariant** (more to come next week).]
 
 ---
 
@@ -684,12 +675,9 @@ for (Object o : array) {
 .card.bg-r[
 ##### Question
 .content.tight[
-Consider the class definitions on the right.
-.uline[_There may be other classes omitted._]
-
-<br>
-
-How many **distinct** generic types are there in the class `C2`?
+Consider the classes on the right.
+Which of the following generic type is declared in `R`?
+Note that there may be other classes besides these classes.
 ]
 ]
 ]
@@ -701,30 +689,98 @@ How many **distinct** generic types are there in the class `C2`?
 3
 4
 5
-6
-7
 ```
 ]
 .col92[
 ```java
-class C1<S, T> {
-  // : code omitted
-}
-class C2<T> extends C1<X, T> {
-  public <T> T getT() { /* omitted */ }
-  public <X> X getX() { /* omitted */ }
+class P { }
+class Q<U, V> { }
+class R<T> extends Q<S, > {
+  static <P> void foo(P p, T t) { }
 }
 ```
 ]
 ]
 
 .mrq[
-1. .quiz-choice[1] .quiz-ans[0] .quiz-hint[NO: there are at least 2]
-2. .quiz-choice[2] .quiz-ans[0] .quiz-hint[NO: `T` at Line 4 and 5 are different `T`]
-3. .quiz-choice[3] .quiz-ans[1] .quiz-hint[YES: YES: `X` at Line 6 is also a generic type]
-3. .quiz-choice[4] .quiz-ans[0] .quiz-hint[NO: `X` at Line 4 is not a generic type]
+1. .quiz-choice[`P`] .quiz-ans[1] .quiz-hint[YES: declared in line 4]
+2. .quiz-choice[`Q`] .quiz-ans[0] .quiz-hint[NO: this is the superclass that is also generic]
+3. .quiz-choice[`R`] .quiz-ans[0] .quiz-hint[NO: this is the class we are defining]
+3. .quiz-choice[`S`] .quiz-ans[0] .quiz-hint[NO: there is no declaration of `S`]
 
 .quizzes-time[120]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col50[
+.font16[
+```java[copy=nones]
+class A implements Comparable<String> {
+  @Override
+  public int compareTo(T t) { return 0; }
+}
+```
+
+```java[copy=nones]
+class C implements Comparable<String> {
+  @Override
+  public int compareTo(String s) { return 0; }
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java[copy=nones]
+class B implements Comparable<String> {
+  @Override
+  public int compareTo(B b) { return 0; }
+}
+```
+
+```java[copy=nones]
+class D implements Comparable<String> {
+  @Override
+  public int compareTo(Object o) { return 0; }
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`A`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+2. .quiz-choice[`B`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+3. .quiz-choice[`C`] .quiz-ans[1] .quiz-hint[YES: need `compareTo(String)`]
+3. .quiz-choice[`D`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+
+.quizzes-time[120]
+]
+]
+.abs.fc.top2.rt7.wt50[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following class compiles?
+]
 ]
 ]
 
@@ -1094,6 +1150,60 @@ T[] arr3;                     // OK
 ]
 ]
 ]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+### Limitation
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+.col40[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class `B` on the right.
+What is the compile-time type of `U` after type erasure?
+]
+]
+]
+.col60[
+.col8.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col92[
+```java
+class A {}
+class B<T extends A, U extends T> {
+  private T t;
+  private U u;
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`Object`] .quiz-ans[1] .quiz-hint[NO: not the upper-bound`]
+2. .quiz-choice[`A`] .quiz-ans[0] .quiz-hint[YES: because the upper-bound of `T` is `A`]
+3. .quiz-choice[`T`] .quiz-ans[0] .quiz-hint[NO: cannot have generic anymore]
+3. .quiz-choice[`U`] .quiz-ans[0] .quiz-hint[NO: cannot have generic anymore]
+
+.quizzes-time[120]
 ]
 ]
 
