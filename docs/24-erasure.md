@@ -22,7 +22,7 @@ The disadvantages of such approach are
 - codes are duplicated, so the resulting program is larger.
 - changing the client by adding more use cases requires recompilation of the entire generic `Pair` class as we may need to generate the specialized code for a new type.
 
-Note, in the example below, the specialized codes are __hypothethcal__ as Java does not use code specialization technique.  Additionally, the name of the class is improper as it contains the character `#`.
+Note, in the example below, the specialized codes are __hypothethical__ as Java does not use code specialization technique.  Additionally, the name of the class is improper as it contains the character `#`.
 
 === "Template Code"
     ```java
@@ -714,15 +714,15 @@ class D<T extends T1> extends C<T> {
 }
 
 class Main {
-	public static void main(String[] args) {
-		C<T2> c2 = new D<T2>();
-		c2.foo(new T2());  // 3
-		c2.foo(new T3());  // 4
-		c2.foo(new T4());  // 4
-    
-		C<T4> c4 = new D<T4>();
-		c4.foo(new T3());  // 4
-		c4.foo(new T4());  // 3
-	}
+  public static void main(String[] args) {
+    C<T2> c2 = new D<T2>();
+    c2.foo(new T2());  // 3
+    c2.foo(new T3());  // 4
+    c2.foo(new T4());  // 4
+
+    C<T4> c4 = new D<T4>();
+    c4.foo(new T3());  // 4
+    c4.foo(new T4());  // 3
+  }
 }
 ```
