@@ -177,6 +177,31 @@ This is more complicated than `toString`.  There are a few new concepts involved
 
 [^3]: This is not the only condition where type casting is allowed. We will look at other conditions in later units.
 
+!!! question "Pattern Matching" 
+    {++ Since Java 16 -- [JEP 394](https://openjdk.org/jeps/394) -- Java has added pattern matching in the `instanceof` operator. Here, instead of performing `instanceof` check followed by a type cast **inside** the block, we can combine the two into a single line during the check. ++}
+
+    <div class="grid cards" id="pattern_match" markdown>
+
+    - **Previous**
+
+        ```Java
+        if (obj instanceof Circle) {
+          Circle circle = (Circle) obj;
+          // ...
+        }
+        ```
+
+    - **After Java 16**
+
+        ```Java
+        if (obj instanceof Circle circle) {
+          // No need type cast
+          // ...
+        }
+        ```
+
+    </div>
+
 All these complications would go away, however, if we define `Circle::equals` to take in a `Circle` as a parameter, like this:
 
 ```Java title="Circle v0.7.2"
@@ -283,6 +308,14 @@ As this example has shown, polymorphism allows us _to write succinct code that i
     ```java
     class [LB; extends [LA; { .. } // still not a legal name
     ```
+
+    {++ <b id="java_array">Implications:</b> ++}
+
+    - {++ Since array type is just a class, it is a **subtype** of `Object`. ++}
+    - {++ It is created in the bytecode using the bytecode instruction `anewarray` in JVM.  The details are irrelevant, but it behaves as if such a class `[LA;` has been created before following covariant rule. ++}
+    - {++ Multi-dimensional array are created differently as no such class are created.  Instead, a class is constructed when the bytecode instruction `multinewarray` is executed by JVM.  Covariant rule is still followed. ++}
+    
+    {++ What is important is to note that an **array** is an instance of a special class following covariant rule.  Additionally, it is still following the basic rule of being a subtype of `Object`. ++}
 
 ## Adding Class
 

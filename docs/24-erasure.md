@@ -222,3 +222,507 @@ T[] array;
 ```
 
 In summary, generic array _declaration_ is fine but generic array _instantiation_ is not.
+
+## Generic Type Rules
+
+Before we add rules for determining type check as well as dynamic binding, we first need two additional terminologies[^1]: (i) class-level type parameters and (ii) method-level type parameters.
+
+[^1]: It is always useful to give names when explaining things.  Unless we already have a name for a concept, you may use your own name as long as you also explained the meaning.
+
+We can then state the type rules as follows.
+
+1. Generic method signature includes type parameters.
+    - Two type parameters are considered the same if we can rename all type parameters into the same name.  In other words, they are equal ^^_up to_^^ renaming.
+2. Type check uses type argument for class-level type parameter if available.
+    - This allows for more type safety checks to be done but it may have counter-intuitive interaction with dynamic binding.
+3. Method descriptor stored in dynamic binding during compile-time step is the type erased descriptor.
+    - This is because the code we are executing is the type erased version.  Type erased code does not have type parameters anymore.
+    - The type parameters are available as additional information (_i.e., metadata_) that can be used for compilation but not used at run-time.
+
+We can now apply these rules to some interesting cases.  For simplicity of explanation, we will use the following types with the following subtyping relationships: `T4` <: `T3` <: `T2` <: `T1`.
+
+### Method-Level Overriding
+
+Consider the interface `I` without class-level type parameter.  It has a single method-level type parameter which we will try to override.
+
+<div class="grid cards" markdown>
+
+- **Original Code**
+
+    ```Java
+    interface I {
+      <T extends T1> int foo(T t);
+    }
+    ```
+
+- **Type Erased Code**
+
+    ```Java
+    interface I {
+      int foo(T1 t);
+    }
+    ```
+
+</div>
+
+
+Since we use type parameter as part of method signature but allow renaming, we have the following correct overriding below.
+
+<div class="grid cards" markdown>
+
+- **PASS**
+
+    ```Java
+    class C implements I {
+      @Override
+      public <T extends T1> int foo(T t) {
+        return 0;
+      }
+    }
+    ```
+
+- **PASS**
+
+    ```Java
+    class C implements I {
+      @Override
+      public <S extends T1> int foo(S t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+Unfortunately, the following does not work because we either have different number of type parameters or different type parameter after renaming.  Renaming is simply looking at the name and not at the bound of the type.
+
+<div class="grid cards" markdown>
+
+- **FAIL: Different Number**
+
+    ```Java
+    class C implements I {
+      @Override
+      public <T extends T1, S> int foo(T t) {
+        return 0;
+      }
+    }
+    ```
+
+- **FAIL: Not Renaming**
+
+    ```Java
+    class C<T extends T1> implements I {
+      @Override
+      public <S extends T> int foo(S t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+One **exceptional** case is when the type parameter is not present.  In which case, for method-level type parameter, we use the type erased version.  So the code below pass type checking.
+
+<div class="grid cards" markdown>
+
+- **PASS**
+
+    ```Java
+    class C implements I {
+      @Override
+      public int foo(T1 t) {
+        return 0;
+      }
+    }
+    ```
+
+- **PASS**
+
+    ```Java
+    class C<S> implements I {
+      @Override
+      public int foo(T1 t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+Unfortunately, if a method-level type parameter is present -- _even if it is not used_ -- it no longer pass type check.  As for class-level type parameter, it will only causes failure if used.
+
+<div class="grid cards" markdown>
+
+- **FAIL: Method-Level Type parameter**
+
+    ```Java
+    class C implements I {
+      @Override
+      public <S> int foo(T1 t) {
+        return 0;
+      }
+    }
+    ```
+
+- **FAIL: Class-Level Type parameter**
+
+    ```Java
+    class C<S extends T1> implements I {
+      @Override
+      public int foo(S t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+### Class-Level Overriding
+
+In the case of class-level type parameter, we need to activate the second rule too when determining overriding.  To do that, we will consider a different interface `I<T>`.
+
+<div class="grid cards" markdown>
+
+- **Original Code**
+
+    ```Java
+    interface I<T> {
+      int foo(T t);
+    }
+    ```
+
+- **Type Erased Code**
+
+    ```Java
+    interface I {
+      int foo(Object t);
+    }
+    ```
+
+</div>
+
+Since we use type argument when possible.  This means implementing `I<String>` forces us to implement `foo(String)` instead of `foo(Object)`.
+
+<div class="grid cards" markdown>
+
+- **PASS**
+
+    ```Java
+    class C implements I<String> {
+      @Override
+      public int foo(String t) {
+        return 0;
+      }
+    }
+    ```
+
+- **FAIL: Not Using Type Argument**
+
+    ```Java
+    class C implements I<String> {
+      @Override
+      public int foo(Object t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+On the other hand, if we are implemeting `I<S>`, we have two options.  The code on the left has no compilation error because we simply replace `T` with `S`.  The code on the right has no compilation error because we have **no other information** regarding `S` except that it is bounded by `Object`.
+
+<div class="grid cards" markdown>
+
+- **PASS**
+
+    ```Java
+    class C<S> implements I<S> {
+      @Override
+      public int foo(S t) {
+        return 0;
+      }
+    }
+    ```
+
+- **PASS**
+
+    ```Java
+    class C<S> implements I<S> {
+      @Override
+      public int foo(Object t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+We can test this hypothesis further by compiling the following code below.  It compiles because we still have **no other information** about `S` but the bound is now `T1`.
+
+<div class="grid cards" markdown>
+
+- **Interface**
+
+    ```Java
+    interface I<T extends T1> {
+      int foo(T t);
+    }
+    ```
+
+- **Class**
+
+    ```Java
+    class C<S extends T1> implements I<S> {
+      @Override
+      public int foo(T1 t) {
+        return 0;
+      }
+    }
+    ```
+
+</div>
+
+### Overloading
+
+In the case of overloading, we need to ensure that the code has no ambiguity.  The following code cannot even be compiled because the type erased version already has ambiguity.
+
+<div class="grid cards" markdown>
+
+- **Original Code**
+
+    ```Java
+    class C<T extends T3> {
+      void foo(T t) { }
+      <T extends T3> void foo(T t) { }
+    }
+    ```
+
+- **Type Erased Code**
+
+    ```Java
+    class C {
+      void foo(T3 t) { }
+      void foo(T3 t) { }
+    }
+    ```
+
+</div>
+
+Now, let us look at it in relation to rule (3).  This is because at run-time, we are executing the type erased code.  But we also need to ensure that there is no ambiguity in which method to be selected.  We will look at how rule (2) and (3) interacts at compilation of **caller** and not the **callee**.  We assume that the following **callee** is already compiled.
+
+<div class="grid cards" markdown>
+
+- **Original Code**
+
+    ```Java
+    class C<T extends T1> {
+      void foo(T t) { }
+      <T extends T3> void foo(T t) { }
+    }
+    ```
+
+- **Type Erased Code**
+
+    ```Java
+    class C {
+      void foo(T1 t) { }
+      void foo(T3 t) { }
+    }
+    ```
+
+</div>
+
+We should first note that the method signature **after** type erasure is different.  So the class `C` can be compiled.  However, this is insufficient to determine if the usage has no ambiguity.
+
+Remember by rule (2), we need to consider the type argument at compilation.  But here, we are compiling the **caller**.  The code on the left has no ambiguity while the code on the right has ambiguity.  The simplified method signature being checked are given below it.
+
+<div class="grid cards" markdown>
+
+- **PASS**
+
+    ```Java
+    C<T2> c = new C<T2>();
+    c.foo(new T3());
+    ```
+
+    Simplified method signature checked using type signature.
+
+    - `foo(T2)`
+    - `foo(T3)`
+
+- **FAIL**
+
+    ```Java
+    C<T3> c = new C<T3>();
+    c.foo(new T3());
+    ```
+
+    Simplified method signature checked using type signature.
+
+    - `foo(T3)`
+    - `foo(T3)`
+
+</div>
+
+Assuming that all of these checks are ok, we then move on to the actual dynamic binding involving generic.
+
+### Dynamic Binding with Generic
+
+Before continuing, we need to clarify rule (3).  The simplified method signature above is only used for type checking.  At the end, when we run the code, we are executing the type erased version.  This means the method descriptor stored at compile-time step of dynamic binding is the type erased version.
+
+How can we show that?  We can use the following two related generic classes.
+
+<div class="grid cards" markdown>
+
+- **Superclass**
+
+    ```Java
+    class C<T extends T1> {
+      void foo(T t) { }
+      <T extends T3> void foo(T t) { }
+    }
+    ```
+
+- **Subclass**
+
+    ```Java
+    class D<T extends T1> extends C<T> {
+      @Override void foo(T1 t) { }
+      @Override void foo(T3 t) { }
+    }
+    ```
+
+</div>
+
+We first check that the classes can compile.  By the overriding rule, `void D::foo(T1)` overrides `void C::foo(T)` and `void D::too(T3)` overrides `<T extends T3> void C::foo(T)`.  Additionally, there is no ambiguity in the type signature after type erasure.
+
+Let us consider the dynamic binding process in more details.  We will use rule (2) before step (3) of compile-time step of dynamic binding.  This will affect which methods are _accessible_, _compatible_, and _most specific_.  Consider the code below and the simplified method signature created from our overloading explanation above.
+
+<div class="grid cards" markdown>
+
+- **Usage**
+
+    ```Java
+    C<T4> c = new D<T4>();
+    c.foo(new T4());
+    ```
+
+- **Signature**
+
+    ```Java
+    foo(T4) // from foo at line 2
+    foo(T3) // from foo at line 3
+    ```
+
+</div>
+
+| CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
+|---|---|---|---|---|---|---|---|
+| `C` | `T4` | `foo(T4)`<br>`foo(T3)` | `foo(T4)` | `foo(T4)` | `void foo(T1)` |   | `void D::foo(T1)` |
+
+Now, although the most specific method is `foo(T4)`, the method descriptor is the method descriptor corresponding to the method `foo` at line 2.  This means, the method descriptor stored is `void foo(T1)`.
+
+This distinction is important because because when we execute the code, we will execute `void D::foo(T1)` since this method match the method descriptor we stored during compile-time step of dynamic binding.
+
+We can look at three more usages to assure ourselves that our hypothesis correct.  The explanation of which method executed is given as a similar table as above.
+
+<div class="grid cards" markdown>
+
+- **Usage**
+
+    ```Java
+    C<T4> c = new D<T4>();
+    c.foo(new T3());
+    ```
+
+- **Signature**
+
+    ```Java
+    foo(T4) // from foo at line 2
+    foo(T3) // from foo at line 3
+    ```
+
+</div>
+
+| CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
+|---|---|---|---|---|---|---|---|
+| `C` | `T3` | `foo(T4)`<br>`foo(T3)` | `foo(T4)`<br>`foo(T3)` | `foo(T3)` | `void foo(T3)` |  | `void D::foo(T3)` |
+
+<div class="grid cards" markdown>
+
+- **Usage**
+
+    ```Java
+    C<T2> c = new D<T2>();
+    c.foo(new T2());
+    ```
+
+- **Signature**
+
+    ```Java
+    foo(T2) // from foo at line 2
+    foo(T3) // from foo at line 3
+    ```
+
+</div>
+
+| CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
+|---|---|---|---|---|---|---|---|
+| `C` | `T2` | `foo(T2)`<br>`foo(T3)` | `foo(T2)` | `foo(T2)` | `void foo(T1)` |  | `void D::foo(T1)` |
+
+<div class="grid cards" markdown>
+
+- **Usage**
+
+    ```Java
+    C<T2> c = new D<T2>();
+    c.foo(new T3());
+    ```
+
+- **Signature**
+
+    ```Java
+    foo(T2) // from foo at line 2
+    foo(T3) // from foo at line 3
+    ```
+
+</div>
+
+| CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
+|---|---|---|---|---|---|---|---|
+| `C` | `T3` | `foo(T2)`<br>`foo(T3)` | `foo(T2)`<br>`foo(T3)` | `foo(T3)` | `void foo(T3)` |  | `void D::foo(T3)` |
+
+You can test the hypothesis above by running the following code and check that the output matches our explanation.
+
+```java
+class T1 {}
+class T2 extends T1 {}
+class T3 extends T2 {}
+class T4 extends T3 {}
+
+class C<T extends T1> {
+  void foo(T t) { System.out.println(1); }
+  <T extends T3> void foo(T t) { System.out.println(2); }
+}
+
+class D<T extends T1> extends C<T> {
+  @Override
+  void foo(T1 t) { System.out.println(3); }
+  @Override
+  void foo(T3 t) { System.out.println(4); }
+}
+
+class Main {
+	public static void main(String[] args) {
+		C<T2> c2 = new D<T2>();
+		c2.foo(new T2());  // 3
+		c2.foo(new T3());  // 4
+		c2.foo(new T4());  // 4
+    
+		C<T4> c4 = new D<T4>();
+		c4.foo(new T3());  // 4
+		c4.foo(new T4());  // 3
+	}
+}
+```

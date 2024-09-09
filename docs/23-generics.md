@@ -425,18 +425,18 @@ Let's look at what it means:
 Let's see this in action with [`Arrays::sort`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Arrays.html#sort(java.lang.Object%5B%5D)) method, which sorts an array based on the ordering defined by `compareTo`.
 
 ```Java
-    Object[] array = new Object[] {
-      new Pair<String,Integer>("Alice", 1),
-      new Pair<String,Integer>("Carol", 2),
-      new Pair<String,Integer>("Bob", 3),
-      new Pair<String,Integer>("Dave", 4),
-    };
+Object[] array = new Object[] {
+  new Pair<String,Integer>("Alice", 1),
+  new Pair<String,Integer>("Carol", 2),
+  new Pair<String,Integer>("Bob", 3),
+  new Pair<String,Integer>("Dave", 4),
+};
 
-    java.util.Arrays.sort(array);
+java.util.Arrays.sort(array);
 
-    for (Object o : array) {
-      System.out.println(o);
-    }
+for (Object o : array) {
+  System.out.println(o);
+}
 ```
 
 You will see the pairs are sorted by the first element.
