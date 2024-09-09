@@ -715,14 +715,14 @@ class D<T extends T1> extends C<T> {
 
 class Main {
   public static void main(String[] args) {
+    C<T4> c4 = new D<T4>();
+    c4.foo(new T3());  // 4
+    c4.foo(new T4());  // 3
+
     C<T2> c2 = new D<T2>();
     c2.foo(new T2());  // 3
     c2.foo(new T3());  // 4
     c2.foo(new T4());  // 4
-
-    C<T4> c4 = new D<T4>();
-    c4.foo(new T3());  // 4
-    c4.foo(new T4());  // 3
   }
 }
 ```
