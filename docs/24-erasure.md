@@ -619,7 +619,7 @@ Let us consider the dynamic binding process in more details.  We will use rule (
 
 | CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
 |---|---|---|---|---|---|---|---|
-| `C` | `T4` | `foo(T4)`<br>`foo(T3)` | `foo(T4)` | `foo(T4)` | `void foo(T1)` |   | `void D::foo(T1)` |
+| `C` | `T4` | `foo(T4)`<br>`foo(T3)` | `foo(T4)`<br>`foo(T3)` | `foo(T4)` | `void foo(T1)` |   | `void D::foo(T1)` |
 
 Now, although the most specific method is `foo(T4)`, the method descriptor is the method descriptor corresponding to the method `foo` at line 2.  This means, the method descriptor stored is `void foo(T1)`.
 
@@ -647,7 +647,7 @@ We can look at three more usages to assure ourselves that our hypothesis correct
 
 | CTT of target | CTT of param | Accessible | Compatible | Most Specific | Method Descriptor |   | Method Executed |
 |---|---|---|---|---|---|---|---|
-| `C` | `T3` | `foo(T4)`<br>`foo(T3)` | `foo(T4)`<br>`foo(T3)` | `foo(T3)` | `void foo(T3)` |  | `void D::foo(T3)` |
+| `C` | `T3` | `foo(T4)`<br>`foo(T3)` | `foo(T3)` | `foo(T3)` | `void foo(T3)` |  | `void D::foo(T3)` |
 
 <div class="grid cards" markdown>
 
