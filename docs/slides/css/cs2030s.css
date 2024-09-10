@@ -104,7 +104,14 @@
 
 .text-editor {
   width: 100%;
-  padding: 5px 15px;
+  padding: 0px 5px;
+  margin: 5px;
+}
+.tight-editor {
+  width: 100%;
+}
+.half-editor {
+  width: 50%;
 }
 .editor16 {
   font-size: 16px;
@@ -114,4 +121,10 @@
 }
 .editor20 {
   font-size: 20px;
+}
+.editor22 {
+  font-size: 22px;
+}
+.editor24 {
+  font-size: 24px;
 }
