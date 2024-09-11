@@ -5,7 +5,7 @@
     - __Difficulty:__ ★★★★★
 
 !!! info "Prerequisite"
-    - Completed [Programming Exercise 1](1-simulation.md).
+    - Completed [Programming Exercise 1](1-simulation1.md).
     - Caught up to [Unit 20](../20-casting.md) of Lecture Notes.
 
 !!! note "Goal"

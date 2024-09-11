@@ -1,0 +1,855 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R03
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+]
+.ft88.oldsection[
+### Preliminary
+#### Subtype Relationship
+
+.col50[
+.card.bg-y[
+.content.tight[
+`SubR` <: `R` <: `SuperR`
+]
+]
+]
+.col50[
+.card.bg-y[
+.content.tight[
+`SubE` <: `E` <: `SuperE` <: `Exception`
+]
+]
+]
+
+.col50[
+#### Method
+##### Base
+```java[copy=nones]
+R foo() throws E { .. }
+```
+
+##### Usage
+```java[copy=nones]
+try {
+  R r = a.foo();
+} catch(E e) {
+  // handle
+}
+```
+]
+.col50[
+.img42.center[![Diagram](img/R03-Q1.svg)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+### Overriding
+#### Return Type
+]
+.ft88.oldsection[
+### Overriding
+#### Return Type
+
+.col50[
+```java[copy=nones]
+R foo() ________ { .. }
+```
+
+.card.bg-r[
+##### Question
+.content.tight[
+Consider only the return type `R`.
+
+<br>
+
+Select all methods that can be used by
+
+.center[`R r = a.foo();`]
+
+without any compilation error.
+]
+.content.tight[
+1. `SuperR foo() { ... }`
+1. `R foo() { ... }`
+1. `SubR foo() { ... }`
+]
+]
+]
+.col50[
+```java[copy=nones|lite=2]
+try {
+  R r = a.foo();
+} catch(E e) {
+  // handle
+}
+```
+
+<br>
+
+.card.bg-y[
+##### Class Hierarchy
+.content.tight[
+`SubR` <: `R` <: `SuperR`
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+### Overriding
+#### Return Type
+]
+.ft88.oldsection[
+### Overriding
+#### Return Type
+
+.col50[
+```java[copy=nones]
+R foo() ________ { .. }
+```
+
+.card.bg-g[
+##### Question
+.content.tight[
+The constraint for assignment `LHS = RHS` is CTT(`RHS`) <: CTT(`LHS`).
+So we need to ensure that the CTT of return type of `a.foo()` is a subtype of `R`.
+This gives us two options: (2) and (3).
+]
+.content.tight[
+1. ~~`SuperR foo() { ... }`~~
+1. `R foo() { ... }`
+1. `SubR foo() { ... }`
+]
+]
+]
+.col50[
+```java[copy=nones|lite=2]
+try {
+  R r = a.foo();
+} catch(E e) {
+  // handle
+}
+```
+
+<br>
+
+.card.bg-y[
+##### Class Hierarchy
+.content.tight[
+`SubR` <: `R` <: `SuperR`
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+### Overriding
+#### Return Type
+#### Exception Type
+]
+.ft88.oldsection[
+### Overriding
+#### Exception Type
+
+.col50[
+```java[copy=nones]
+_______ throws E { .. }
+```
+
+.card.bg-r[
+##### Question
+.content.tight[
+Consider only the exception `E`.
+
+<br>
+
+Select all exceptions that can be caught by the `catch`-block.
+]
+.content.tight[
+1. `Exception`
+1. `SuperE`
+1. `E`
+1. `SubE`
+]
+]
+]
+.col50[
+```java[copy=nones|lite=3]
+try {
+  R r = a.foo();
+} catch(E e) {
+  // handle
+}
+```
+
+<br>
+
+.card.bg-y[
+##### Class Hierarchy
+.content.tight[
+`SubE` <: `E` <: `SuperE` <: `Exception`
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+### Overriding
+#### Return Type
+#### Exception Type
+]
+.ft88.oldsection[
+### Overriding
+#### Exception Type
+
+.col50[
+```java[copy=nones]
+_______ throws E { .. }
+```
+
+.card.bg-g[
+##### Question
+.content.tight[
+All exceptions of subtype of `E` can be caught by `catch(E e)`.
+If `foo()` throws `SuperE`, we have a checked exception that is potentially unhandled.
+]
+.content.tight[
+1. ~~`Exception`~~
+1. ~~`SuperE`~~
+1. `E`
+1. `SubE`
+]
+]
+]
+.col50[
+```java[copy=nones|lite=3]
+try {
+  R r = a.foo();
+} catch(E e) {
+  // handle
+}
+```
+
+<br>
+
+.card.bg-y[
+##### Class Hierarchy
+.content.tight[
+`SubE` <: `E` <: `SuperE` <: `Exception`
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+### Overriding
+### Mix-and-Match
+]
+.ft88.oldsection[
+### Mix-and-Match
+
+.col50[
+.card.bg-y[
+#### Return Type
+.content.tight[
+- `R foo() ___ { .. }`
+- `SubR foo() ___ { .. }`
+]
+]
+]
+.col50[
+.card.bg-y[
+#### Exception Type
+.content.tight[
+- `___ foo() throws E { .. }`
+- `___ foo() throws SubE { .. }`
+]
+]
+]
+
+.col100[
+.card.bg-b[
+##### Any Combinations Works
+.content.tight.flexcard[
+.col50[
+- `R foo() throws E { .. }`
+- `R foo() throws SubE { .. }`
+]
+.col50[
+- `SubR foo() throws E { .. }`
+- `SubR foo() throws SubE { .. }`
+]
+]
+]
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Number
+]
+.ft88.oldsection[
+### Preliminary
+#### Number
+
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Number.html" width="100%" height="450px" frameborder="0" ></iframe>
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Number
+#### BigInteger
+]
+.ft88.oldsection[
+### Preliminary
+#### BigInteger
+
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigInteger.html" width="100%" height="450px" frameborder="0" ></iframe>
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Number
+#### BigInteger
+#### Comparable
+]
+.ft88.oldsection[
+### Preliminary
+#### Comparable
+
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Comparable.html" width="100%" height="450px" frameborder="0" ></iframe>
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Number
+#### BigInteger
+#### Comparable
+#### Class Diagram
+]
+.ft88.oldsection[
+### Preliminary
+#### Class Diagram
+
+.col100[
+.img65[![Diagram](img/R03-Q2.svg)]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+#### Object
+]
+.ft88.oldsection[
+### Attempts
+#### Object
+
+.col60[
+##### Code
+
+```java[copy=nones]
+public static short[] toShortArray(
+    Object[] a, Object threshold) {
+  short[] out = new short[a.length];
+  for (int i = 0; i < a.length; i += 1) {
+    if (a[i].compareTo(threshold) <= 0) {
+      out[i] = a[i].shortValue();
+    }
+  }
+  return out;
+}
+```
+]
+
+.col40[
+##### Questions
+
+1. What is CTT(`a`)?<br><input type="text" class="text-editor editor20" value="Object[]"></input><br><br>
+2. What is CTT(`a[i]`)?<br><input type="text" class="text-editor editor20" value="Object"></input><br><br>
+3. Does CTT(`a[i]`) has
+.nol[
+- ~~`compareTo`~~?
+- ~~`shortValue`~~?
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+#### Object
+#### Number
+]
+.ft88.oldsection[
+### Attempts
+#### Number
+
+.col60[
+##### Code
+
+```java[copy=nones]
+public static short[] toShortArray(
+    Number[] a, Number threshold) {
+  short[] out = new short[a.length];
+  for (int i = 0; i < a.length; i += 1) {
+    if (a[i].compareTo(threshold) <= 0) {
+      out[i] = a[i].shortValue();
+    }
+  }
+  return out;
+}
+```
+]
+
+.col40[
+##### Questions
+
+1. What is CTT(`a`)?<br><input type="text" class="text-editor editor20" value="Number[]"></input><br><br>
+2. What is CTT(`a[i]`)?<br><input type="text" class="text-editor editor20" value="Number"></input><br><br>
+3. Does CTT(`a[i]`) has
+.nol[
+- ~~`compareTo`~~?
+- `shortValue`?
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+#### Object
+#### Number
+#### Comparable
+]
+.ft88.oldsection[
+### Attempts
+#### Comparable
+
+.col60[
+##### Code
+
+```java[copy=nones]
+public static short[] toShortArray(
+    Comparable[] a, Comparable threshold) {
+  short[] out = new short[a.length];
+  for (int i = 0; i < a.length; i += 1) {
+    if (a[i].compareTo(threshold) <= 0) {
+      out[i] = a[i].shortValue();
+    }
+  }
+  return out;
+}
+```
+]
+
+.col40[
+##### Questions
+
+1. What is CTT(`a`)?<br><input type="text" class="text-editor editor20" value="Comparable[]"></input><br><br>
+2. What is CTT(`a[i]`)?<br><input type="text" class="text-editor editor20" value="Comparable"></input><br><br>
+3. Does CTT(`a[i]`) has
+.nol[
+- `compareTo`?
+- ~~`shortValue`~~?
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+### Generics
+]
+.ft88.oldsection[
+### Generics
+#### Class Diagram
+
+.col65[
+![Diagram](img/R03-Q2.svg)
+]
+.col35[
+.card.bg-r[
+##### Question #1
+.content.tight[
+What is the most _general_ type with the following method descriptor .note20[(may be inherited)]?
+.center[`int compareTo(T)`]
+]
+]
+
+.card.bg-r[
+##### Question #2
+.content.tight[
+What is the most _general_ type with the following method descriptor .note20[(may be inherited)]?
+.center[`short shortValue()`]
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+### Generics
+]
+.ft88.oldsection[
+### Generics
+#### Class Diagram
+
+.col65[
+![Diagram](img/R03-Q2.svg)
+]
+.col35[
+.card.bg-g[
+##### compareTo
+.content.tight[
+<br><br>.center[`Comparable`]<br><br>
+]
+]
+
+.card.bg-g[
+##### shortValue
+.content.tight[
+<br><br>.center[`Number`]<br><br>
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Attempts
+### Generics
+]
+.ft88.oldsection[
+### Generics
+#### Intersection
+
+.col100[
+##### Code
+
+```java[copy=nones]
+public static <T extends Number & Comparable<T>> short[] toShortArray
+    (T[] a, T threshold) {
+  short[] out = new short[a.length];
+  for (int i = 0; i < a.length; i += 1) {
+    if (a[i].compareTo(threshold) <= 0) {
+      out[i] = a[i].shortValue();
+    }
+  }
+  return out;
+}
+```
+]
+]
+
+---
+
+name: Question_3
+class: middle, sections
+
+# Question 3
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Type Erasure
+#### Q3A
+]
+.ft88.oldsection[
+### Type Erasure
+#### Q3A
+
+.col50[
+##### Before
+
+.font20[
+```java[copy=nones]
+import java.util.List;
+class A {
+  void foo(List<Integer> integerList) {}
+  void foo(List<String> stringList) {}
+}
+```
+]
+
+.card.bg-g[
+##### .drdtxt[Error]
+.content.tight[
+After type erasure, the method descriptor is ambiguous.
+]
+]
+]
+
+.col50[
+##### After
+
+<textarea class="text-editor editor18" style="height:400px">
+import java.util.List;
+class A {
+  void foo(List integerList) {}
+  void foo(List stringList) {}
+}
+</textarea>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Type Erasure
+#### Q3A
+#### Q3B
+]
+.ft88.oldsection[
+### Type Erasure
+#### Q3B
+
+.col50[
+##### Before
+
+.font20[
+```java[copy=nones]
+class B<T> {
+  T x;
+  static T y;
+}
+```
+]
+
+.card.bg-r[
+##### Additional Question
+.content.tight[
+What is the return type of `B.y`?<br><br>
+Would your answer change if
+- no instance of `B` has been created?
+- multiple instance of `B` has been created with different `T`?
+]
+]
+]
+
+.col50[
+##### After
+
+<textarea class="text-editor editor18" style="height:400px">
+</textarea>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Type Erasure
+#### Q3A
+#### Q3B
+]
+.ft88.oldsection[
+### Type Erasure
+#### Q3B
+
+.col50[
+##### Before
+
+.font20[
+```java[copy=nones]
+class B<T> {
+  T x;
+  static T y;
+}
+```
+]
+
+.card.bg-g[
+##### .drdtxt[Error]
+.content.tight[
+Type parameter cannot be used for class field.
+Otherwise, the following would have confused type because they all share the same `y`.
+- `B<String> b1 = new B<String>()`
+- `B<Number> b2 = new B<Number>()`
+]
+]
+]
+
+.col50[
+##### After
+
+<textarea class="text-editor editor18" style="height:400px">
+class B {
+  Object x;
+  static ??? y;
+}
+</textarea>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Type Erasure
+#### Q3A
+#### Q3B
+#### Q3C
+]
+.ft88.oldsection[
+### Type Erasure
+#### Q3C
+
+.col50[
+##### Before
+
+.font20[
+```java[copy=nones]
+class C<T> {
+  static int b = 0;
+  C() {
+    this.b++;
+  }
+  public static void main
+      (String[] args) {
+    C<Integer> x = new C<Integer>();
+    C<String> y = new C<String>();
+    System.out.println(x.b);
+    System.out.println(y.b);
+  }
+}
+```
+]
+]
+
+.col50[
+##### After
+
+<textarea class="text-editor editor18" style="height:400px">
+class C {
+  static int b = 0;
+  C() {
+    this.b++;
+  }
+  public static void main(String[] args) {
+    C x = new C();
+    C y = new C();
+    System.out.println(x.b);
+    System.out.println(y.b);
+  }
+}
+
+// No Error
+//   this.b++ is a style issue
+//   but it compiles
+</textarea>
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]

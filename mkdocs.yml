@@ -48,6 +48,7 @@ nav:
       - Ex0 Circle: 'prog-ex/0-circle.md' 
       - Ex1 Simulation I: 'prog-ex/1-simulation1.md'
       - Ex2 Simulation II: 'prog-ex/2-simulation2.md'
+      - Ex3 Simulation III: 'prog-ex/3-simulation3.md'
   - Mini Lab:
       - Lab 01: 'labs/lab01.md'
       - Lab 02: 'labs/lab02.md'
