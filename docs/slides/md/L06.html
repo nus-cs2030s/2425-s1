@@ -64,7 +64,7 @@ class A {
 
 .col100[
 ```java[copy=nones]
-class A {
+class B {
   public static <T> boolean contains(Seq<T> seq, T obj) {
     for (int i = 0; i < seq.getLength(); i += 1) {
       T curr = seq.get(i);
@@ -94,7 +94,7 @@ class A {
 
 .col100[
 ```java[copy=nones]
-class A {
+class B {
   public static <T> boolean contains(Seq<T> seq, T obj) {
     // : code omitted
   }
@@ -116,11 +116,11 @@ Circle circle;
 ##### .dgntxt[OK]
 
 ```java[copy=nones]
-A.<Shape>contains (shapeSeq , shape );
+B.<Shape>contains (shapeSeq , shape );
 // Seq<Shape> <: Seq<Shape> & Shape <: Shape
-A.<Circle>contains(circleSeq, circle);
+B.<Circle>contains(circleSeq, circle);
 // Seq<Circle> <: Seq<Circle> & Circle <: Circle
-A.<Shape>contains (shapeSeq , circle);
+B.<Shape>contains (shapeSeq , circle);
 // Seq<Shape> <: Seq<Shape> & Circle <: Shape
 ```
 ]
@@ -141,7 +141,7 @@ A.<Shape>contains (shapeSeq , circle);
 
 .col100[
 ```java[copy=nones]
-class A {
+class B {
   public static <T> boolean contains(Seq<T> seq, T obj) {
     // : code omitted
   }
@@ -163,11 +163,11 @@ Circle circle;
 ##### .drdtxt[ERR]
 
 ```java[copy=nones]
-A.<Circle>contains(circleSeq, shape);
+B.<Circle>contains(circleSeq, shape);
 // Seq<Circle> <: Seq<Circle> & Shape </: Circle
-A.<Circle>contains(shapeSeq , shape);
+B.<Circle>contains(shapeSeq , shape);
 // Seq<Shape> </: Seq<Circle> & Shape </: Circle
-A.<Shape>contains (circleSeq, shape);
+B.<Shape>contains (circleSeq, shape);
 // Seq<Circle> </: Seq<Shape> & Shape <: Circle
 ```
 ]
@@ -231,7 +231,7 @@ A.<Shape>contains (circleSeq, shape);
 
 .col100[
 ```java[copy=nones]
-class A {
+class B {
   public static <S, T extends S> boolean contains(Seq<T> seq, S obj) {
     for (int i = 0; i < seq.getLength(); i += 1) {
       T curr = seq.get(i);
@@ -583,7 +583,7 @@ copyTo(Seq<? super T> dst)
 
 .col100[
 ```java[copy=nones]
-class A {
+class B {
   public static <T> boolean contains(Seq<? extends T> seq, T obj) {
     for (int i = 0; i < seq.getLength(); i += 1) {
       T curr = seq.get(i);
@@ -702,8 +702,8 @@ Pair<Pair<String, Integer>, Pair<Double, Double>> p2 = new Pair<>();
 #### Invocation
 
 ```java[copy=nones]
-Main.<String>contains(new Seq<String>(0), "CS2030S");
-Main.contains(new Seq<String>(0), 2030); // Inferred to what?
+B.<String>contains(new Seq<String>(0), "CS2030S");
+B.contains(new Seq<String>(0), 2030); // Inferred to what?
 ```
 ]
 ]
@@ -754,7 +754,7 @@ Main.contains(new Seq<String>(0), 2030); // Inferred to what?
 
 .col100[
 ```java[copy=nones]
-A.contains(cSeq, shape); // cSeq :: Seq<Circle>  &  shape :: Shape
+B.contains(cSeq, shape); // cSeq :: Seq<Circle>  &  shape :: Shape
 ```
 ```java[copy=nones]
 <T> boolean contains(Seq<? extends T> seq, T obj) { .. }
@@ -868,7 +868,7 @@ A.contains(strArr, 2030); // strArr :: String[]
 
 .col100[
 ```java[copy=nones]
-Shape s = Main.findLargest(new Seq<Circle>(0));
+Shape s = C.findLargest(new Seq<Circle>(0));
 ```
 ```java[copy=nones]
 <T extends GetAreable> T findLargest(Seq<? extends T> seq) { .. }
@@ -925,7 +925,7 @@ Shape s = Main.findLargest(new Seq<Circle>(0));
 
 .col100[
 ```java[copy=nones]
-Shape s = Main.findLargest(new Seq<Circle>(0)).getColor();
+C.findLargest(new Seq<Circle>(0)).getColor();
 ```
 ```java[copy=nones]
 <T extends GetAreable> T findLargest(Seq<? super T> seq) { .. }
