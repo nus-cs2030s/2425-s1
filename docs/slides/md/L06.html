@@ -13,6 +13,8 @@ class: bottom, titles
 ## Programming Methodology II
 ### L06: Wildcards
 
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
 ---
 
 name: Variance
@@ -48,6 +50,7 @@ class A {
 ```
 ]
 ]
+.RECAP[]
 
 ---
 
@@ -213,6 +216,7 @@ B.<Shape>contains (circleSeq, shape);
 ]
 ]
 ]
+.IMPORTANT[]
 
 ---
 
@@ -575,6 +579,46 @@ copyTo(Seq<? super T> dst)
 ### PECS
 #### Seq
 #### Definition
+#### Derivation?
+]
+.ft88.oldsection[
+### PECS
+.col100[
+.card.bg-g[
+##### Derivation?
+.content.tight[
+.center[.font36[`R`] .font30[_<:_] .font36[`S`] .font30[_<:_] .font36[`T`]]
+]
+]
+]
+
+.col50[
+##### User Perspective
+
+```java[copy=nones]
+S foo(S arg) { .. } // fixed method
+```
+]
+
+.col50[
+##### Developer Perspective
+
+```java[copy=nones]
+s = foo(s); // fixed invocation
+```
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+#### Seq
+#### Definition
+#### Derivation?
 #### Contains
 ]
 .ft88.oldsection[
@@ -660,6 +704,101 @@ Select the correct subclass relationships?
 1. .quiz-choice[`C<S2>` <: `C<? extends S1>`] .quiz-ans[0] .quiz-hint[NO: because `S1` <: `S2`]
 1. .quiz-choice[`C<S1>` <: `C<S2>`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
 1. .quiz-choice[`C<S1>` <: `C<? extends S2>`] .quiz-ans[1] .quiz-hint[YES: `C<S1>` <: `C<? extends S1>` <: `C<? extends S2>`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+### Quiz
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #2
+.col70[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider a method that takes in a parameter `seq` of type `Seq<? super Apple>`.  The method contains the line
+.center[`item = seq.get(0);`]
+Select ALL the possible compile-time type of `item` so that the line above compiles **without** error.
+]
+]
+]
+.col30[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight.nol[
+- `Gala`.op0[`.`] <: `Apple`
+- `Apple` <: `Fruit`
+- _other in the future?_
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Gala`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Apple`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Fruit`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Object`] .quiz-ans[1] .quiz-hint[YES: this is the worst-case scenario]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: there is an answer]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+### Quiz
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #3
+.col70[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider a method that takes in a parameter `seq` of type `Seq<? extends Apple>`.  The method contains the line
+.center[`seq.set(0, item);`]
+Select ALL the possible compile-time type of `item` so that the line above compiles **without** error.
+]
+]
+]
+.col30[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight.nol[
+- `Gala`.op0[`.`] <: `Apple`
+- `Apple` <: `Fruit`
+- _other in the future?_
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Gala`] .quiz-ans[0] .quiz-hint[NO: `?` may be a subtype of `Gala`]
+1. .quiz-choice[`Apple`] .quiz-ans[0] .quiz-hint[NO: `?` may be `Gala`]
+1. .quiz-choice[`Fruit`] .quiz-ans[0] .quiz-hint[NO: `?` may be `Apple`]
+1. .quiz-choice[`Object`] .quiz-ans[0] .quiz-hint[NO: may be `Apple`]
+1. .quiz-choice[None of the above] .quiz-ans[1] .quiz-hint[YES: we need a subtype of ALL types]
 
 .quizzes-time[120]
 ]
@@ -1003,6 +1142,9 @@ class A implements I {}
 class D extends A {}
 class C<T> {}
 ```
+
+<textarea class="text-editor editor20" style="height:135px"></textarea>
+</textarea>
 ]
 
 .mrq[
