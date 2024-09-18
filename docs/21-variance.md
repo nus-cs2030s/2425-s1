@@ -162,7 +162,7 @@ We will show two different of producer/consumer.
 
 There are some type problems related to producer/consumer and variance of types.  We have seen one such example above.  Due to covariance of Java array, there are some run-time errors that cannot be detected by our compiler.  Notice that this happens when we treat the array as a _consumer_.  We can actually state this more generally,
 
-> There will be some run-time errors that cannot be detected by compiler when having producer covariant.
+> There will be some run-time errors that cannot be detected by compiler when having {--producer--} {++consumer++} covariant.
 
 A more general example is as follows but we will illustrate using array.  Consider `A1` <: `B` and `A2` <: `B`.  By covariance, `A[]`
  <: `B[]`.  Then the following code will not produce compilation error but will produce run-time error.
@@ -174,9 +174,11 @@ bArr[0] = new A2(); // compiles because A2 <: B
                     // but this is a run-time error
 ```
 
+In this case, we see that `bArr` is used as a consumer (_i.e., it consumes the value of_ `new A2()`).
+
 We can also state the opposite problem.
 
-> There will be some run-time errors that cannot be detected by compiler when having consumer contravariant.
+> There will be some run-time errors that cannot be detected by compiler when having {--consumer--} {++producer++} contravariant.
 
 We will use the same subtyping relationship as above.  However, note that __the following code is simply hypotheticals__ because Java array is not contravariant.
 
@@ -186,3 +188,5 @@ A1[] aArr = bArr;   // assume contravariant: B[] <: A1[]
 A1 a1 = aArr[2];    // compiles because A1 <: A1
                     // but this is a run-time error
 ```
+
+In this case, we see that `aArr` is used as a producer (_i.e., it produces the value in_ `aArr[2]`).
