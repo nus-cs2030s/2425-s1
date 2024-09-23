@@ -177,8 +177,8 @@ public class Pair<S, T> {
 
 We say that two pairs `p1` and `p2` are equal if both of the followings are true:
 
-- `p1.first` is equal to `p2.first` according to their `equal` method.
-- `p1.second` is equal to `p2.second` according to their `equal` method.
+- `p1.first` is equal to `p2.first` according to their `equals` method.
+- `p1.second` is equal to `p2.second` according to their `equals` method.
 
 However, you will notice that in some cases, you may get run-time errors.  Try to figure out why and make sure that you pass the following test case by overriding the `boolean equals(Object)` method.
 
