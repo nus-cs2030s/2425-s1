@@ -957,6 +957,76 @@ void sortNames(List<String> names) {
 
 ---
 
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+
+.col35[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the classes on the right.
+Which variables are **captured** due to the constructor of `F`?
+]
+]
+]
+.mrq[
+1. .quiz-choice[`w`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`x`] .quiz-ans[1] .quiz-hint[YES: a variable and re-assigned]
+1. .quiz-choice[`y`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`z`] .quiz-ans[0] .quiz-hint[NO: not accessible]
+
+.quizzes-time[120]
+]
+]
+.abs.top15.rt0.wt55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2,4,6,7,11]
+class E {
+  int w;
+  void doTask() {
+    int x;
+    class F {
+      int y;
+      F() { w = 1;  x = 1;  y = 1;  z = 1; }
+    }
+    F f = new F();
+  }
+  class G { int z; }
+}
+```
+]
+]
+]
+
+---
+
 class: middle, end, fadein
 
 .eol[`jshell> /exit`]
