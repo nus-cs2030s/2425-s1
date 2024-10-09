@@ -15,7 +15,7 @@
 
 ## Java Package
 
-Java package mechanism allows us to group relevant classes and interfaces under a namespace. You have seen two packages so far: `java.util`, where we import `List` and `Arrays` from as wel as `java.lang` where we import the `Math` class.  These are provided by Java as standard libraries.  We can also create our package and put the classes and interfaces into the same package.  We (_and the clients_) can then import and use the classes and interfaces that we provide.
+Java package mechanism allows us to group relevant classes and interfaces under a namespace. You have seen two packages so far: `java.util`, where we import `List` and `Arrays` from as well as `java.lang` where we import the `Math` class.  These are provided by Java as standard libraries.  We can also create our package and put the classes and interfaces into the same package.  We (_and the clients_) can then import and use the classes and interfaces that we provide.
 
 Java package provides a higher layer of abstraction barrier.  We can designate a class to be used outside a package by prefixing the keyword `class` with the access modifier `public`.  This is another advantage of public class.  The previous advantage of a public class is that it must have the same name as the file.  So java compiler knows where to search.  We can further fine-tune which fields and methods are accessible from other classes in the same package using the `protected` access modifier.
 
@@ -39,7 +39,7 @@ package cs2030s.fp;
 
 on top of every `.java` file that we would like to include in the package.
 
-Second, the package name is typically written in a hierarchical manner using the "." notation. The name also indicates the location of the `.java` files and the `.class` files.  For this reason, you can no longer store the `.java` files under `ex5-username` directly.  Instead, you should put them in a subdirectory called `cs2030s/fp` under `ex5-username`.  To start, our `cs2030s.fp` package will contain the two interfaces Transformer and BooleanCondition that you have written in Programming Exercise 4.
+Second, the package name is typically written in a hierarchical manner using the "." notation. The name also indicates the location of the `.java` files and the `.class` files.  For this reason, you can no longer store the `.java` files under `ex5-username` directly.  Instead, you should put them in a subdirectory called `cs2030s/fp` under `ex5-username`.  To start, our `cs2030s.fp` package will contain the two interfaces `Transformer` and `BooleanCondition` that you have written in Programming Exercise 4.
 
 If you have not made `Transformer` a `public` class, you should do it now.
 
@@ -83,6 +83,7 @@ If you have set up everything correctly, you should be able to run the following
 jshell> import cs2030s.fp.Producer;
 jshell> import cs2030s.fp.Consumer;
 jshell> import cs2030s.fp.BooleanCondition;
+
 jshell> Producer<String> p;
 jshell> p = new Producer<>() {
    ...>   public String produce() { return ""; }
@@ -360,8 +361,8 @@ We now add the method `filter` to `Maybe<T>`.
 
 - Add the abstract method `filter` to `Maybe<T>` that takes in a `BooleanCondition<..>` (_type parameter is omitted_) as a parameter.
 - Override the method `filter` in `Some<T>` as follows.
-    - If the value is `null` or it failed the test (_i.e., the call to_ `test` _returns_ `false`), leaves the `Maybe<T>` untouched and returns the `Maybe<T>` as it is.
-    - Otherwise, leaves returns `None<T>`.
+    - If the value is `null` or it failed the test (_i.e., the call to_ `test` _returns_ `false`), return `None<T>`.
+    - Otherwise, leaves the `Maybe<T>` untouched and returns the `Maybe<T>` as it is.
 - Override the method `filter` in `None<T>` as follows.
     - Always returns a `None<T>`.
 
@@ -378,7 +379,7 @@ jshell> BooleanCondition<Number> isEven = new BooleanCondition<>() {
 jshell> Maybe.<Integer>none().filter(isEven)
 $.. ==> []
 jshell> Maybe.<Integer>some(null).filter(isEven)
-$.. ==> [null]
+$.. ==> []
 jshell> Maybe.<Integer>some(1).filter(isEven)
 $.. ==> []
 jshell> Maybe.<Integer>some(2).filter(isEven)
@@ -524,7 +525,7 @@ java -jar ~cs2030s/bin/checkstyle.jar -c ex5_style.xml *.java
 
 ## Further Deductions
 
-Additional deductions may be given for other issues or errors in your code.  This include _but not limited to_
+Additional deductions may be given for other issues or errors in your code.  {++These deductions may now be unbounded, up to 5 marks++}.  This include _but not limited to_
 
 - run-time error.
 - failure to follow instructions.
