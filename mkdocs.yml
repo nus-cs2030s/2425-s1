@@ -59,6 +59,7 @@ nav:
       - Lab 02: 'labs/lab02.md'
       - Lab 03: 'labs/lab03.md'
       - Lab 04: 'labs/lab04.md'
+      - Lab 05: 'labs/lab05.md'
 theme: 
   name: material
   features: 

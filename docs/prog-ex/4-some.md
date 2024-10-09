@@ -254,4 +254,4 @@ Additional deductions may be given for other issues or errors in your code.  Thi
 
 ## Documentation (Optional)
 
-Documenting your code with Javadoc is optional for Programming Exercise 2.  It is, however, always a good practice to include comments to help readers understand your code.
+Documenting your code with Javadoc is optional for Programming Exercise 4.  It is, however, always a good practice to include comments to help readers understand your code.
