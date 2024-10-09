@@ -14,7 +14,7 @@
     We recommend creating a new directory called `mini` to store all your lab mini problems.
 
     ```bash
-    lab5@pe111:~/mini$ cp -r ~cs2030s/mini/lab5/ .
+    cp -r ~cs2030s/mini/lab5/ .
     ```
 
     The files will only be available on Wednesday, 9 October 2024.

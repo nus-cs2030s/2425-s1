@@ -250,6 +250,7 @@ The types `None<T>` is an internal implementation details of `Maybe<T>` and must
 - `None<T>` overrides the `map` method from `Maybe<T>`.
     - This simply returns itself.
 - `None<T>` (and by extension `Maybe<T>`) must be immutable up to `T`.
+    - But you do not have to make the class a `final` class.
 
 Additionally, we need to add the following factory methods in `Maybe<T>`.
 
@@ -279,7 +280,7 @@ jshell> Maybe.none().get()
 jshell> Maybe.none()
 $.. ==> []
 
-jshell> Maybe.nne() == Maybe.none()
+jshell> Maybe.none() == Maybe.none()
 $.. ==> true
 jshell> Maybe.none().equals(Maybe.none())
 $.. ==> true
@@ -289,6 +290,7 @@ jshell> Maybe.none().equals(Maybe.some(null))
 $.. ==> false
 jshell> Maybe.some(null).equals(Maybe.none())
 $.. ==> false
+
 jshell> Maybe.of(null).equals(Maybe.none())
 $.. ==> true
 jshell> Maybe.of(null) == Maybe.none()
@@ -501,12 +503,9 @@ $ java -jar ~cs2030s/bin/checkstyle.jar -c ex5_style.xml cs2030s/fp/*.java
 
 ## Skeleton for Programming Exercise 5
 
-A set of empty files has been given to you.  You should **ONLY** edit these files.  You must **NOT** add any additional files.
-
-!!! danger "Do NOT Add"
-    Only edit the given files, do not add any additional files.
-
+You need to copy the files `Some.java` and `Transformer.java` from `ex4-username` to `ex5-username`.
 Some files (_e.g.,_ `Test1.java`, `Test2.java`, `CS2030STest.java`, _etc_) are provided for testing.
+Do not copy these from `ex4-username`.
 You may edit them to add your own test cases, but we will be using our own version for testing.
 
 While there is no given public test cases for it, we will test your code with hidden test cases that checks for flexible type.
@@ -517,10 +516,11 @@ Lastly, ensure that you use `@SuppressWarnings` as needed.
 
 You should make sure your code follows the [given Java style guide](../style.md).
 
-To check for style,
+To check for style, we may need two commands as there are two directories of interest.
 
 ```title="Style Check"
 java -jar ~cs2030s/bin/checkstyle.jar -c ex5_style.xml *.java
+java -jar ~cs2030s/bin/checkstyle.jar -c ex5_style.xml cs2030s/fp/*.java
 ```
 
 ## Further Deductions
