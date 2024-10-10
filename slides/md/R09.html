@@ -1,0 +1,961 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R09
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Preliminary
+#### Code
+]
+.ft88.oldsection[
+### Preliminary
+#### Code
+
+.col50[
+.font20[
+```java[copy=nones]
+class B {
+  static class Task extends
+      RecursiveTask<Integer> {
+    int count;
+    Task(int count) {
+      this.count = count;
+    }
+  }
+```
+]
+
+.card.bg-y[
+##### Note
+.content.tight[
+Number of thread in pool is 2. We start with new `Task(0)`.
+]
+]
+]
+
+.col50[
+.font20[
+```java[show=9-21]
+class B {
+  static class Task extends
+      RecursiveTask<Integer> {
+    int count;
+    Task(int count) {
+      this.count = count;
+    }
+  }
+  public Integer compute() {
+    System.out.println(
+        Thread.currentThread().getName() 
+        + " " + this.count);
+    if (this.count == 4) {
+      return this.count;
+    }
+    Task t = new Task(this.count + 1);
+    t.fork();
+    return t.join();
+  }
+}
+```
+]
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 1
+
+.font18[
+```java[copy=nones|lite=5]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Make a Class
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+      ​
+  ​
+  ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 2
+
+.font18[
+```java[copy=nones|lite=5]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Change Parameters to Fields
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+#### Step 3
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 3
+
+.font18[
+```java[copy=nones|lite=5]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Rename Method ; Remove Parameter
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  protected Integer compute() {
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+#### Step 3
+#### Step 4
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 4
+
+.font18[
+```java[copy=nones|lite=6]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Copy Code
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  protected Integer compute() {
+    if (this.x <= 1) { return 1; }
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+    ​
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+#### Step 3
+#### Step 4
+#### Step 5
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 5
+
+.font18[
+```java[copy=nones|lite=8-9]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Change Recursive Call to New
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  protected Integer compute() {
+    if (this.x <= 1) { return 1; }
+    ​
+    Fib f1 = new Fib(this.x - 1);
+    Fib f2 = new Fib(this.x - 2);
+    ​
+    ​
+    ​
+    ​
+    ​
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+#### Step 3
+#### Step 4
+#### Step 5
+#### Step 6
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 6
+
+.font18[
+```java[copy=nones|lite=10-13]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Add Fork + Join (Palindrome)
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  protected Integer compute() {
+    if (this.x <= 1) { return 1; }
+    ​
+    Fib f1 = new Fib(this.x - 1);
+    Fib f2 = new Fib(this.x - 2);
+    f1.fork();
+    f2.fork();
+    int f2Val = f2.join();
+    int f1Val = f1.join();
+    ​
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+#### Step 1
+#### Step 2
+#### Step 3
+#### Step 4
+#### Step 5
+#### Step 6
+#### Step 7
+]
+.ft88.oldsection[
+### Translation
+
+.col50[
+#### Step 7
+
+.font18[
+```java[copy=nones|lite=14]
+​
+​
+​
+​
+int fibonacci(int x) {
+  if (x <= 1) { return 1; }
+  ​
+  int f1 = fibonacci(x - 1);
+  int f2 = fibonacci(x - 2);
+  ​
+  ​
+  ​
+  ​
+  return f1 + f2;
+  ​
+}
+```
+]
+]
+
+.col50[
+#### Return
+
+.font18[
+```java[copy=nones]
+class Fib extends
+    extends RecursiveTask<Integer> {
+  private final int x;
+  // constructor omitted
+  protected Integer compute() {
+    if (this.x <= 1) { return 1; }
+    ​
+    Fib f1 = new Fib(this.x - 1);
+    Fib f2 = new Fib(this.x - 2);
+    f1.fork();
+    f2.fork();
+    int f2Val = f2.join();
+    int f1Val = f1.join();
+    return f1Val + f2Val;
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Translation
+### Ordering
+#### Analysis
+]
+.ft88.oldsection[
+### Ordering
+#### Analysis
+
+.col33[
+##### A
+
+.font20[
+```java[copy=nones]
+f1.fork();
+int a = f2.compute();
+int b = f1.join();
+​
+return a + b;
+```
+]
+]
+.col33[
+##### B
+
+.font20[
+```java[copy=nones]
+f1.fork();
+int a = f1.join();
+int b = f2.compute();
+​
+return a + b;
+```
+]
+]
+.col34[
+##### C
+
+.font20[
+```java[copy=nones]
+​
+int a = f1.compute();
+int b = f2.compute();
+​
+return a + b;
+```
+]
+]
+
+.col50[
+##### D
+
+.font20[
+```java[copy=nones]
+f1.fork();
+f2.fork();
+int a = f2.join();
+int b = f1.join();
+​
+return a + b;
+```
+]
+]
+.col50[
+##### E
+
+.font20[
+```java[copy=nones]
+f1.fork();
+f2.fork();
+int a = f1.join();
+int b = f2.join();
+​
+return a + b;
+```
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]
+
+---
+
+name: Question_3
+class: middle
+
+# Question 3
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+#### Class A
+]
+.ft88.oldsection[
+### Preliminary
+#### Class A
+
+.col50[
+.font18[
+```java[copy=nones]
+class A {
+  private final int x;
+  public A(int x) {
+    this.x = x;
+  }
+  private void sleep() {
+    System.out.println(
+        Thread.currentThread().getName()
+        + " " + x);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      System.out.println("interrupted");
+    }
+  }
+  ​
+```
+]
+]
+
+.col50[
+.font18[
+```java[show=16-31]
+class A {
+  private final int x;
+  public A(int x) {
+    this.x = x;
+  }
+  private void sleep() {
+    System.out.println(
+        Thread.currentThread().getName()
+        + " " + x);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      System.out.println("interrupted");
+    }
+  }
+  public A incr() {
+    sleep();
+    return new A(this.x + 1);
+  }
+  public A decr() {
+    sleep();
+    if (x <= 0) {
+      throw new IllegalStateException();
+    }
+    return new A(this.x - 1);
+  }
+  @Override
+  public String toString() {
+    return String.valueOf(this.x);
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+#### Class A
+#### Methods
+]
+.ft88.oldsection[
+### Preliminary
+#### Methods
+
+.col100.atbl.blhead[
+| CompletableFuture Method | Monadic Method | Async? |
+|---|---|:-:|
+| `completedFuture` | `of` | <i class="fa fa-square-xmark drdtxt"></i> |
+| `supplyAsync` | `of` | <i class="fa fa-square-check dgntxt"></i> |
+| `thenApply` | `map` | <i class="fa fa-square-xmark drdtxt"></i> |
+| `thenApplyAsync` | `map` | <i class="fa fa-square-check dgntxt"></i> |
+| `thenCompose` | `flatMap` | <i class="fa fa-square-xmark drdtxt"></i> |
+| `thenComposeAsync` | `flatMap` | <i class="fa fa-square-check dgntxt"></i> |
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+#### Class A
+#### Methods
+#### Waiting
+]
+.ft88.oldsection[
+### Preliminary
+#### Waiting
+
+.col100.atbl.blhead[
+| CompletableFuture Method | Wait for? | Return Type |
+|---|---|---|
+| `allOf(cf1, cf2, ..., cfn)` | All of `cf1` to `cfn` | `CompletableFuture<Void>` |
+| `anyOf(cf1, cf2, ..., cfn)` | One of `cf1` to `cfn` | `CompletableFuture<Object>` |
+| `cf.join()` | Only `cf` | `CompletableFuture<T>` |
+| `cf.get()` | Only `cf` | `CompletableFuture<T>`.cite[] |
+]
+]
+.footnote[Throws checked exception if the data is not yet ready]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+#### Class A
+#### Methods
+#### Waiting
+#### Function
+]
+.ft88.oldsection[
+### Preliminary
+#### Function
+
+.img50[![Foo](img/R09-Function.png)]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+### Translation
+#### Code #1
+]
+.ft88.oldsection[
+### Translation
+#### Code #1
+
+.col50[
+```java
+static A foo(A a) {
+  return a.incr().decr();
+  // incr() and decr() potentially
+  // run in different thread
+}
+```
+]
+.col50[
+<pre id="Q1A" class="text-editor editor20" style="height:450px">
+static Completable&lt;A&gt; fooAsync(A a) {
+  return null; // TODO
+}
+</pre>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+### Translation
+#### Code #1
+#### Code #2
+]
+.ft88.oldsection[
+### Translation
+#### Code #2
+
+.col50[
+```java
+static A bar(A a) {
+  return a.incr();
+}
+// Invoke with bar(foo(new A(0)))
+// The body run async
+```
+]
+.col50[
+<pre id="Q1B" class="text-editor editor20" style="height:450px">
+static Completable&lt;A&gt; barAsync(A a) {
+  return null; // TODO
+}
+
+// How to do bar(foo(new A(0)))
+// asynchronously?
+</pre>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+### Translation
+#### Code #1
+#### Code #2
+#### Code #3
+]
+.ft88.oldsection[
+### Translation
+#### Code #3
+
+.col50[
+```java
+static A baz(A a, int x) {
+  if (x == 0) {
+    return new A(0);
+  }
+  return a.incr().decr();
+}
+// The body run async
+```
+]
+.col50[
+<pre id="Q1C" class="text-editor editor20" style="height:450px">
+static Completable&lt;A&gt;
+    bazAsync(A a, int x) {
+  return null; // TODO
+}
+</pre>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+### Translation
+#### Code #1
+#### Code #2
+#### Code #3
+#### Code #4
+]
+.ft88.oldsection[
+### Translation
+#### Code #4
+
+.col50[
+```java
+A qux(A a) {
+  try {
+    a = a.decr();
+    a = a.decr();
+  } catch (IllegalStateException e) {
+    System.out.println("error");
+    a = new A(10);
+  }
+  return a.incr();
+}
+// Exception handling
+```
+]
+.col50[
+<pre id="Q1D" class="text-editor editor20" style="height:450px">
+Completable&lt;A&gt; quz(A a) {
+  return null; // TODO
+}
+</pre>
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Preliminary
+### Translation
+#### Code #1
+#### Code #2
+#### Code #3
+#### Code #4
+#### Code #5
+]
+.ft88.oldsection[
+### Translation
+#### Code #5
+
+.col50[
+```java
+fooAsync(new A(0));
+barAsync(new A(0));
+bazAsync(new A(0));
+System.out.println("done.");
+```
+]
+.col50[
+<pre id="Q1E" class="text-editor editor20" style="height:450px">
+// "done." should be printed after
+// fooAsync - bazAsync finished
+</pre>
+]
+]
