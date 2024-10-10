@@ -56,7 +56,7 @@ class Box<T> { }
 
 .mrq[
 1. .quiz-choice[`Box<List<Animal>>`] .quiz-ans[1] .quiz-hint[]
-1. .quiz-choice[`Box<List<Dog>>`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`Box<List<Dog>>`] .quiz-ans[1] .quiz-hint[]
 1. .quiz-choice[`Box<ArrayList<Animal>>`] .quiz-ans[0] .quiz-hint[]
 1. .quiz-choice[`Box<ArrayList<Dog>>`] .quiz-ans[0] .quiz-hint[]
 
@@ -85,6 +85,148 @@ Consider the class on the right.
 Which of the following is a subtype of the type below.
 
 .center[`Box<? extends List<T>>`]
+
+  There may be more than 1 answer.
+]
+]
+]
+.col50[
+```java
+class Animal { }
+class Dog extends Animal { }
+class Box<T> { }
+```
+]
+
+
+.mrq[
+1. .quiz-choice[`Box<List<Animal>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<List<Dog>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Animal>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Dog>>`] .quiz-ans[1] .quiz-hint[]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Nested Wildcards
+
+.ft10.subsections[
+### Question
+#### Q1
+#### Q2
+#### Q3
+]
+.ft88.oldsection[
+### Question
+#### Q3
+
+.col50[
+.card.bg-r[
+##### Quesiton
+.content.tight[
+Consider the class on the right.
+Which of the following is a subtype of the type below.
+
+.center[`Box<? extends List<? extends T>>`]
+
+  There may be more than 1 answer.
+]
+]
+]
+.col50[
+```java
+class Animal { }
+class Dog extends Animal { }
+class Box<T> { }
+```
+]
+
+
+.mrq[
+1. .quiz-choice[`Box<List<Animal>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<List<Dog>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Animal>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Dog>>`] .quiz-ans[1] .quiz-hint[]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: T_=_Animal
+class: middle, sections
+
+# T = Animal
+
+---
+
+# Nested Wildcards
+
+.ft10.subsections[
+### Question
+#### Q1
+]
+.ft88.oldsection[
+### Question
+#### Q1
+
+.col50[
+.card.bg-r[
+##### Quesiton
+.content.tight[
+Consider the class on the right.
+Which of the following is a subtype of the type below.
+
+.center[`Box<List<Animal>>`]
+
+There may be more than 1 answer.
+]
+]
+]
+.col50[
+```java
+class Animal { }
+class Dog extends Animal { }
+class Box<T> { }
+```
+]
+
+
+.mrq[
+1. .quiz-choice[`Box<List<Animal>>`] .quiz-ans[1] .quiz-hint[]
+1. .quiz-choice[`Box<List<Dog>>`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Animal>>`] .quiz-ans[0] .quiz-hint[]
+1. .quiz-choice[`Box<ArrayList<Dog>>`] .quiz-ans[0] .quiz-hint[]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Nested Wildcards
+
+.ft10.subsections[
+### Question
+#### Q1
+#### Q2
+]
+.ft88.oldsection[
+### Question
+#### Q2
+
+.col50[
+.card.bg-r[
+##### Quesiton
+.content.tight[
+Consider the class on the right.
+Which of the following is a subtype of the type below.
+
+.center[`Box<? extends List<Animal>>`]
 
   There may be more than 1 answer.
 ]
@@ -130,7 +272,7 @@ class Box<T> { }
 Consider the class on the right.
 Which of the following is a subtype of the type below.
 
-.center[`Box<? extends List<? extends T>>`]
+.center[`Box<? extends List<? extends Animal>>`]
 
   There may be more than 1 answer.
 ]
