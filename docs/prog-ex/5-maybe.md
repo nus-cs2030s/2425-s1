@@ -39,12 +39,12 @@ package cs2030s.fp;
 
 on top of every `.java` file that we would like to include in the package.
 
-Second, the package name is typically written in a hierarchical manner using the "." notation. The name also indicates the location of the `.java` files and the `.class` files.  For this reason, you can no longer store the `.java` files under `ex5-username` directly.  Instead, you should put them in a subdirectory called `cs2030s/fp` under `ex5-username`.  To start, our `cs2030s.fp` package will contain the two interfaces `Transformer` and `BooleanCondition` that you have written in Programming Exercise 4.
+Second, the package name is typically written in a hierarchical manner using the "." notation. The name also indicates the location of the `.java` files and the `.class` files.  For this reason, you can no longer store the `.java` files under `ex5-username` directly.  Instead, you should put them in a subdirectory called `cs2030s/fp` under `ex5-username`.  To start, our `cs2030s.fp` package will contain the one interface `Transformer` that you have written in Programming Exercise 4.
 
 If you have not made `Transformer` a `public` class, you should do it now.
 
 ```java
-public class Transfomer<T, R> {
+public interface Transfomer<T, R> {
     :
 }
 ```
@@ -55,11 +55,27 @@ Finally, to compile your code, under your `ex5-username` directory, run:
 javac -Xlint:unchecked -Xlint:rawtypes cs2030s/fp/*.java *.java
 ```
 
-If you have set up everything correctly, you should be able to run the following in JShell from your `ex5-username` directory: 
+Note, you may see some compilation error because the java files in `ex5-username` directory may fail to compile.  That is normal.  `TestN.java` can only compile when you finish some tasks below.  If you have set up everything correctly, you should be able to run the following in JShell from your `ex5-username` directory: 
 
 ```
 jshell> import cs2030s.fp.Transformer;
 ```
+
+!!! success "Checkpoint"
+    If you have done this correctly, your directory structure should look something like the following:
+
+    ```
+    labX-username/
+    ├─ cs2030s/
+    │  └─ fp/
+    │     └─ Transformer.java
+    ├─ CS2030STest.java
+    ├─ Some.java
+    ├─ Test1.java
+    ├─ Test2.java
+    ├─   :
+    └─  ...
+    ```
 
 ---
 
@@ -77,6 +93,25 @@ Now, we are going to add three more interfaces into our package:
 - `Consumer<T>` is an interface with a single `consume` method that takes in a parameter of type `T` and returns _nothing_.
 - `BooleanCondition<T>` is an interface with a single `test` method that takes in a parameter of type `T` and returns a primitive `boolean` value.
 
+!!! success "Checkpoint"
+    If you have done this correctly, your directory structure should look something like the following:
+
+    ```
+    labX-username/
+    ├─ cs2030s/
+    │  └─ fp/
+    │     ├─ BooleanCondition.java
+    │     ├─ Consumer.java
+    │     ├─ Producer.java
+    │     └─ Transformer.java
+    ├─ CS2030STest.java
+    ├─ Some.java
+    ├─ Test1.java
+    ├─ Test2.java
+    ├─   :
+    └─  ...
+    ```
+    
 If you have set up everything correctly, you should be able to run the following in JShell without errors (_remember to always compile your code first!_).
 
 ```title="Sample Usage"
@@ -107,33 +142,55 @@ We will be mainly be doing a rearrangement of code.
 1. Copy your implementation of `Some.java` into `lab5-username/cs2030s/fp` directory if you have not done so.
 2. Add `package cs2030s.fp;` as the first line on `Some.java`.
 3. Rename `Some.java` into `Maybe.java`.  This entails some other changes too:
-    - Rename all occurrences of `Some` into `Maybe` including `private` constructor and the return type.
+    - Rename _some_ occurrences of `Some` into `Maybe` especially the return types.
     - Do **NOT** change the name of the factory method `some`.
 
-    If you have done this correctly, your directory structure should look something like the following:
+    !!! success "Checkpoint"
+        If you have done this correctly, your directory structure should look something like the following:
 
-    ```
-    labX-username/
-    ├─ cs2030s/
-    │  └─ fp/
-    │     ├─ BooleanCondition.java
-    │     ├─ Consumer.java
-    │     ├─ Maybe.java
-    │     ├─ Producer.java
-    │     └─ Transformer.java
-    ├─ CS2030STest.java
-    ├─ Test1.java
-    ├─ Test2.java
-    ├─   :
-    └─  ...
-    ```
+        ```
+        labX-username/
+        ├─ cs2030s/
+        │  └─ fp/
+        │     ├─ BooleanCondition.java
+        │     ├─ Consumer.java
+        │     ├─ Maybe.java
+        │     ├─ Producer.java
+        │     └─ Transformer.java
+        ├─ CS2030STest.java
+        ├─ Test1.java
+        ├─ Test2.java
+        ├─   :
+        └─  ...
+        ```
+
+        Your `Maybe.java` should still contain the class `Some<T>`.
+
+        ```java title="cs2030s/fp/Maybe.java"
+        public class Some<T> {
+            :
+        }
+        ```
 
 4. Change `public class Some<T>` to `private static final class Some<T> extends Maybe<T>`.
     - Then wrap it inside the outer class `public abstract class Maybe<T>`.
     - Move `public static <T> Maybe<T> some(T value)` from `Some<T>` to `Maybe<T>`.
     
-    !!! info "Checkpoint"
+    !!! success "Checkpoint"
         At this point, `Some<T>` is a static nested class inside `Maybe<T>`.  But codes from outside of the package cannot see `Some<T>` and only `Maybe<T>`.  Since `Maybe<T>` does not have any known method, we need to add abstract methods.
+
+        ```java title="cs2030s/fp/Maybe.java"
+        public abstract class Maybe<T> {
+            :
+          public static <T> Maybe<T> some(T value) {
+              : // implementation omitted
+          }
+
+          private static final class Some<T> extends Maybe<T> {
+              : // code from the old version of Some.java
+          }
+        }
+        ```
 
 5. Add abstract method descriptor that appears in `Some<T>` to `Maybe<T>` unless these method descriptor already available in `Object`.
 
