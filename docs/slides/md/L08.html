@@ -678,7 +678,7 @@ We can assign a &lambda;-expression to a functional interface.
 class Incr implements
     Transformer<Integer, Integer> {
   @Override
-  public int transform(int x) {
+  public Integer transform(Integer x) {
     return x + 1;
   }
 }
@@ -691,10 +691,10 @@ class Incr implements
 Transformer<Integer, Integer> fn =
     new Transformer<>() {
   @Override
-  public int transform(int x) {
+  public Integer transform(Integer x) {
     return x + 1;
   }
-}
+};
 ```
 ]
 ]
