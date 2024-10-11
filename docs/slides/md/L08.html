@@ -898,6 +898,108 @@ Transformer<Point, Double> dist =
 
 ---
 
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following is not a pure function?
+]
+]
+]
+
+.col33[
+.font20[
+```java[copy=nones]
+int sqrt(int i) {
+  return Math.sqrt(i);
+} // square root
+```
+]
+]
+.col33[
+.font20[
+```java[copy=nones]
+int div(int i, int j) {
+  return i / j;
+}
+```
+]
+]
+.col33[
+.font20[
+```java[copy=nones]
+int add(int i, int j) {
+  return i + j;
+}
+```
+]
+]
+.mrq[
+1. .quiz-choice[`sqrt`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[`div`] .quiz-ans[1] .quiz-hint[YES: may throw exception]
+1. .quiz-choice[`add`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[_there are more than 1_] .quiz-ans[0] .quiz-hint[NO: only one]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+### Quiz
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Let `Fn<T, R>` be an interface for a function with **one** parameter `T` and **one** return type `R` .note20[(i.e., similar to `Transformer<T, R>` but shorter to write)].
+What is the interface .uline[definition] for function with **two** parameters `T1` and `T2` and **one** return type `R`?
+
+<br>
+
+Prefix the choices below with "`public interface ...`".
+]
+]
+]
+.mrq[
+1. .quiz-choice[`Fn<T1, R extends Fn<T2, R2>>`] .quiz-ans[0] .quiz-hint[NO: what are `T2` and `R2`?]
+1. .quiz-choice[`Fn<T1, Fn<T2, R>>`] .quiz-ans[0] .quiz-hint[NO: what are `T2` and `R`?]
+1. .quiz-choice[`Fn<T1, T2, R>`] .quiz-ans[1] .quiz-hint[YES: all three are type parameter declarations]
+1. .quiz-choice[`Fn<<T1, T2>, R`] .quiz-ans[0] .quiz-hint[NO: this is a syntax error]
+
+.quizzes-time[120]
+]
+]
+
+---
+
 name: Lazy
 class: middle, sections
 
