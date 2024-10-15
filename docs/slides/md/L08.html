@@ -924,7 +924,7 @@ Which of the following is not a pure function?
 .col33[
 .font20[
 ```java[copy=nones]
-int sqrt(int i) {
+double sqrt(int i) {
   return Math.sqrt(i);
 } // square root
 ```
@@ -955,6 +955,15 @@ int add(int i, int j) {
 1. .quiz-choice[_there are more than 1_] .quiz-ans[0] .quiz-hint[NO: only one]
 
 .quizzes-time[120]
+]
+]
+.abs.rt7.top2.wt55.ft[
+.card.bg-y[
+##### Note
+.content.tight[
+The code in class is `int sqrt(int)`.  If that is the case, the it is not pure because it is always an error .note20[(if it can even compile)].
+`double sqrt(int)` is weirdly has no error.
+]
 ]
 ]
 
@@ -995,6 +1004,14 @@ Prefix the choices below with "`public interface ...`".
 1. .quiz-choice[`Fn<<T1, T2>, R>`] .quiz-ans[0] .quiz-hint[NO: this is a syntax error]
 
 .quizzes-time[120]
+]
+]
+.abs.rt7.top2.wt55.ft[
+.card.bg-y[
+##### Note
+.content.tight[
+`Fn<T, R>` defined in the question is different from the `Fn<...>` in the choices.  It is given because the last discussion for this was quite a while ago.
+]
 ]
 ]
 
