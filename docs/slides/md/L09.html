@@ -1,0 +1,1401 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L09: Infinite List & Stream
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Eager_List
+class: middle, sections
+
+# Eager List
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+#### Idea
+]
+.ft88.oldsection[
+### Class
+#### Idea
+
+.col5.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+]
+.col95[
+.font20[
+```java
+class EagerList<T> {
+  private final T head;
+  private final EagerList<T> tail;
+}
+```
+]
+]
+
+.col100[
+##### Visualization
+![EagerList](img/09-Eager01.png)
+]
+]
+
+---
+name:eagerlist
+# Eager List
+
+.ft10.subsections[
+### Class
+#### Idea
+#### Template
+]
+.ft88.oldsection[
+### Class
+#### Template &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [.math[↪]](#infinitelist)
+
+.col7.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+```
+]
+]
+.col93[
+.font20[
+```java
+class EagerList<T> {
+  private final T head;
+  private final EagerList<T> tail;
+    ​
+  public static <T> EagerList<T> generate(T t, int size) { .. }
+  public static <T> EagerList<T> iterate(
+      T init,
+      BooleanCondition<T> pred,
+      Transformer<T, T> next
+  ) { .. }
+  ​
+  public <U> EagerList<U> map(Transformer<T, U> fn) { .. }
+  public EagerList<T> filter(BooleanCondition<T> pred) { .. }
+}
+```
+]
+]
+]
+.footnote.note20[**Exercise:** make the type flexible.]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02a.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02b.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02c.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02d.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02e.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+]
+.ft88.oldsection[
+### Methods
+#### Map
+##### Visualization
+
+.col100[
+![Map](img/09-Eager02f.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+#### Filter
+]
+.ft88.oldsection[
+### Methods
+#### Filter
+##### Visualization
+
+.col100[
+![Map](img/09-Eager03a.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+#### Filter
+]
+.ft88.oldsection[
+### Methods
+#### Filter
+##### Visualization
+
+.col100[
+![Map](img/09-Eager03b.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+#### Filter
+]
+.ft88.oldsection[
+### Methods
+#### Filter
+##### Visualization
+
+.col100[
+![Map](img/09-Eager03c.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Map
+#### Filter
+]
+.ft88.oldsection[
+### Methods
+#### Filter
+##### Visualization
+
+.col100[
+![Map](img/09-Eager03d.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+### Usage
+]
+.ft88.oldsection[
+### Usage
+#### Testing Infinite List
+
+.col55[
+##### Code
+
+.font20[
+```java[copy=nones|lite=2-4]
+EagerList<Integer> l = EagerList
+    .iterate(1,   i -> i < 10,   i -> i + 1)
+    .filter(i -> i % 3 == 0)
+    .map(i -> i * 2);
+l.head();
+l.tail().head();
+l.tail().tail().head();
+```
+]
+]
+.col45[
+##### Trace
+
+.atbl.blhead.font20[
+| Line | Values |
+|:-:|---|
+| 2 | `[ 1, 2, 3, 4, 5, 6,`.op0[`.`]` 7, 8, 9 `.op0[`...`]`]` |
+| 3 | `[`.op0[`.1, 2,.`]`3,`.op0[`.4, 5,.`]`6,`.op0[`..7, 8,`]`9 `.op0[`...`]`]` |
+| 4 | `[`.op0[`.1, 2,.`]`6,`.op0[`.4, 5,.`]`12,`.op0[`.7, 8,`]`18 `.op0[`..`]`]` |
+]
+]
+]
+
+---
+
+name: Infinite_List
+class: middle, sections
+
+# Infinite List
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+#### Idea
+]
+.ft88.oldsection[
+### Class
+#### Idea
+
+.col5.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+]
+.col95[
+.font20[
+```java
+class InfiniteList<T> {
+  private final Producer<T> head;
+  private final Producer<InfiniteList<T>> tail;
+}
+```
+]
+]
+
+.col100[
+##### Visualization
+![InfiniteList](img/09-Infinite00.png)
+]
+]
+
+---
+name:infinitelist
+# Infinite List
+
+.ft10.subsections[
+### Class
+#### Idea
+#### Template
+]
+.ft88.oldsection[
+### Class
+#### Template &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [.math[↩]](#eagerlist)
+
+.col7.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+```
+]
+]
+
+.col93[
+.font20[
+```java[lite=5,8]
+class InfiniteList<T> {
+  private final Producer<T> head;
+  private final Producer<InfiniteList<T>> tail;
+    ​
+  public static <T> InfiniteList<T> generate(Producer<T> prod) { .. }
+  public static <T> InfiniteList<T> iterate(
+      T init,
+      /\* BooleanCondition<T> pred, */
+      Transformer<T, T> next
+  ) { .. }
+  ​
+  public <U> InfiniteList<U> map(Transformer<T, U> fn) { .. }
+  public EagerList<T> filter(BooleanCondition<T> pred) { .. }
+}
+```
+]
+]
+]
+.footnote.note20[**Exercise:** make the type flexible.]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite[`head()`]
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite-y[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01a.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite-y[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01b.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite-y[`map(x -> x * 2)`]`.`.hilite[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01c.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01d.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01e.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01f.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01g.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01h.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01i.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01j.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01k.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01l.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01m.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01n.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01o.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01p.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01q.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01r.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01s.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01t.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01u.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01v.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01w.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01x.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01y.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01z.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01z1.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01z2.png)
+]
+]
+
+---
+
+# Infinite List
+
+.ft10.subsections[
+### Class
+### Visualization
+]
+.ft88.oldsection[
+### Visualization
+
+.col100.font18[
+> .hilite[`InfiniteList.iterate(0, x -> x + 2)`]`.`.hilite[`map(x -> x + 1)`]`.`.hilite[`map(x -> x * 2)`]`.`.hilite-y[`head()`]
+]
+
+.col100[
+##### Stack/Heap
+![Visual](img/09-Infinite01z3.png)
+]
+]
+
+---
+
+name: Java_API
+class: middle, sections
+
+# Java API
+
+---
+
+# Java API
+
+.ft10.subsections[
+### Function
+]
+.ft88.oldsection[
+### Function
+#### java.util.function
+##### Java 21
+
+.col100[
+.atbl.blhead[
+| cs2030s.fp | java.util.function |
+|---|---|
+| `BooleanCondition<T>::test` | [`Predicate<T>::test`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Predicate.html#test%28T%29) |
+| `Producer<T>::produce` | [`Supplier<T>::get`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Supplier.html#get%28%29) |
+| `Consumer<T>::consume` | [`Consumer<T>::accept`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html#accept%28T%29) |
+| `Transformer<T,R>::transform` | [`Function<T,R>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html#apply%28T%29) |
+| `Transformer<T,T>::transform` | [`UnaryOperator<T>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/UnaryOperator.html) |
+| `Combiner<S, T, R>::combine` | [`BiFunction<S, T, R>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/BiFunction.html#apply%28T,U%29) |
+]
+]
+]
+
+---
+
+# Java API
+
+.ft10.subsections[
+### Function
+### Container
+]
+.ft88.oldsection[
+### Container
+#### java.util
+##### Java 21
+
+.col100[
+.atbl.blhead[
+| cs2030s.fp | java.util |
+|---|---|
+| `Maybe<T>` | [`java.util.Optional<T>`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html) |
+| `Lazy<T>` | _N/A_ |
+| `InfiniteList<T>` | [`java.util.Stream<T>`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html) |
+]
+]
+]
+
+---
+
+name: Streams
+class: middle, sections
+
+# Streams
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+#### Overview
+]
+.ft88.oldsection[
+### Pipeline
+#### Overview
+
+.col100[
+.center[![Pipeline](img/09-Stream.png)]
+]
+.col33[
+.card.bg-g[
+##### Data Source
+.content.tight[
+Produce a stream.<br><br>
+]
+]
+]
+.col33[
+.card.bg-y[
+##### Intermediate Operation
+.content.tight[
+Transform a stream into another stream.
+]
+]
+]
+.col33[
+.card.bg-r[
+##### Terminal Operation
+.content.tight[
+Consumes a stream.<br><br>
+]
+]
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+#### Overview
+#### Data Source
+]
+.ft88.oldsection[
+### Pipeline
+#### Data Source
+
+.col100[
+##### Static Factory Methods
+- [`Stream::of(T...)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#of%28T...%29)
+- [`Stream::generate(Supplier<? extends T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#generate%28java.util.function.Supplier%29)
+- [`Stream::iterate(T, Predicate<? super T>, UnaryOperator<T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#iterate%28T,java.util.function.Predicate,java.util.function.UnaryOperator%29)
+
+##### Conversion from Other Data Types
+- [`Arrays::stream(T[])`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html#stream%28T[]%29)
+- [`Collection::stream()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html#stream%28%29)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+#### Overview
+#### Data Source
+#### Intermediate
+]
+.ft88.oldsection[
+### Pipeline
+#### Intermediate
+
+.col100[
+##### Stateless
+- [`Stream::filter(Predicate<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#filter&#40;java.util.function.Predicate&#41;)
+    - Keep the element if the predicate returns true on the element
+- [`Stream::map(Function<? super T, ? extends R>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#map&#40;java.util.function.Function&#41;)
+    - Transform each element with the given function
+- [`Stream::flatMap(Function<? super T, ? extends Stream<? extends R>>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#flatMap&#40;java.util.function.Function&#41;)
+    - map + flatten .note16[(i.e., no nested stream)]
+]
+.col35[
+##### Stateful
+- [`Stream::sorted()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#sorted&#40;&#41;)
+- [`Stream::distinct()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#distinct&#40;&#41;)
+]
+.col65[
+##### Bounding
+- [`Stream::limit(long)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#limit&#40;long&#41;)
+- [`Stream::takeWhile(Predicate<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#takeWhile&#40;java.util.function.Predicate&#41;)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+#### Overview
+#### Data Source
+#### Intermediate
+#### Terminal
+]
+.ft88.oldsection[
+### Pipeline
+#### Terminal
+.col100[
+##### Operations
+- [`Stream::forEach(Consumer<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#forEach&#40;java.util.function.Consumer&#41;)
+    - Perform the operation specified by the consumer for each element
+- [`Stream::reduce(BinaryOperator<T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#reduce&#40;java.util.function.BinaryOperator&#41;)
+    - Perform a _reduction_ operation using the binary operator
+- [`Stream::count()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#count&#40;&#41;)
+    - Returns the number of element in the stream
+
+##### Element Matching
+- [`Stream::allMatch(Predicate<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#allMatch&#40;java.util.function.Predicate&#41;)
+- [`Stream::anyMatch(Predicate<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#anyMatch&#40;java.util.function.Predicate&#41;)
+- [`Stream::noneMatch(Predicate<? super T>)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#noneMatch&#40;java.util.function.Predicate&#41;)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+### vs Infinite List
+]
+.ft88.oldsection[
+### vs Infinite List
+#### Difference
+
+.col100[
+##### Stream Allows Peeking
+
+```java
+Stream.iterate(0, x -> x + 1)
+      .peek(System.out::println)
+      .takeWhile(x -> x < 5)
+      .forEach(x -> {});
+```
+
+##### Stream is Consumed At Most Once
+
+```java
+Stream<Integer> s = Stream.iterate(0, x -> x + 1).takeWhile(x -> x < 5);
+s.forEach(System.out::println);
+s.forEach(System.out::println); // Fail!  
+
+// We have to recreate the stream
+```
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+### vs Infinite List
+### Summary
+#### Map
+]
+.ft88.oldsection[
+### Summary
+#### Map
+
+.col100[
+![Map](img/09-map.png)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+### vs Infinite List
+### Summary
+#### Map
+#### Filter
+]
+.ft88.oldsection[
+### Summary
+#### Filter
+
+.col100[
+![Filter](img/09-filter.png)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+### vs Infinite List
+### Summary
+#### Map
+#### Filter
+#### FlatMap
+]
+.ft88.oldsection[
+### Summary
+#### FlatMap
+
+.col100[
+![FlatMap](img/09-flatmap.png)
+]
+]
+
+---
+
+# Streams
+
+.ft10.subsections[
+### Pipeline
+### vs Infinite List
+### Summary
+#### Map
+#### Filter
+#### FlatMap
+#### Reduce
+]
+.ft88.oldsection[
+### Summary
+#### Reduce
+
+.col100[
+![Reduce](img/09-reduce.png)
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]
