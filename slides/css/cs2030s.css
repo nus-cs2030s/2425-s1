@@ -1,0 +1,130 @@
+.rel {
+  position: relative;
+}
+
+.basic h3 {
+  font-size: 36px;
+}
+.basic h4 {
+  font-size: 32px;
+}
+.basic h5 {
+  font-size: 30px;
+}
+.basic h6 {
+  font-size: 28px;
+}
+
+.subsections {
+  margin: 35px 20px 0 0;
+  height: 535px;
+}
+.subsections h3 {
+  font-size: 20px;
+}
+.subsections h4 {
+  font-size: 16px;
+}
+
+.oldsection h3 {
+  margin-top: 25px;
+}
+
+.footnote {
+  left: 175px;
+}
+
+.cards .content p, .cards .content li {
+  font-size: 24px;
+}
+.cards .addendum p, .cards .addendum li {
+  font-size: 20px;
+}
+
+.remark-code {
+  font-size: 22px;
+}
+
+.hljs-num .hljs {
+  overflow-x: hidden;
+  background: rgba(255,255,255,0);
+}
+.hljs-num .hljs-number {
+  color: rgb(0,0,0);
+}
+
+.mrq {
+  bottom: -50px !important;
+  width: calc(100% - 230px) !important;
+}
+
+.btn {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: .2em;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #363636;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  height: 2em;
+  justify-content: center;
+  line-height: 1.5;
+  padding: calc(.5em - 1px) .5em;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.btn:active {
+  border-color: #4a4a4a;
+  outline: 0;
+}
+
+.btn:focus {
+  border-color: #485fc7;
+  outline: 0;
+}
+
+.btn:hover {
+  border-color: #b5b5b5;
+}
+
+.btn:focus:not(:active) {
+  box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+}
+
+.text-editor {
+  width: 100%;
+  padding: 0px 5px;
+  margin: 5px;
+}
+.tight-editor {
+  width: 100%;
+}
+.half-editor {
+  width: 50%;
+}
+.editor16 {
+  font-size: 16px;
+}
+.editor18 {
+  font-size: 18px;
+}
+.editor20 {
+  font-size: 20px;
+}
+.editor22 {
+  font-size: 22px;
+}
+.editor24 {
+  font-size: 24px;
+}

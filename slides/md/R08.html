@@ -1,0 +1,694 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R08
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Laws
+#### Monad
+]
+.ft88.oldsection[
+### Laws
+#### Monad
+
+.col100[
+.card.bg-g[
+##### Monad Laws
+.content.tight[
+A **monad** is a .uline[_structure_] with at least two methods (`of`, `flatMap`).cite[] obeying three laws:
+
+1. **Left Identity Law**
+.nol[
+- ∀ `x`, `f`:
+    - `Monad.of(`.hilite-y[`x`]`).flatMap(y -> `.hilite-y[`f(y)`]`)`
+    - ≡ .hilite-y[`f(x)`]
+]
+2. **Right Identity Law**
+.nol[
+- ∀ `monad`:
+    - .hilite-y[`monad`]`.flatMap(x -> Monad.of(x))`
+    - ≡ .hilite-y[`monad`]
+]
+3. **Associative Law**
+.nol[
+- ∀ `monad`, `f`, `g`:
+    - `monad.flatMap(x -> f(x)`.hilite-y[`)`]`.flatMap(y -> g(y))`
+    - ≡ `monad.flatMap(x -> f(x).flatMap(y -> g(y))`.hilite-y[`)`]
+]
+]
+]
+]
+]
+.abs.ft.top42.rt2.wt30[
+.card.bg-y[
+##### Side Note
+.content.tight[
+If **both** _left_ and _right_ identity exists, then they must be the same value.
+
+<br>
+
+.cite[].note20[Name might be different.]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Laws
+#### Monad
+#### Functor
+]
+.ft88.oldsection[
+### Laws
+#### Functor
+
+.col100[
+.card.bg-g[
+##### Monad Laws
+.content.tight[
+A **functor** is a .uline[_structure_] with at least two methods (`of`, `map`).cite[] obeying two laws:
+
+1. **Identity Morphism**
+.nol[
+- ∀ `functor`:
+    - .hilite-y[`functor`]`.map(x -> x)`
+    - ≡ .hilite-y[`functor`]
+]
+2. **Composition Morphism**
+.nol[
+- ∀ `functor`, `f`, `g`:
+    - `functor.map(x -> `.hilite-y[`f(x)`]`).map(y -> `.hilite-y[`g(y)`]`)`
+    - ≡ `functor.map(x -> `.hilite-y[`g(f(x))`]`)`
+]
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Laws
+### Monad
+#### Code
+]
+.ft88.oldsection[
+### Monad
+#### Code
+
+.col100[
+.font18[
+```java[copy=nones]
+public <R> Monad<R> flatMap(Transformer<? super T, ? extends Monad<? extends R>> f) {
+  return new Monad<>(f.transform(this.x).get());
+}
+```
+]
+<pre id="Q1" class="text-editor editor18" style="height:90px">
+public &lt;R&gt; Monad&lt;R&gt; map(Transformer&lt;? super T, ? extends R&gt; f) {
+  return this.flatMap(F); // Need to satisfy Functor laws
+}
+</pre>
+]
+
+##### Idea
+.col30[
+- What is the type of `f`?
+- What is the type of `F`?
+]
+.col70.nol[
+- <input type="text" class="tight-editor editor20"></input>
+- <input type="text" class="tight-editor editor20"></input>
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Laws
+### Monad
+### Functor
+#### Composition
+]
+.ft88.oldsection[
+### Functor
+#### Composition
+
+.col100[
+.card.bg-b[
+##### Composition Morphism
+.content.tight[
+.nol[
+- ∀ `functor`, `f`, `g`:
+    - `functor.map(x -> `.hilite-y[`f(x)`]`).map(y -> `.hilite-y[`g(y)`]`)`
+    - ≡ `functor.map(x -> `.hilite-y[`g(f(x))`]`)`
+]
+]
+]
+]
+
+##### Proof
+
+`m.map(x -> f(x)).map(x -> g(x))`
+
+.col5.nol[
+- &equiv;
+- &equiv;
+- &equiv;
+]
+.col55.nol[
+- <input type="text" class="tight-editor editor20"></input>
+- <input type="text" class="tight-editor editor20"></input>
+- <input type="text" class="tight-editor editor20"></input>
+]
+.col40.nol[
+- <input type="text" class="tight-editor editor20"></input>
+- <input type="text" class="tight-editor editor20"></input>
+- <input type="text" class="tight-editor editor20"></input>
+]
+
+`m.map(x -> g(f(x)))`
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Sequential
+]
+.ft88.oldsection[
+### Preliminary
+#### Sequential
+
+.col100[
+.img75[![Sequential](img/R08-Seq.png)]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Sequential
+#### Concurrent
+]
+.ft88.oldsection[
+### Preliminary
+#### Concurrent
+
+.col100[
+.img75[![Concurrent](img/R08-Conc.png)]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+#### Sequential
+#### Concurrent
+#### Parallel
+]
+.ft88.oldsection[
+### Preliminary
+#### Parallel
+
+.col100[
+.img75[![Parallel](img/R08-Par.png)]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Reduce
+#### Sequential
+]
+.ft88.oldsection[
+### Reduce
+#### Sequential
+
+.col100[
+.font20[
+```java[copy=nones]
+T reduce(T e, BinaryOperator<T> f)
+```
+]
+]
+.img75[![Reduce](img/R08-Reduce01.png)]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Reduce
+#### Sequential
+#### Parallel
+]
+.ft88.oldsection[
+### Reduce
+#### Parallel
+
+.col100[
+.font20[
+```java[copy=nones]
+T reduce(T e, BinaryOperator<T> f)
+```
+]
+]
+.img75[![Reduce](img/R08-Reduce02.png)]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Reduce
+#### Sequential
+#### Parallel
+]
+.ft88.oldsection[
+### Reduce
+#### Parallel
+
+.col100[
+.font20[
+```java[copy=nones]
+<U> U reduce(U e, BiFunction<U,? super T,U> f, BinaryOperator<U> g)
+```
+]
+]
+.img75[![Reduce](img/R08-Reduce03.png)]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Reduce
+#### Sequential
+#### Parallel
+#### Properties
+]
+.ft88.oldsection[
+### Reduce
+#### Properties
+
+.col100[
+.font20[
+```java[copy=nones]
+<U> U reduce(U e, BiFunction<U,? super T,U> f, BinaryOperator<U> g)
+```
+]
+]
+
+##### Parallelising Reduce
+To ensure equivalence in behavior between sequential and parallel reduce.
+
+.col25[
+- **Identity `e`**
+- **Pure `f` & `g`**
+- **Associative `f` & `g`**
+- **Compatible `f` & `g`**
+]
+.col75.nol[
+- `g(e, x)` should be equal to `x` .note20[(assume `x` is of type `U`)].cite[]
+- `f` and `g` should be _pure functions_
+- `g(g(x, y), z)` should be equal to `g(x, g(y, z))`
+- `g(x, f(e, y))` should be equal to `f(x, y)`
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+These properties may be deduced from the behavior of parallel reduce.
+]
+]
+]
+]
+.footnote.note20[In the case of `T reduce(T e, BinaryOperator<T> f)`, then `e` must be the identity of `f`<br>(i.e., `f(e, x)` should be equal to `x`).]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Preliminary
+### Reduce
+### Analysis
+]
+.ft88.oldsection[
+### Analysis
+
+.col62[
+#### Code
+.font20[
+```java[copy=nones]
+BiFunction<Integer, Integer, Integer> accumulator
+    = (a, x) -> {
+  System.out.println("A: (2 * " + a + ") + " + x);
+  return (2 * a) + x;
+};
+BinaryOperator<Integer> combiner = (a1, a2) -> {
+  System.out.println("C: " + a1 + " + " + a2);
+  return a1 + a2;
+};
+```
+```java[copy=nones]
+Stream.of(1, 2, 3, 4)
+//.parallel()
+  .reduce(0, accumulator, combiner);
+```
+]
+]
+.col38[
+#### Work
+<textarea class="text-editor editor18" style="height:400px">
+</textarea>
+]
+]
+
+---
+
+name: Question_3
+class: middle, sections
+
+# Question 3
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+#### Point
+]
+.ft88.oldsection[
+### Codes
+#### Point
+
+.col100[
+.font18[
+```java
+class Point {
+  private double x;
+  private double y;
+  public Point(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+  public double distSquare(Point p) {
+    return (this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y);
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+#### Point
+#### RandomPoint
+]
+.ft88.oldsection[
+### Codes
+#### RandomPoint
+
+.col100[
+.font18[
+```java
+import java.util.Random;
+class RandomPoint extends Point {
+  private static Random rand = new Random(0);
+  public static void setSeed(long seed) {
+    rand = new Random(seed);
+  }
+  public RandomPoint(double minX, double maxX, double minY, double maxY) {
+    super(rand.nextDouble() * (maxX - minX) + minX,
+          rand.nextDouble() * (maxY - minY) + minY);
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+#### Point
+#### RandomPoint
+#### Circle
+]
+.ft88.oldsection[
+### Codes
+#### Circle
+
+.col100[
+.font18[
+```java
+class Circle {
+  private Point c;
+  private double r;
+  public Circle(Point c, double r) {
+    this.c = c;
+    this.r = r;
+  }
+  public boolean contains(Point p) {
+    return c.distSquare(p) <= (r*r);
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+#### Point
+#### RandomPoint
+#### Circle
+#### Timing
+]
+.ft88.oldsection[
+### Codes
+#### Timing
+
+.col100[
+.font18[
+```java
+import java.time.Duration;
+import java.time.Instant;
+class Timing {
+  public static void main(String[] args) {
+    Instant start = Instant.now();
+    double res = estimatePi(10000, 1);
+    Instant stop = Instant.now();
+    System.out.println("res : " + res);
+    System.out.println("time: " + Duration.between(start, stop).toMillis() + " ms");
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+#### Point
+#### RandomPoint
+#### Circle
+#### Timing
+#### estimatePi
+]
+.ft88.oldsection[
+### Codes
+#### estimatePi
+
+.col100[
+.font18[
+```java
+public static double estimatePi(int numOfPoints, int seed) {
+  RandomPoint.setSeed(seed);
+  Circle c = new Circle(new Point(0.5, 0.5), 0.5);
+  int n = 0;
+  for (int i = 0; i < numOfPoints; i++) {
+    Point p = new RandomPoint(0, 1, 0, 1);
+    if (c.contains(p)) {
+      n++;
+    }
+  }
+  return 4.0 * n / numOfPoints;
+}
+```
+]
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+### Stream
+#### Idea
+]
+.ft88.oldsection[
+### Stream
+#### Idea
+
+.col100.atbl.blhead[
+| i | 0 | 1 | 2 | 3 | 4 | ... | n-1 |
+|---|---|---|---|---|---|---|-----|---|
+| **p** | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Codes
+### Stream
+#### Idea
+#### Code
+]
+.ft88.oldsection[
+### Stream
+#### Code
+
+.col100[
+<pre id="Q3" class="text-editor editor20" style="height:450px">
+import java.util.stream.Stream;
+
+public static double estimatePi(int numOfPoints, int seed) {
+  RandomPoint.setSeed(seed);
+  Circle c = new Circle(new Point(0.5, 0.5), 0.5);
+
+  return 0.0; // stub
+}
+</pre>
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]
+
+---
+
+# Proof
+
+.ft10.subsections[
+### Identity
+]
+.ft88.oldsection[
+### Identity
+
+.col100[
+.card.bg-y[
+##### Statement
+.content.tight[
+If **both** _left_ and _right_ identity exists, then they must be the same value.
+]
+]
+
+.card.bg-g[
+##### Proof by Contradiction
+.content.tight[
+- Assume _e<sub>L</sub>_ and _e<sub>R</sub>_ as left and right identity respectively such that _e<sub>L</sub>_ &ne; _e<sub>R</sub>_.
+- Then _e<sub>L</sub>_ &oplus; _e<sub>R</sub>_ = _e<sub>R</sub>_ .note20[(by left identity property of _e<sub>L</sub>_)].
+- Then _e<sub>L</sub>_ &oplus; _e<sub>R</sub>_ = _e<sub>L</sub>_ .note20[(by right identity property of _e<sub>R</sub>_)].
+- Putting it all together, we have
+.nol[
+- &rArr; _e<sub>L</sub>_ = _e<sub>L</sub>_ &oplus; _e<sub>R</sub>_ = _e<sub>R</sub>_
+- &rArr; _e<sub>L</sub>_ = _e<sub>R</sub>_
+]
+- This contradicts our initial assumption that _e<sub>L</sub>_ &ne; _e<sub>R</sub>_.
+.nol[
+- &therefore; _e<sub>L</sub>_ = _e<sub>R</sub>_
+]
+]
+]
+]
+]

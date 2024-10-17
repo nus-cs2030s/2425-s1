@@ -1,0 +1,587 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R05
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Qualifier
+#### Code #1
+]
+.ft88.oldsection[
+### Qualifier
+#### Code #1
+
+.col35[
+.font18[
+```java[copy=nones]
+class B {
+  static int x = 0;
+  ​
+  void f() {
+    A a = new A();
+    // Line A
+  }
+  ​
+  static class A {
+    int y = 0;
+    ​
+    A() {
+      y = x + 1;
+    }
+  }
+}
+```
+]
+]
+.col65[
+.font18[
+```java[copy=nones]
+B b = new B();
+b.f();
+```
+]
+
+.img80.center[![StackHeap](img/StackHeap.png)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Qualifier
+#### Code #1
+#### Code #2
+]
+.ft88.oldsection[
+### Qualifier
+#### Code #2
+
+.col35[
+.font18[
+```java[copy=nones]
+class B {
+  void f() {
+    int x = 0;
+    ​
+    class A {
+      int y = 0;
+      ​
+      A() {
+        y = x + 1;
+      }
+    }
+    ​
+    A a = new A();
+    // Line A
+  }
+}
+```
+]
+]
+.col65[
+.font18[
+```java[copy=nones]
+B b = new B();
+b.f();
+```
+]
+
+.img80.center[![StackHeap](img/StackHeap.png)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Qualifier
+#### Code #1
+#### Code #2
+#### Code #3
+]
+.ft88.oldsection[
+### Qualifier
+#### Code #3
+
+.col35[
+.font18[
+```java[copy=nones]
+class B {
+  int x = 1;
+  ​
+  void f() {
+    int y = 2;
+    ​
+    class A {
+      void g() {
+        x = y;
+      }
+    }
+    A a = new A();
+    // Line A
+    a.g();
+  }
+}
+```
+]
+]
+.col65[
+.font18[
+```java[copy=nones]
+B b = new B();
+b.f();
+```
+]
+
+.img80.center[![StackHeap](img/StackHeap.png)]
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+]
+.ft88.oldsection[
+### Stack
+#### Code
+
+.col40[
+```java[copy=nones]
+Stack<Integer> s
+    = Stack.createNew();
+s.push(1);
+s.push(2);
+s.push(3);
+s.head();  // 3
+s.pop();
+s.head();  // 2
+s.pop();
+s.head();  // 1
+s.pop();
+```
+]
+.col60[
+.center[![StackHeap](img/StackHeap.png)]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+]
+.ft88.oldsection[
+### Steps
+#### Up To T
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+
+.card.bg-g[
+##### Immutable Up To `T`
+.content.tight[
+In the context of **generic class**, we say that the class is
+.center[".uline[_immutable up to the generic type_ `T`]"]
+The immutability of generic type `C<T>` depends on the immutability of `T`.
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+public class Stack<T> {
+  private T head;
+  private Stack<T> tail;
+  private static final Stack<?>
+      EMPTY_STACK
+      = new Stack<>(null, null);
+  // :
+```
+]
+.col43[
+<pre id="Q2A" class="text-editor editor20" style="height:245px">
+public class Stack&lt;T&gt; {
+  private T head;
+  private Stack&lt;T&gt; tail;
+  private static final Stack&lt;?&gt;
+      EMPTY_STACK
+      = new Stack&lt;&gt;(null, null);
+  // :
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  // :
+  private Stack(T head,
+      Stack<T> tail) {
+    this.head = head;
+    this.tail = tail;
+  }
+  // :
+```
+]
+.col43[
+<pre id="Q2B" class="text-editor editor20" style="height:245px">
+  // :
+  private Stack(T head,
+      Stack&lt;T&gt; tail) {
+    this.head = head;
+    this.tail = tail;
+  }
+  // :
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  // :
+  public void push(T t) {
+    this.tail = new Stack<T>(
+        this.head, this.tail);
+    this.head = t;
+  }
+  // :
+```
+]
+.col43[
+<pre id="Q2C" class="text-editor editor20" style="height:245px">
+  // :
+  public void push(T t) {
+    this.tail = new Stack&lt;T&gt;(
+        this.head, this.tail);
+    this.head = t;
+  }
+  // :
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  // :
+  public void pop() {
+    // exception omitted
+    this.head = this.tail.head;
+    this.tail = this.tail.tail;
+  }
+  // :
+```
+]
+.col43[
+<pre id="Q2D" class="text-editor editor20" style="height:245px">
+  // :
+  public void pop() {
+    // exception omitted
+    this.head = this.tail.head;
+    this.tail = this.tail.tail;
+  }
+  // :
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  // :
+  public T head() {
+    // exception omitted
+    return head;
+  }
+  // :
+  // :
+```
+]
+.col43[
+<pre id="Q2E" class="text-editor editor20" style="height:245px">
+  // :
+  public T head() {
+    // exception omitted
+    return head;
+  }
+  // :
+  // :
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  public boolean isEmpty() {
+    if (this.head == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+```
+]
+.col43[
+<pre id="Q2F" class="text-editor editor20" style="height:245px">
+  public boolean isEmpty() {
+    if (this.head == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+</pre>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Stack
+### Steps
+### Immutable Stack
+]
+.ft88.oldsection[
+### Immutable Stack
+#### Translation
+
+.col100[
+.card.bg-b[
+##### Steps
+.content.tight[
+1. Make the fields **immutable** .note20[(if possible)]
+    - A good _approximation_ is to make the field `final`.
+2. Return **new instance** instead of mutating the current instance.
+3. **Prevent inheritance** of the class by using the `final` keyword.
+]
+]
+]
+
+.col57[
+```java[copy=nones]
+  public static <T> Stack<T> createNew() {
+    @SuppressWarnings("unchecked")
+    Stack<T> emptyStack =
+        (Stack<T>) EMPTY_STACK;
+    return emptyStack;
+  }
+}
+```
+]
+.col43[
+<pre id="Q2G" class="text-editor editor20" style="height:245px">
+  public static &lt;T&gt; Stack&lt;T&gt;
+      createNew() {
+    @SuppressWarnings("unchecked")
+    Stack&lt;T&gt; emptyStack =
+        (Stack&lt;T&gt;) EMPTY_STACK;
+    return emptyStack;
+  }
+}
+</pre>
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]
