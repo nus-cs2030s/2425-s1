@@ -57,7 +57,7 @@ You are not allowed to add additional instance/class fields to `Lazy<T>`.
 
 ```java
 public class Lazy<T> {
-  private Producer<? extends T> producer;
+  private Producer<T> producer;
   private Maybe<T> value;
 
    :
@@ -67,6 +67,7 @@ public class Lazy<T> {
 While you cannot add new fields, you should make the current field more flexible whenever possible.
 Furthermore, in all discussion below, the method signature given may not be the most flexible.
 Your task is to determine if they can be made more flexible.
+If they can, you should use the most flexible type while minimizing the number of type parameters by using wildcards.
 
 ### Constraints
 
