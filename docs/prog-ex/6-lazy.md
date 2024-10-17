@@ -330,9 +330,9 @@ $ java -jar ~cs2030s/bin/checkstyle.jar -c ex6_style.xml cs2030s/fp/*.java
 
 ## Skeleton for Programming Exercise 5
 
-You need to copy the files `Some.java` and `Transformer.java` from `ex4-username` to `ex5-username`.
+We provide `.class` files for the functional interfaces as well as `Maybe<T>`.
+There are also template files for `Lazy.java` and `Combiner.java` in `cs2030s/fp` directory.
 Some files (_e.g.,_ `Test1.java`, `Test2.java`, `CS2030STest.java`, _etc_) are provided for testing.
-Do not copy these from `ex4-username`.
 You may edit them to add your own test cases, but we will be using our own version for testing.
 
 While there is no given public test cases for it, we will test your code with hidden test cases that checks for flexible type.
