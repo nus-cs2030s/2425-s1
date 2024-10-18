@@ -1,0 +1,1879 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L11: Asynchronous Computation
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Threads
+class: middle, sections
+
+# Threads
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+#### Basic
+]
+.ft88.oldsection[
+### Java Thread
+#### Basic
+
+.col100[
+.card.bg-b[
+##### Thread
+.content.tight[
+A **thread** is a _thread of execution_ in a program.
+The Java Virtual Machine allows an application to have multiple threads of execution running concurrently.
+]
+]
+
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Thread.html" frameborder=0 width=100% height=300px></iframe>
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+#### Basic
+#### Multi-Threading
+]
+.ft88.oldsection[
+### Java Thread
+#### Multi-Threading
+
+.col50[
+##### Sequential
+
+.img90[![Multi](img/11-Multi01.png)]
+
+##### Concurrent Multi-Tasking
+
+.img90[![Multi](img/11-Multi03.png)]
+]
+.col50[
+##### Multi-Processing
+
+.img90[![Multi](img/11-Multi02.png)]
+
+##### Multi-Threading
+
+.img90[![Multi](img/11-Multi03.png)]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+]
+.ft88.oldsection[
+### Interleaving
+#### Code
+
+.col50[
+##### Thread #1
+```java[copy=nones]
+Thread thread1 = new Thread( () -> {
+  for (int i = 0; i < 100; i++) {
+    System.out.print("*");
+  }
+});
+```
+]
+.col50[
+##### Thread #2
+```java[copy=nones]
+Thread thread2 = new Thread( () -> {
+  for (int i = 0; i < 100; i++) {
+    System.out.print("_");
+  }
+});
+```
+]
+
+##### Execution
+.col50[
+##### Thread #1
+```java[copy=nones]
+thread1.start();
+```
+]
+.col50[
+##### Thread #2
+```java[copy=nones]
+thread2.start();
+```
+]
+]
+.footnote[The thread will .drdtxt[**NOT**] start unless `Thread::start` is invoked.]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave01.png)
+]
+.col30[
+.card.bg-w[
+.content.tight.nol[
+**Thread 1 is running**
+
+<br>
+
+.op30[**Thread 2 is on hold**]
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave02.png)
+]
+.col30[
+.card.bg-w[
+.content.tight.nol[
+.op30[**Thread 1 is running**]
+
+<br>
+
+**Thread 2 is on hold**
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave03.png)
+]
+.col30[
+.card.bg-w[
+.content.tight.nol[
+**Thread 1 is running**
+
+<br>
+
+.op30[**Thread 2 is on hold**]
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave04.png)
+]
+.col30[
+.card.bg-w[
+.content.tight.nol[
+.op30[**Thread 1 is running**]
+
+<br>
+
+**Thread 2 is on hold**
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave05.png)
+]
+.col30[
+.card.bg-w[
+.content.tight.nol[
+**Thread 1 is running**
+
+<br>
+
+.op30[**Thread 2 is on hold**]
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+#### Code
+#### Visualization
+]
+.ft88.oldsection[
+### Interleaving
+#### Visualization
+
+.col70[
+![Interleaving](img/11-Interleave06.png)
+]
+.col30[
+.card.bg-y[
+##### Note
+.content.tight[
+The **gap** in the timing is due to "_context switching_".
+
+<br>
+
+.note20[(the time it takes to switch from one thread to another)]
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+]
+.ft88.oldsection[
+### Benefit
+#### Non-Blocking
+
+.col50[
+##### Long Runtime
+.font20[
+```java[copy=nones]
+// Assume isPrime(int n) is defined
+Thread findPrime = new Thread( () -> {
+    System.out.println(
+        Stream.iterate(2, i -> i + 1)
+              .filter(x -> isPrime(x))
+              .limit(500000)
+              .reduce(0, (x, y) -> y)
+      );
+  });
+  ​
+findPrime.start();
+```
+]
+]
+.col50[
+##### Waiting Code
+.font20[
+```java[copy=nones]
+// Find something to do until finished
+while (findPrime.isAlive()) {
+  try {
+    System.out.print(".");
+    Thread.sleep(1000); // busy-wait
+  } catch (InterruptedException e) {
+    System.out.println(
+      "who woke me up?!"
+    );
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+]
+.ft88.oldsection[
+### Drawback
+#### Overhead
+
+.col70[
+![Interleaving](img/11-Interleave06.png)
+]
+.col30[
+.card.bg-r[
+##### Overhead?
+.content.tight[
+1. Starting a thread
+2. Scheduling threads
+3. Context switching
+4. Parent must wait
+5. .note20[etc]
+
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+]
+.ft88.oldsection[
+### Drawback
+#### Overhead
+##### Parent Must Wait
+
+.col100[
+.img50[![Wait](img/11-ParentWait.jpg)]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+]
+.ft88.oldsection[
+### Drawback
+#### Exception
+
+.col65[
+.font20[
+```java
+int x = 0;
+Thread divide = new Thread( () -> {} );
+```
+
+```java
+try {
+  divide = new Thread( () -> { println(1/x); });
+} catch(Exception e) {
+  // Catch here? But thread is not running!
+}
+```
+
+```java
+try {
+  divide.start();
+} catch(Exception e) {
+  // Catch here? But we do not wait after start!
+}
+```
+]
+]
+.col35[
+.card.bg-r[
+##### Difficulties
+.content.tight[
+1. Ambiguity in where the exception should be handled.
+2. How do we know which exceptions is thrown?
+3. How to differentiate the exceptions thrown by the task and the exceptions thrown by the thread itself?
+4. Does it handle all possible cases?
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+]
+.ft88.oldsection[
+### Drawback
+#### Single Use
+##### Example Code
+
+.col55[
+```java[lite=5]
+Thread helloWorld = new Thread( () -> {
+  System.out.println("Hello World!");
+});
+helloWorld.start();
+helloWorld.start();
+```
+
+.font18[
+```jshell[copy=nones]
+Exception in thread "main"
+java.lang.IllegalThreadStateException
+    at java.base/java.lang.Thread.start
+      (Thread.java:795)
+    at SingleUse.main(SingleUse.java:15)
+```
+]
+]
+.col45[
+.card.bg-r[
+##### Problem
+.content.tight[
+Cannot call Thread::start on a completed thread.
+
+<br>
+
+.op60[
+> **_It is never legal to start a thread more than once. In particular, a thread may not be restarted once it has completed execution._**
+]
+]
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Difficult Sharing
+]
+.ft88.oldsection[
+### Drawback
+#### Difficult Sharing
+##### Use of Shared Variable for Input
+
+.col50[
+.font20[
+```java[copy=nones|lite=1]
+int n = 100000;
+int[] arr = new int[n];
+​
+​
+for (int i = 0; i < n; i += 1) {
+  arr[i] = 1;
+}
+​
+  : // Thread Initialization
+  ​ 
+half1.start();
+half2.start();
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=3,9]
+Thread half1 = new Thread( () -> {
+  int sum = 0;
+  for (int i = 0; i < n/2; i += 1) {
+    sum += arr[i];
+  }
+});
+Thread half2 = new Thread( () -> {
+  int sum = 0;
+  for (int i = n/2; i < n; i += 1) {
+    sum += arr[i];
+  }
+});
+```
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Difficult Sharing
+]
+.ft88.oldsection[
+### Drawback
+#### Difficult Sharing
+##### What About Return Value?
+
+.col50[
+.font20[
+```java[copy=nones]
+int n = 100000;
+int[] arr = new int[n];
+​
+​
+for (int i = 0; i < n; i += 1) {
+  arr[i] = 1;
+}
+​
+  : // Thread Initialization
+  ​ 
+half1.start();
+half2.start();
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=5,11]
+Thread half1 = new Thread( () -> {
+  int sum = 0;
+  for (int i = 0; i < n/2; i += 1) {
+    sum += arr[i];
+  } // How to return sum?
+});
+Thread half2 = new Thread( () -> {
+  int sum = 0;
+  for (int i = n/2; i < n; i += 1) {
+    sum += arr[i];
+  } // How to return sum?
+});
+```
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Difficult Sharing
+]
+.ft88.oldsection[
+### Drawback
+#### Difficult Sharing
+##### Problem of Effectively Final
+
+.col50[
+.font20[
+```java[copy=nones|lite=3]
+int n = 100000;
+int[] arr = new int[n];
+int sum = 0;
+​
+for (int i = 0; i < n; i += 1) {
+  arr[i] = 1;
+}
+​
+  : // Thread Initialization
+  ​ 
+half1.start();
+half2.start();
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=4,10]
+Thread half1 = new Thread( () -> {
+  // sum is effectively final
+  for (int i = 0; i < n/2; i += 1) {
+    sum += arr[i];
+  }
+});
+Thread half2 = new Thread( () -> {
+  // sum is effectively final
+  for (int i = n/2; i < n; i += 1) {
+    sum += arr[i];
+  }
+});
+```
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Difficult Sharing
+]
+.ft88.oldsection[
+### Drawback
+#### Difficult Sharing
+##### Race Condition!
+
+.col50[
+.font20[
+```java[copy=nones|lite=3]
+int n = 100000;
+int[] arr = new int[n];
+int[] sum = new int[] { 0 };
+​
+for (int i = 0; i < n; i += 1) {
+  arr[i] = 1;
+}
+​
+  : // Thread Initialization
+  ​ 
+half1.start();
+half2.start();
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=4,10]
+Thread half1 = new Thread( () -> {
+  // sum[0] can be mutated
+  for (int i = 0; i < n/2; i += 1) {
+    sum[0] += arr[i];
+  }
+});
+Thread half2 = new Thread( () -> {
+  // sum[0] can be mutated
+  for (int i = n/2; i < n; i += 1) {
+    sum[0] += arr[i];
+  }
+});
+```
+]
+]
+]
+
+---
+
+# Threads
+
+.ft10.subsections[
+### Java Thread
+### Interleaving
+### Benefit
+### Drawback
+#### Overhead
+#### Exception
+#### Single Use
+#### Difficult Sharing
+]
+.ft88.oldsection[
+### Drawback
+#### Difficult Sharing
+##### What Can We Do?
+
+.col50[
+![Give Up](img/11-GiveUp.jpg)
+]
+.col50[
+.card.bg-y[
+##### Summary
+.content.tight[
+1. Thread does not accept argument
+2. Thread has no return value
+3. Use of shared variable poses additional problems
+]
+]
+
+.card.bg-b[
+##### Solution
+.content.tight[
+1. Study parallel/concurrent computing
+.nol[
+- .note20[(CS2106, CS3210, CS3211, etc)]
+]
+2. Not using thread .note20[(too low level)]
+]
+]
+]
+]
+
+---
+
+name: Dependency_Management
+class: middle, sections
+
+# Dependency Management
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+#### Task
+]
+.ft88.oldsection[
+### Dependency
+#### Task
+
+.col35[
+##### Code
+.font20[
+```java[copy=nones]
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskC(a);
+  int e = taskE(b, c);
+  return e;
+}
+```
+]
+.card.bg-r[
+##### Caution
+.content.tight[
+We need to differentiate between _thread_ and _task_.
+]
+]
+]
+.col65[
+##### Graph
+.content.tight[
+![Graph](img/11-Dependency.png)
+]
+]
+]
+.abs.rt1.bot3.wt20.ft[
+.card.bg-y[
+##### Convention
+.content.tight.nol[
+- ⊗ waits **all**
+- ⊕ waits **any**
+]
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+#### Task
+#### Maybe&lt;T&gt;
+]
+.ft88.oldsection[
+### Dependency
+#### Maybe&lt;T&gt;
+
+##### Code
+.col30[
+.font20[
+```java[copy=nones]
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskC(a);
+  int e = taskE(b,
+                c);
+  return e;
+}
+```
+]
+]
+.col70[
+.font20[
+```java[copy=nones]
+Maybe<Integer> foo(int x) {
+  Maybe<Integer> a = Maybe.of(taskA(x));
+  Maybe<Integer> b = a.flatMap(va -> taskB(va));
+  Maybe<Integer> c = a.flatMap(va -> taskC(va));
+  Maybe<Integer> d = a.flatMap(va -> taskD(va));
+  Maybe<Integer> e = b.flatMap(vb ->
+                     c.flatMap(vc -> taskE(vb, vc)));
+  return e;
+}
+```
+]
+]
+]
+.abs.top2.rt0.wt30[
+![Graph](img/11-Dependency.png)
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+#### Task
+#### Maybe&lt;T&gt;
+#### Lazy&lt;T&gt;
+]
+.ft88.oldsection[
+### Dependency
+#### Lazy&lt;T&gt;
+
+##### Code
+.col30[
+.font20[
+```java[copy=nones]
+int foo(int x) {
+  int a = taskA(x);
+  int b = taskB(a);
+  int c = taskC(a);
+  int d = taskC(a);
+  int e = taskE(b,
+                c);
+  return e;
+}
+```
+]
+]
+.col70[
+.font20[
+```java[copy=nones]
+Lazy<Integer>  foo(int x) {
+  Lazy<Integer>  a = Maybe.of(taskA(x));
+  Lazy<Integer>  b = a.flatMap(va -> taskB(va));
+  Lazy<Integer>  c = a.flatMap(va -> taskC(va));
+  Lazy<Integer>  d = a.flatMap(va -> taskD(va));
+  Lazy<Integer>  e = b.flatMap(vb ->
+                     c.flatMap(vc -> taskE(vb, vc)));
+  return e;
+}
+```
+]
+]
+]
+.abs.top2.rt0.wt30[
+![Graph](img/11-Dependency.png)
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+#### Task
+#### Maybe&lt;T&gt;
+#### Lazy&lt;T&gt;
+#### CompletableFuture&lt;T&gt;
+]
+.ft88.oldsection[
+### Dependency
+#### CompletableFuture&lt;T&gt;
+
+##### Code
+.col100[
+.font20[
+```java[copy=nones]
+CompletableFuture<Integer> foo(int x) {
+  CompletableFuture<Integer> a = CompletableFuture.completedFuture(taskA(x));
+  CompletableFuture<Integer> b = a.thenComposeAsync(va -> taskB(va));
+  CompletableFuture<Integer> c = a.thenComposeAsync(va -> taskC(va));
+  CompletableFuture<Integer> d = a.thenComposeAsync(va -> taskD(va));
+  CompletableFuture<Integer> e = b.thenComposeAsync(vb ->
+                                 c.thenComposeAsync(vc -> taskE(vb, vc)));
+  return e;                   // b.thenCombineAsync(c, (vb, vc) -> taskE(vb, vc));
+}
+```
+]
+]
+]
+.abs.top2.rt0.wt30[
+![Graph](img/11-Dependency.png)
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+#### In the Past
+]
+.ft88.oldsection[
+### Welcome to the Future!
+#### In the Past
+
+.col100[
+.font18[
+```java
+class WithoutCF {
+  public static void main(String[] args) {
+    int i = 200_000;
+    int j = 100_000;
+    int ithPrime = findIthPrime(i);
+    int jthPrime = findIthPrime(j);
+    int diff = ithPrime - jthPrime;
+    System.out.println(diff);
+  }
+}
+```
+]
+]
+.col35[
+![Prime](img/11-Prime.png)
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+#### In the Past
+#### In the Future
+]
+.ft88.oldsection[
+### Welcome to the Future!
+#### In the Future
+
+.col100[
+.font18[
+```java
+class WithCF {
+  public static void main(String[] args) {
+    int i = 200_000;
+    int j = 100_000;
+    CompletableFuture<Integer> ithPrime = CompletableFuture.supplyAsync(() -> findIthPrime(i));
+    CompletableFuture<Integer> jthPrime = CompletableFuture.supplyAsync(() -> findIthPrime(j));
+    CompletableFuture<Integer>  diff = ithPrime.thenCombine(jthPrime, (x,y) -> x - y);
+    System.out.println(diff.join());
+  }
+}
+```
+]
+]
+.col35[
+![Prime](img/11-Prime.png)
+]
+.col65[
+.card.bg-y[
+.content.tight[
+We can focus simply on the **dependency**!
+Interleaving of the operation can be handled automatically by `CompletableFuture`.
+]
+]
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+#### In the Past
+#### In the Future
+#### Advantage
+]
+.ft88.oldsection[
+### Welcome to the Future!
+#### Advantage
+
+.col50[
+.card.bg-g[
+##### Easy Multi-Threading
+.content.tight[
+- Perform multi-threading easily
+]
+.content.tight[
+- No need to worry about
+    - actual order of operations
+    - communications between threads<br>
+    .note20[(e.g., synchronization, passing values, etc)]
+]
+.content.tight[
+- Focus only on
+    - "**logical**" order of operation
+    - **dependencies** between the values
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Composition/Chaining
+.content.tight[
+- `cf1.thenComposeAsync(op)`
+.nol[
+- Execute `op` after `cf1` complete
+- Operation is .dgntxt[**non-blocking**]
+]
+]
+.content.tight[
+- `cf1.thenCombineAsync(cf2, op)`
+.nol[
+- Execute `op` after **both** `cf1` and `cf2`
+- Operation is .dgntxt[**non-blocking**]
+]
+]
+.content.tight[
+- `cf1.join()`
+.nol[
+- Waits for `cf1` to be completed
+- Operation is .drdtxt[**blocking**]
+]
+]
+]
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+#### In the Past
+#### In the Future
+#### Advantage
+#### Java 21 API
+]
+.ft88.oldsection[
+### Welcome to the Future!
+#### Java 21 API
+
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html" frameborder=0 width=100% height=450px></iframe>
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+### vs Lazy
+#### Code
+]
+.ft88.oldsection[
+### vs Lazy
+#### Code
+
+.col50[
+##### Being Lazy
+
+.font20[
+```java[copy=nones]
+Lazy<Integer> lazy =
+  Lazy.of(() -> {
+    for (int i = 0; i < 10000; i += 1) {
+      System.out.print("_");
+    }
+    return 1;
+  });
+
+for (int i = 0; i < 1000; i += 1) {
+  System.out.print("#");
+}
+
+System.out.println(lazy.get());
+```
+]
+]
+.col50[
+##### Back to the Future
+
+.font20[
+```java[copy=nones]
+CompletableFuture<Integer> cf =
+  CompletableFuture.supplyAsync(() -> {
+    for (int i = 0; i < 10000; i += 1) {
+      System.out.print("_");
+    }
+    return 1;
+  });
+
+for (int i = 0; i < 1000; i += 1) {
+  System.out.print("#");
+}
+
+System.out.println(cf.join());
+```
+]
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+### vs Lazy
+#### Code
+#### Timing
+]
+.ft88.oldsection[
+### vs Lazy
+#### Code
+
+.col50[
+##### Being Lazy
+
+![Timing](img/11-Timing01.png)
+]
+.col50[
+##### Back to the Future
+
+![Timing](img/11-Timing02.png)
+]
+]
+
+---
+
+# Dependency Management
+
+.ft10.subsections[
+### Dependency
+### Future
+### vs Lazy
+### Properties
+]
+.ft88.oldsection[
+### Properties
+
+.col50[
+.card.bg-y[
+##### Monadic
+.content.tight[
+`CompletableFuture` is a **Monad**.
+
+<br>
+
+If you know how to chain a monad, you hopefully know how to chain a `CompletableFuture`.
+]
+]
+.card.bg-r[
+##### Exception Handling
+.content.tight[
+Can be done using [**handle**](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html#handle%28java.util.function.BiFunction%29) method.
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Super Interface
+.content.tight[
+Some methods in `CompletableFuture` returns `CompletionStage`.
+
+<br>
+
+`CompletionStage` is an interface implemented by `CompletableFuture`.
+]
+]
+.card.bg-g[
+##### Overhead Reduction
+.content.tight[
+We can reduce overhead of thread creation using `ForkJoinPool` .note20[(to be discussed later)].
+
+<br>
+
+This is a form of **Thread Pool**.
+]
+]
+]
+]
+
+---
+
+name: Fork_and_Join
+class: middle, sections
+
+# Fork and Join
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+#### Model
+]
+.ft88.oldsection[
+### Preliminary
+#### Model
+
+.col40[
+.card.bg-b[
+##### Computational Model
+.content.tight[
+A **fork and join** is a parallel divide-and-conquer model of computation where
+]
+.content.tight[
+- `fork()` divides a problem
+.nol[
+- .note20[not even blocking the task]
+]
+]
+.content.tight[
+- `join()` combines the result
+.nol[
+- .note20[blocks the task, not necessarily the thread]
+]
+]
+]
+]
+.col60[
+.font20[
+```java
+Queue<Runnable> queue = new LinkedList<>();
+Thread newThread = new Thread( () -> {
+    while (true) {
+      if (!queue.isEmpty()) {
+        Runnable r = queue.remove();
+        r.run();
+      }
+    }
+  });
+
+for (int i = 0; i < 100; i += 1) {
+  int count = i;
+  queue.add(() -> System.out.println(count));
+}
+```  
+]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+]
+.ft88.oldsection[
+### Management
+#### Global Task Queue
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight.font20[
+_A queue of task submitted from_ `fork()` _by a thread that is not part of a fork join pool._
+- _New tasks are inserted into the back of the queue._
+- _A thread from fork join pool may retrieve a task from the front of the queue into its_ **local task deque**_._
+- _A join stack is also available to store tasks currently on hold_ .note20[(e.g., waiting other tasks to complete)].
+]
+]
+
+.img95.center[![Queue](img/11-Queue01.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+]
+.ft88.oldsection[
+### Management
+#### Global Task Queue
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight.font20[
+_A queue of task submitted from_ `fork()` _by a thread that is not part of a fork join pool._
+- _New tasks are inserted into the back of the queue._
+- _A thread from fork join pool may retrieve a task from the front of the queue into its_ **local task deque**_._
+- _A join stack is also available to store tasks currently on hold_ .note20[(e.g., waiting other tasks to complete)].
+]
+]
+
+.img95.center[![Queue](img/11-Queue02.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+]
+.ft88.oldsection[
+### Management
+#### Global Task Queue
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight.font20[
+_A queue of task submitted from_ `fork()` _by a thread that is not part of a fork join pool._
+- _New tasks are inserted into the back of the queue._
+- _A thread from fork join pool may retrieve a task from the front of the queue into its_ **local task deque**_._
+- _A join stack is also available to store tasks currently on hold_ .note20[(e.g., waiting other tasks to complete)].
+]
+]
+
+.img95.center[![Queue](img/11-Queue03.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+]
+.ft88.oldsection[
+### Management
+#### Global Task Queue
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight.font20[
+_A queue of task submitted from_ `fork()` _by a thread that is not part of a fork join pool._
+- _New tasks are inserted into the back of the queue._
+- _A thread from fork join pool may retrieve a task from the front of the queue into its_ **local task deque**_._
+- _A join stack is also available to store tasks currently on hold_ .note20[(e.g., waiting other tasks to complete)].
+]
+]
+
+.img95.center[![Queue](img/11-Queue04.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+]
+.ft88.oldsection[
+### Management
+#### Local Task Deque
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight.font20[
+_A deque .note20[(double-ended queue)] of task to be executed by the thread in a fork join pool._
+- _On call to_ `fork()`, _insert to the_ **front** _of the deque_ .note20[(non-blocking!)].
+- _On call to_ `join()`, **find** _the task to be executed_ .note20[(may need pop and push back)].
+- _Task may be_ **stolen** _from the_ **back** _of the deque_ .note20[(Task Stealing)].
+]
+]
+
+.img95.center[![Queue](img/11-Deque01.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+]
+.ft88.oldsection[
+### Management
+#### Local Task Deque
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight.font20[
+_A deque .note20[(double-ended queue)] of task to be executed by the thread in a fork join pool._
+- _On call to_ `fork()`, _insert to the_ **front** _of the deque_ .note20[(non-blocking!)].
+- _On call to_ `join()`, **find** _the task to be executed_ .note20[(may need pop and push back)].
+- _Task may be_ **stolen** _from the_ **back** _of the deque_ .note20[(Task Stealing)].
+]
+]
+
+.img95.center[![Queue](img/11-Deque02.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+]
+.ft88.oldsection[
+### Management
+#### Local Task Deque
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight.font20[
+_A deque .note20[(double-ended queue)] of task to be executed by the thread in a fork join pool._
+- _On call to_ `fork()`, _insert to the_ **front** _of the deque_ .note20[(non-blocking!)].
+- _On call to_ `join()`, **find** _the task to be executed_ .note20[(may need pop and push back)].
+- _Task may be_ **stolen** _from the_ **back** _of the deque_ .note20[(Task Stealing)].
+]
+]
+
+.img95.center[![Queue](img/11-Deque03.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+]
+.ft88.oldsection[
+### Management
+#### Local Task Deque
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight.font20[
+_A deque .note20[(double-ended queue)] of task to be executed by the thread in a fork join pool._
+- _On call to_ `fork()`, _insert to the_ **front** _of the deque_ .note20[(non-blocking!)].
+- _On call to_ `join()`, **find** _the task to be executed_ .note20[(may need pop and push back)].
+- _Task may be_ **stolen** _from the_ **back** _of the deque_ .note20[(Task Stealing)].
+]
+]
+
+.img95.center[![Queue](img/11-Deque04.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+]
+.ft88.oldsection[
+### Management
+#### Local Task Deque
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight.font20[
+_A deque .note20[(double-ended queue)] of task to be executed by the thread in a fork join pool._
+- _On call to_ `fork()`, _insert to the_ **front** _of the deque_ .note20[(non-blocking!)].
+- _On call to_ `join()`, **find** _the task to be executed_ .note20[(may need pop and push back)].
+- _Task may be_ **stolen** _from the_ **back** _of the deque_ .note20[(Task Stealing)].
+]
+]
+
+.img95.center[![Queue](img/11-Deque05.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back01.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back02.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back03.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back04.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back05.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back06.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+#### Global Task Queue
+#### Local Task Deque
+#### Why the Back?
+]
+.ft88.oldsection[
+### Management
+#### Why the Back?
+
+.col100[
+.card.bg-y[
+##### Stealing from the Back
+.content.tight.font20[
+_Stealing from the back ensures a more balance workload on a reasonable assumption._
+- _New tasks are inserted from the front._
+- _Tasks are retrieved from the front._
+- _Tasks at the back potentially create more tasks._
+]
+]
+
+.img95.center[![Queue](img/11-Back07.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### API
+
+.col100[
+<iframe src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ForkJoinPool.html" frameborder=0 width=100% height=450px></iframe>
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Basic
+
+.col100[
+.card.bg-b[
+##### Definition
+.content.tight[
+A `ForkJoinPool` is a _pool of threads_ for using `fork()` and `join()` such that
+- `fork()` puts the _new task_ into the task deque .note20[(non-blocking!)].
+- `join()` puts the _current task_ into the join stack .note20[(potentially blocking)].
+    - The worker thread try to find the joined task in its deque to run.
+
+]
+]
+
+.card.bg-g[
+##### Steps
+.content.tight[
+1. Extends the abstract `RecursiveTask<V>` class.
+2. Implements the abstract `protected abstract V compute()` method.
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

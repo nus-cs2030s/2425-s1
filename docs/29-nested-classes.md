@@ -204,6 +204,7 @@ a.baz();
 ```
 
 The stack and heap diagram at the line marked Line A is shown below.  The diagram below also illustrates the use of _meta space_ to store the class field `A.y`.
+{++Also, `A.this` is **always** captured, so `A.this` is added to the bottom of the dashed line++}.
 
 ![SH011](figures/SH/011.png)
 
@@ -299,34 +300,34 @@ b.g();
 will give us a reference to an object of type `B` now.  But, if we call `b.g()`, what is the value of `y`?  Without _variable capture_, the stack and heap diagram is something like the following.  Notice how we have no access to `y` anymore!
 
 === "After `A a = new A()`"
-    ![SH 009A](figures/SH/009a.png)
+    ![SH 009A](figures/SH/009a.png){ width=500px }
 === "Invoking `a.f()`"
-    ![SH 009B](figures/SH/009b.png)
+    ![SH 009B](figures/SH/009b.png){ width=500px }
 === "After `int y = 1`"
-    ![SH 009C](figures/SH/009c.png)
+    ![SH 009C](figures/SH/009c.png){ width=500px }
 === "After `B b = new B()`"
-    ![SH 009D](figures/SH/009d.png)
+    ![SH 009D](figures/SH/009d.png){ width=500px }
 === "After `C b = a.f()`"
-    ![SH 009E](figures/SH/009e.png)
+    ![SH 009E](figures/SH/009e.png){ width=500px }
 === "Invoking `b.g()`"
-    ![SH 009F](figures/SH/009f.png)
+    ![SH 009F](figures/SH/009f.png){ width=500px }
 
 For this reason, even though a local class can access the local variables in the enclosing method, the local class makes _a copy of local variables_ inside itself.  We say that a local class _captures_ the local variables.   Note that local variables are variables declared within a method.  These variables are local to the method.  Fields can always be accessed and need not be captured through this means.
 
 Visually, we will include the captured variables after the fields in the stack and heap diagram.  We will use a dashed line to separate the fields and captured variables.  Note that captured variables are __NOT__ part of the fields, so it cannot be accessed with the dot operator (_e.g.,_ `this.y`).
 
 === "After `A a = new A()`"
-    ![SH 010A](figures/SH/010a.png)
+    ![SH 010A](figures/SH/010a.png){ width=500px }
 === "Invoking `a.f()`"
-    ![SH 010B](figures/SH/010b.png)
+    ![SH 010B](figures/SH/010b.png){ width=500px }
 === "After `int y = 1`"
-    ![SH 010C](figures/SH/010c.png)
+    ![SH 010C](figures/SH/010c.png){ width=500px }
 === "After `B b = new B()`"
-    ![SH 010D](figures/SH/010d.png)
+    ![SH 010D](figures/SH/010d.png){ width=500px }
 === "After `C b = a.f()`"
-    ![SH 010E](figures/SH/010e.png)
+    ![SH 010E](figures/SH/010e.png){ width=500px }
 === "Invoking `b.g()`"
-    ![SH 010F](figures/SH/010f.png)
+    ![SH 010F](figures/SH/010f.png){ width=500px }
 
 Variables are only captured when they are (i) local to the method and (ii) used in local class.  Consider the following modification to the previous example:
 
