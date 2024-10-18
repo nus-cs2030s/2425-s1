@@ -1,0 +1,2366 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L10: Monad & Parallel Stream
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Recap
+class: middle, sections
+
+# Recap
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+]
+.ft88.oldsection[
+### Functions
+#### Pure
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **pure function** **_f_** .note20[(denoted by **_f : X &rarr; Y_**)] is a **mapping** from the _domain_ **_X_** to the _codomain_ **_Y_**:
+]
+.content.tight[
+- For every **_x_ &in; _X_**, there is **_y_ &in; _Y_** such that **_y_ = _f(x)_**.
+- **_f(x)_** is **referentially transparent** .note20[(i.e., deterministic and no side-effect)].
+]
+]
+]
+.col20[
+![Pure](img/10-Pure01.png)
+]
+.col5.op0[
+.
+]
+.col20[
+![Pure](img/10-Pure02.png)
+]
+.col5.op0[
+.
+]
+.col50[
+.card.bg-y[
+##### Side-Effect
+.content.tight[
+- Print to monitor
+- Write to files
+- Throw exceptions
+- Modify fields
+- .note20[etc]
+]
+]
+]
+]
+.footnote.note20[Based on the definition, we are only considering **total** function.]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+]
+.ft88.oldsection[
+### Simple Box
+#### Simple Container of Immutable Object
+
+.col7.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+```
+]
+]
+.col43[
+.font20[
+```java[copy=nones]
+class Box<T> {
+  private final T val;
+  ​
+  Box(T val) {
+    this.val = val;
+  }
+  public T val() {
+    return this.val;
+  }
+  @Override
+  public String toString() {
+    return "[" + this.val + "]";
+  }
+    :
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Box<?>)) {
+      return false;
+    }
+    Box<?> box = (Box<?>) obj;
+    return this.val == null
+        ? this.val == box.val
+        : this.val.equals(box.val);
+  }
+  public static <T> Box<T> of(T val) {
+    return new Box<T>(val);
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01a.jpg)
+]
+
+##### Step
+.col35[
+1. Open the box
+2. Operate with the function
+3. Put into the new box
+]
+.col65.nol[
+- .note20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01b.jpg)
+]
+
+##### Step
+.col35[
+1. Open the box
+2. .op20[Operate with the function]
+3. .op20[Put into the new box]
+]
+.col65.nol[
+- .note20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20.op20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01c.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. Operate with the function
+3. .op20[Put into the new box]
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20.op20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01d.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. Operate with the function
+3. .op20[Put into the new box]
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20.op20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01e.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. .op20[Operate with the function]
+3. Put into the new box
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01f.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. .op20[Operate with the function]
+3. Put into the new box
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20[(preserve context, use factory method?)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+]
+.ft88.oldsection[
+### Transformation
+#### Map
+
+.col100[
+![Map](img/10-Map01a.jpg)
+]
+
+##### Step
+.col100[
+.font20[
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+]
+.col95[
+.font20[
+```java[copy=nones]
+<U> Box<U> map(Transformer<? super T, ? extends U> f) {
+  T val = this.val;         // 1. Open the box (inside the box)
+  U res = f.transform(val); // 2. Operate with the function
+  return new Box<>(res);    // 3. Put into new box (preserve "context")
+}
+```
+]
+]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01a.jpg)
+]
+
+##### Step
+.col35[
+1. Open the box
+2. Operate with the function
+3. Compose the two "context"
+]
+.col65.nol[
+- .note20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01b.jpg)
+]
+
+##### Step
+.col35[
+1. Open the box
+2. .op20[Operate with the function]
+3. .op20[Compose the two "context"]
+]
+.col65.nol[
+- .note20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20.op20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01c.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. Operate with the function
+3. .op20[Compose the two "context"]
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20.op20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01d.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. Operate with the function
+3. .op20[Compose the two "context"]
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20[(method invocation)].op0[O]
+- .note20.op20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01e.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. .op20[Operate with the function]
+3. Compose the two "context"
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01f.jpg)
+]
+
+##### Step
+.col35[
+1. .op20[Open the box]
+2. .op20[Operate with the function]
+3. Compose the two "context"
+]
+.col65.nol[
+- .note20.op20[(or go into the box)].op0[O]
+- .note20.op20[(method invocation)].op0[O]
+- .note20[(following rules described later)].op0[P]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Functions
+### Simple Box
+### Transformation
+#### Map
+#### Flat Map
+]
+.ft88.oldsection[
+### Transformation
+#### Flat Map
+
+.col100[
+![Map](img/10-FlatMap01a.jpg)
+]
+
+##### Step
+.col100[
+.col5.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+]
+.col95[
+.font20[
+```java[copy=nones]
+<U> Box<U> flatMap(Transformer<? super T, ? extends Box<? extends U>> f) {
+  T val = this.val;                        // 1. Open the box (inside the box)
+  Box<? extends U> box = f.transform(val); // 2. Operate with function
+  return Box.<T, U>compose(this, box);     // 3. Compose the two "context"
+} // Changed to Box to be specific to this class
+```
+]
+]
+]
+]
+
+---
+
+name: Context
+class: middle, sections
+
+# Context
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+#### Put Into Box
+]
+.ft88.oldsection[
+### Side-Effect
+#### Put Into Box
+
+.col100[
+##### Impure Function
+```java[copy=nones]
+Box<Integer> incr(Box<Integer> box) {
+  return new Box<>(box.val() + this.ctx);
+}
+```
+]
+.col100[
+##### Visualization
+![Impure](img/10-Impure01.png)
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+#### Put Into Box
+]
+.ft88.oldsection[
+### Side-Effect
+#### Put Into Box
+
+.col100[
+##### Impure Function
+```java[copy=nones]
+Ctx<Integer> incr(Ctx<Integer> ctx) {
+  return new Ctx<>(ctx.val() + ctx.ctx(), ctx.ctx());
+}
+```
+]
+.col100[
+##### Visualization
+![Impure](img/10-Impure02.png)
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+#### Put Into Box
+#### Maybe
+]
+.ft88.oldsection[
+### Side-Effect
+#### Maybe
+
+.col50[
+##### Some to Some
+![Some](img/10-Maybe01.png)
+]
+.col50[
+##### None to None
+![None](img/10-Maybe02.png)
+]
+.col100[
+.card.bg-y[
+##### Context/Side-Condition
+.content.tight[
+The context of `Maybe<T>` is that the data
+- is present but may be `null` .note20[(`Some<T>`)]
+- may be absent/missing .note20[(`None<T>`)]
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+#### Put Into Box
+#### Maybe
+#### Context
+]
+.ft88.oldsection[
+### Side-Effect
+#### Context
+
+.col100[
+.atbl.blhead[
+| Container | Context |
+|---|---|
+| `Some<T>`<br>.note20[(before `Maybe<T>`)] | Item in a box |
+| `Maybe<T>` | Item might be missing |
+| `Lazy<T>` | Item is evaluated on demand and evaluated at most once |
+| `Loggable<T>` | Item with oeprations on item logged .note20[(will be discussed shortly)] |
+| `InfiniteList<T>` | Items in a lazily-evaluated sequence<br>.note20[(in some literature, the context is non-determinism)] |
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+]
+.ft88.oldsection[
+### Logger
+#### Preliminary
+
+.col100[
+.card.bg-g[
+##### Immutable Class Logger
+.content.tight[
+Create an immutable class `Logger` that stores an integer value `val` and records _all_ previous operations done to reach the current value .note20[(as a `String`)].
+]
+.content.tight[
+###### Operations
+- Increment the value of `val`
+- Finding the absolute value of `val`
+- .note20[Other?  But still logged?]
+]
+]
+
+.card.bg-y[
+##### Notation
+.content.tight[
+For simplicity of notation, we will use `X` &rarr; `Y` to denote a function that takes in type `X` as parameter and returns a type `Y`.
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+]
+.ft88.oldsection[
+### Logger
+#### Preliminary
+
+.col100[
+.card.bg-g[
+##### Immutable Class Logger
+.content.tight[
+Create an immutable class `Logger` that stores an integer value `val` and records _all_ previous operations done to reach the current value .note20[(as a `String`)].
+]
+]
+]
+
+##### Functions
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col55[
+```java[copy=nones]
+int incr(int x) { // int -> int
+  return x + 1;
+}
+int abs(int x) {  // int -> int
+  return x > 0 ? x : -x;
+}
+```
+]
+.col40[
+```jshell[copy=nones]
+jshell> incr(1)
+$.. ==> 2
+jshell> abs(-1)
+$.. ==> 1
+jshell> abs(incr(incr(-5)))
+$.. ==> 3
+```
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+]
+.ft88.oldsection[
+### Logger
+#### as a Pair
+
+.col60[
+##### Code
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones]
+Pair<Integer,String> incrWithLog(int x) {
+  return Pair.of(incr(x), "; incr " + x);
+} // int -> Pair<Integer, String>
+​
+Pair<Integer,String> absWithLog(int x) {
+  return Pair.of(abs(x), "; abs " + x);
+} // int -> Pair<Integer, String>
+```
+]
+]
+]
+.col40[
+##### Class
+.font20[
+```java[copy=nones]
+class Pair<T,S> {
+  private final T first;
+  private final S second;
+  // private Pair(T, S)
+  // static Pair::of(T, S)
+  // Pair::getFirst()
+  // Pair::getSecond()
+  // Pair::toString()
+  // Pair::equals(Object)
+}
+```
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+]
+.ft88.oldsection[
+### Logger
+#### as a Pair
+
+.col100[
+##### Code
+.col6.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col94[
+.font20[
+```java[copy=nones]
+Pair<Integer,String> incrWithLog(Pair<Integer,String> p) {
+  return Pair.of(incr(p.getFirst()), p.getSecond() + "; incr " + x);
+} // Pair<Integer, String> -> Pair<Integer, String>
+​
+Pair<Integer,String> absWithLog(Pair<Integer,String> p) {
+  return Pair.of(abs(p.getFirst()), p.getSecond() + "; abs " + x);
+} // Pair<Integer, String> -> Pair<Integer, String>
+```
+]
+]
+
+.col6.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+]
+.col94[
+.font20[
+```jshell[copy=nones]
+jshell> Pair<Integer, String> p = Pair.of(1, "")
+p ==> [1, ]
+jshell> absWithLog(incrWithLog(incrWithLog(p)))
+$.. ==> [3, ; incr 1; incr 2; abs 3]
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Impure Version
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+class Loggable {
+  private       int value;
+  private       String log;
+  public  Loggable(int value, String log) {
+    this.value = value;
+    this.log = log;
+  }
+  ​
+  ​
+  ​
+  ​
+  public void     incrWithLog() {
+    this.value = incr(this.value); this.log = this.log + "; incr " + this.value;
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Pure Version
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+final class Loggable {
+  private final int value;
+  private final String log;
+  private Loggable(int value, String log) {
+    this.value = value;
+    this.log = log;
+  }
+  // with variant Loggable::ofWithLog(int, String)
+  public static Loggable of(int value) {
+    return new Loggable(value, "");
+  }
+  public Loggable incrWithLog() {
+    return new Loggable(incr(this.value),     this.log + "; incr " + this.value);
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Basic Operations
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+final class Loggable {
+    : 
+  public Loggable absWithLog() {
+    return new Loggable(abs(this.value), this.log + "; abs " + this.value);
+  }
+  public Loggable dblWithLog() {
+    return new Loggable(dbl(this.value), this.log + "; dbl " + this.value);
+  }
+  ​
+  ​
+  ​
+  ​
+  ​
+  ​
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Extension to More Operations
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+final class Loggable {
+    : 
+  public Loggable absWithLog() {
+    return new Loggable(abs(this.value), this.log + "; abs " + this.value);
+  }
+  public Loggable dblWithLog() {
+    return new Loggable(dbl(this.value), this.log + "; dbl " + this.value);
+  }
+  ​
+  public Loggable map(Transformer<Integer, Integer> f) {
+    int value = this.value;
+    int res = f.transform(value);
+    return new Loggable(res, this.log); // What to log?
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Custom Log
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+final class Loggable {
+    : 
+  public Loggable absWithLog() {
+    return new Loggable(abs(this.value), this.log + "; abs " + this.value);
+  }
+  public Loggable dblWithLog() {
+    return new Loggable(dbl(this.value), this.log + "; dbl " + this.value);
+  }
+  ​
+  public Loggable flatMap(Transformer<Integer, Loggable> f) {
+    int value = this.value;
+    Loggable res = f.transform(value);
+    return Loggable.compose(this, res);  // how to compose?
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+#### Preliminary
+#### as a Pair
+#### as Loggable
+]
+.ft88.oldsection[
+### Logger
+#### as Loggable
+
+.col100[
+##### Custom Log
+.col6.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col94[
+.font18[
+```java[copy=nones]
+final class Loggable {
+    :
+  // We keep the current value
+  // We compose the log by concatenating
+  //   old.log + curr.log
+  private static Loggable compose(Loggable old, Loggable curr) {
+    return new Loggable(curr.value, old.log + curr.log);
+  }
+  ​
+  public Loggable flatMap(Transformer<Integer, Loggable> f) {
+    int value = this.value;
+    Loggable res = f.transform(value);
+    return Loggable.compose(this, res);  // how to compose?
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+### Flat Map
+#### Usage
+]
+.ft88.oldsection[
+### Flat Map
+#### Usage
+
+.col100[
+##### Mini Lab 6
+
+```java[copy=nones]
+return Maybe.of(  dbase.get(student)  )
+            .flatMap(std -> Maybe.of(std.get(module)))
+            .flatMap(mod -> Maybe.of(mod.get(assessment)))
+            .orElse(() -> "No such entry");
+```
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+### Flat Map
+#### Usage
+]
+.ft88.oldsection[
+### Flat Map
+#### Usage
+
+.col100[
+##### Mini Lab 6
+
+```java[copy=nones]
+return Maybe.of(  dbase.get(student)            ).flatMap(std -> Maybe.of(std
+                       .get(module)            )).flatMap(mod -> Maybe.of(mod
+                       .get(assessment)      )).orElse(() -> "No such entry");
+                       ​
+```
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+### Flat Map
+#### Usage
+]
+.ft88.oldsection[
+### Flat Map
+#### Usage
+
+.col100[
+##### Mini Lab 6
+
+```java[copy=nones]
+                  dbase.get(student)
+                       .get(module)
+                       .get(assessment)
+                       ​
+```
+]
+]
+
+---
+
+# Context
+
+.ft10.subsections[
+### Side-Effect
+### Logger
+### Flat Map
+#### Usage
+]
+.ft88.oldsection[
+### Flat Map
+#### Usage
+
+.col100[
+##### Mini Lab 6
+
+```java[copy=nones]
+            std = dbase.get(student);
+            mod =   std.get(module);
+            return  mod.get(assessment);
+                       ​
+```
+]
+]
+
+---
+
+name: Monad_&_Functor
+class: middle, sections
+
+# Monad & Functor
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+#### Definition
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **monad** is a _structure_ with at least two methods called `of` and `flatMap` .note20[(may be called differently)] and obeying the **three** monad laws below:
+1. **Left Identity Law**
+.nol[
+- `∀ x, f:` `Monad.of(`.hilite-y[`x`]`).flatMap(y ->`.op0[`.`].hilite-y[`f(y)`]`)`
+- .op0[ `∀ x, f:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[ `∀ x, f:`] .hilite-y[`f(x)`]
+]
+2. **Right Identity Law**
+.nol[
+- `∀ monad:` .hilite-y[`monad`]`.flatMap(x -> Monad.of(x))`
+- .op0[`∀ monad:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad:`] .hilite-y[`monad`]
+]
+3. **Associative Law**
+.nol[
+- `∀ monad, f, g:` `monad.flatMap(x -> f(x)`.hilite-y[`)`]`.flatMap(y -> g(y))`
+- .op0[`∀ monad, f, g:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad, f, g:`] `monad.flatMap(x -> f(x).flatMap(x -> g(x))`.hilite-y[`)`]
+]
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+#### Definition
+#### Left Identity Law
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-b[
+##### Left Identity Law
+.content.tight.nol[
+- `∀ x, f:` `Monad.of(`.hilite-y[`x`]`).flatMap(y ->`.op0[`.`].hilite-y[`f(y)`]`)`
+- .op0[ `∀ x, f:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[ `∀ x, f:`] .hilite-y[`f(x)`]
+]
+]
+]
+
+.col50[
+##### LHS
+.font20[
+```java[copy=nones]
+Monad.of(x).flatMap(y -> f(y))
+​
+​
+```
+]
+![Left](img/10-Monad01a.png)
+]
+
+.col50[
+##### RHS
+.font20[
+```java[copy=nones]
+f(x)
+​
+​
+```
+]
+![Left](img/10-Monad01b.png)
+]
+]
+.abs.rt0.top2.wt40.ft[
+.card.bg-y[
+.content.tight.flexcard[
+.col45.nol[
+.font20[
+- `val: f(x)`
+- `ctx: e ⊕ C`
+]
+]
+.col10.nol[
+.font20[
+- `≡`
+- `≡`
+]
+]
+.col45.nol[
+.font20[
+- `val: f(x)`
+- `ctx: C`
+]
+]
+]
+]
+]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+#### Definition
+#### Left Identity Law
+#### Right Identity Law
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-b[
+##### Right Identity Law
+.content.tight.nol[
+- `∀ monad:` .hilite-y[`monad`]`.flatMap(x -> Monad.of(x))`
+- .op0[`∀ monad:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad:`] .hilite-y[`monad`]
+]
+]
+]
+
+.col50[
+##### LHS
+.font20[
+```java[copy=nones]
+monad.flatMap(y -> Monad.of(y))
+​
+​
+```
+]
+![Right](img/10-Monad02a.png)
+]
+
+.col50[
+##### RHS
+.font20[
+```java[copy=nones]
+monad
+​
+​
+```
+]
+![Right](img/10-Monad02b.png)
+]
+]
+.abs.rt0.top2.wt40.ft[
+.card.bg-y[
+.content.tight.flexcard[
+.col45.nol[
+.font20[
+- `val: x`
+- `ctx: C ⊕ e`
+]
+]
+.col10.nol[
+.font20[
+- `≡`
+- `≡`
+]
+]
+.col45.nol[
+.font20[
+- `val: x`
+- `ctx: C`
+]
+]
+]
+]
+]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+#### Definition
+#### Left Identity Law
+#### Right Identity Law
+#### Associative Law
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-b[
+##### Associative Law
+.content.tight.nol[
+- `∀ monad, f, g:` `monad.flatMap(x -> f(x)`.hilite-y[`)`]`.flatMap(y -> g(y))`
+- .op0[`∀ monad, f, g:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad, f, g:`] `monad.flatMap(x -> f(x).flatMap(x -> g(x))`.hilite-y[`)`]
+]
+]
+]
+
+.col50[
+##### LHS
+.font20[
+```java[copy=nones]
+monad.flatMap(x -> f(x))
+     .flatMap(y -> g(y))
+     ​
+```
+]
+![Assoc](img/10-Monad03a.png)
+]
+
+.col50[
+##### RHS
+.font20[
+```java[copy=nones]
+monad.flatMap(
+  x -> f(x).flatMap(x -> g(x))
+)
+```
+]
+![Assoc](img/10-Monad03b.png)
+]
+]
+.abs.rt0.top2.wt60.ft[
+.card.bg-y[
+.content.tight.flexcard[
+.col45.nol[
+.font20[
+- `val: g(f(x))`
+- `ctx: (C1 ⊕ C2) ⊕ C3`
+]
+]
+.col10.nol[
+.font20[
+- `≡`
+- `≡`
+]
+]
+.col45.nol[
+.font20[
+- `val: g(f(x))`
+- `ctx: C1 ⊕ (C2 ⊕ C3)`
+]
+]
+]
+]
+]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+### Functor
+#### Definition
+]
+.ft88.oldsection[
+### Functor
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **functor** is a _structure_ with at least two methods called `of` and `map` .note20[(may be called differently)] and obeying the **two** functor laws below:
+1. **Identity Law / Identity Morphism**
+.nol[
+- `∀ functor:` .hilite-y[`functor`]`.map(x -> x)`
+- .op0[ `∀ functor:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[ `∀ functor:`] .hilite-y[`functor`]
+]
+2. **Composition Law / Composition Morphism**
+.nol[
+- `∀ functor, f, g:` `functor.map(x ->`.op0[`.`].hilite-y[`f(x)`]`).map(y ->`.op0[`.`].hilite-y[`g(y)`]`)`
+- .op0[`∀ monad:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad:`] `functor.map(x ->`.op0[`.`].hilite-y[`g(f(x))`]`)`
+]
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+### Functor
+#### Definition
+#### Identity
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-b[
+##### Identity
+.content.tight.nol[
+- `∀ functor:` .hilite-y[`functor`]`.map(x -> x)`
+- .op0[ `∀ functor:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[ `∀ functor:`] .hilite-y[`functor`]
+]
+]
+]
+
+.col50[
+##### LHS
+.font20[
+```java[copy=nones]
+functor.map(x -> x)
+```
+]
+![Id](img/10-Functor01a.png)
+]
+
+.col50[
+##### RHS
+.font20[
+```java[copy=nones]
+functor
+```
+]
+![Id](img/10-Functor01b.png)
+]
+]
+
+---
+
+# Monad & Functor
+
+.ft10.subsections[
+### Monad
+### Functor
+#### Definition
+#### Identity
+#### Composition
+]
+.ft88.oldsection[
+### Monad
+
+.col100[
+.card.bg-b[
+##### Composition
+.content.tight.nol[
+- `∀ functor, f, g:` `functor.map(x ->`.op0[`.`].hilite-y[`f(x)`]`).map(y ->`.op0[`.`].hilite-y[`g(y)`]`)`
+- .op0[`∀ monad:`] &nbsp;&nbsp;&nbsp; &equiv;
+- .op0[`∀ monad:`] `functor.map(x ->`.op0[`.`].hilite-y[`g(f(x))`]`)`
+]
+]
+]
+
+.col50[
+##### LHS
+.font20[
+```java[copy=nones]
+functor.map(x -> f(x)).map(y -> g(y))
+```
+]
+![Comp](img/10-Functor02a.png)
+]
+
+.col50[
+##### RHS
+.font20[
+```java[copy=nones]
+functor.map(x -> g(f(x)))
+```
+]
+![Comp](img/10-Functor02b.png)
+]
+]
+
+---
+
+name: Concurrent_&_Parallel
+class: middle, sections
+
+# Concurrent & Parallel
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+#### Code
+]
+.ft88.oldsection[
+### Preliminary
+#### Code
+
+.col100[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);
+v3 = f2(v1);
+v4 = g1(v2);
+v5 = g3(v3);
+v6 = h3(v5);
+v7 = fn(v4, v3, v6);
+v8 = gn(v7)
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+#### Code
+#### Sequential
+]
+.ft88.oldsection[
+### Preliminary
+#### Sequential
+
+.col100[
+.img85.center[![Node](img/10-Parallel01.png)]
+]
+]
+.abs.bot7.lt1.wt17[
+.font18[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);
+v3 = f2(v1);
+v4 = g1(v2);
+v5 = g3(v3);
+v6 = h3(v5);
+v7 = fn(v4,v3,v6);
+v8 = gn(v7)
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+#### Code
+#### Sequential
+#### Concurrent
+]
+.ft88.oldsection[
+### Preliminary
+#### Concurrent
+
+.col100[
+.img85.center[![Node](img/10-Parallel02.png)]
+]
+]
+.abs.bot7.lt1.wt17[
+.font18[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);
+v3 = f2(v1);
+v4 = g1(v2);
+v5 = g3(v3);
+v6 = h3(v5);
+v7 = fn(v4,v3,v6);
+v8 = gn(v7)
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+#### Code
+#### Sequential
+#### Concurrent
+#### Parallel
+]
+.ft88.oldsection[
+### Preliminary
+#### Parallel
+
+.col100[
+.img85.center[![Node](img/10-Parallel03.png)]
+]
+]
+.abs.bot7.lt1.wt17[
+.font18[
+```java[copy=nones]
+v1 = init;
+v2 = f1(v1);
+v3 = f2(v1);
+v4 = g1(v2);
+v5 = g3(v3);
+v6 = h3(v5);
+v7 = fn(v4,v3,v6);
+v8 = gn(v7)
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+#### Code
+#### Sequential
+#### Concurrent
+#### Parallel
+#### Summary
+]
+.ft88.oldsection[
+### Preliminary
+#### Summary
+
+.col50[
+##### Sequential
+
+.img90[![Multi](img/11-Multi01.png)]
+
+##### Concurrent Multi-Tasking
+
+.img90[![Multi](img/11-Multi03.png)]
+]
+.col50[
+##### Multi-Processing
+
+.img90[![Multi](img/11-Multi02.png)]
+
+##### Multi-Threading
+
+.img90[![Multi](img/11-Multi03.png)]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+#### Sequential
+]
+.ft88.oldsection[
+### IntStream
+
+.col100[
+```java
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+                  .noneMatch(x -> n % x == 0);
+}
+```
+
+#### Sequential
+```java
+IntStream.range(2_030_000, 2_040_000)
+​
+         .filter(x -> isPrime(x))
+         .forEach(System.out::println);
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+#### Sequential
+#### Parallel
+]
+.ft88.oldsection[
+### IntStream
+
+.col100[
+```java
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+                  .noneMatch(x -> n % x == 0);
+}
+```
+
+#### Parallel
+```java
+IntStream.range(2_030_000, 2_040_000)
+         .parallel()
+         .filter(x -> isPrime(x))
+         .forEach(System.out::println);
+```
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+#### No Interference
+]
+.ft88.oldsection[
+### Considerations
+#### No Interference
+
+```java
+List<String> list = new ArrayList<>(List.of("Luke", "Leia", "Han"));
+list.stream().peek(name -> { if (name.equals("Han")) {
+                                list.add("Chewie");
+                              } })
+              .forEach(x -> {});  
+```
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+#### No Interference
+#### No Side Effect
+]
+.ft88.oldsection[
+### Considerations
+#### No Side Effect
+
+```java
+List<Integer> list = new ArrayList<>(
+  Arrays.asList(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29)
+);
+
+List<Integer> result = new ArrayList<>();
+list.parallelStream().filter(x -> isPrime(x)).forEach(System.out::println);
+list.parallelStream().filter(x -> isPrime(x)).forEach(x -> result.add(x));
+list.parallelStream().filter(x -> isPrime(x)).toList(); 
+```
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+]
+.ft88.oldsection[
+### Reduce
+#### Reduce
+
+<iframe frameborder=0 width=100% height=450px src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#reduce(java.util.function.BinaryOperator)"></iframe>
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+]
+.ft88.oldsection[
+### Reduce
+#### Sequential
+
+.col100[
+.font18[
+```java
+T reduce(T e, BinaryOperator<T> f)
+```
+]
+
+.img80[![Reduce](img/10-Reduce01.png)]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+]
+.ft88.oldsection[
+### Reduce
+#### Parallel
+
+.col100[
+.font18[
+```java
+T reduce(T e, BinaryOperator<T> f)
+```
+]
+
+.img80[![Reduce](img/10-Reduce02.png)]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+]
+.ft88.oldsection[
+### Reduce
+#### Parallel
+
+.col100[
+.font18[
+```java
+<U> U reduce(U e, BiFunction<U,? super T,U> f, BinaryOperator<U> g)
+```
+]
+
+.img80[![Reduce](img/10-Reduce03.png)]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+#### Properties
+]
+.ft88.oldsection[
+### Reduce
+#### Properties
+
+.col100[
+.font18[
+```java
+<U> U reduce(U e, BiFunction<U,? super T,U> f, BinaryOperator<U> g)
+```
+]
+]
+
+##### Parallelizing Reduce
+
+.col30[
+- **Identity** `e`
+.nol.op0[
+- .note18[.]
+]
+]
+.col70.nol[
+- `g(e, x)` equal to `x`
+    - .note18[for `T reduce(T e, BinaryOperator<T> f)`, then `f(e, x)` equal to `x`]
+]
+
+.col30[
+- **Pure** `f` & `g`<br>
+]
+.col70.nol[
+- `f` and `g` should be **pure** functions<br>
+]
+
+.col30.nol[
+- **Associative** `f` & `g`
+.nol[
+- .note18.op0[not a necessary condition as `f` is going to be applied]
+]
+]
+.col70.nol[
+- `g(g(x, y), z)` equal to `g(x, g(y, z))`
+.nol[
+- .note18[not a necessary condition as `f` is going to be applied in the same order for each fragment `f(f(f(f(e, a1), a2), a3), a4)`]
+]
+]
+
+.col30[
+- **Compatible** `f` & `g`
+]
+.col70.nol[
+- Read more about [**compatibility**](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html#reduce%28java.lang.Object,java.util.function.BiFunction,java.util.function.BinaryOperator%29)
+.nol[
+- .note18[using our symbol, `g(x, f(e, y))` equals to `f(x, y)`]
+]
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+#### API
+#### Sequential
+#### Parallel
+#### Properties
+#### Examples
+]
+.ft88.oldsection[
+### Reduce
+#### Examples
+
+.col100[
+##### Sum
+```java
+List<Integer> list = new ArrayList<Integer>();
+for (int i=1; i<=10000; i++) {
+  list.add(i);
+}
+list.stream().parallel().reduce(0, (acc, elem) -> acc + elem);  
+```
+
+##### Length
+```java
+List<String> list = List.of("CS", "2030", "S")
+list.stream().parallel().reduce(0,
+    (acc, elem) -> acc + elem.length(),
+    (acc1, acc2) -> acc1 + acc2);
+```  
+]
+]
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Preliminary
+### IntStream
+### Considerations
+### Reduce
+### Timing
+]
+.ft88.oldsection[
+### Timing
+#### Code
+
+.col100[
+.font20[
+```java
+class Timing {
+  public static void main(String[] args) {
+    Instant start = Instant.now();
+    long count = IntStream.range(2_000_000, 3_000_000)
+        .filter(x -> isPrime(x))
+      //.parallel()
+        .count();
+    Instant stop = Instant.now();
+    System.out.println("count: " + count);
+    System.out.println("time : " + Duration.between(start, stop).toMillis() + " ms");
+  }
+}
+```
+]
+]
+]
+.abs.rt0.top2.wt45[
+.font18[
+```java[copy=nones]
+boolean isPrime(int n) {
+  return IntStream.range(2, (int)Math.sqrt(n) + 1)
+    //.parallel()
+      .noneMatch(x -> n % x == 0);
+}
+```
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

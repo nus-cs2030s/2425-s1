@@ -1,0 +1,396 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R07
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### InfiniteList
+]
+.ft88.oldsection[
+### InfiniteList
+
+.img75[![Diagram](img/R07-Q1.svg)]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### InfiniteList
+### Fibonacci
+#### Design
+]
+.ft88.oldsection[
+### Fibonacci
+#### Design
+
+.col100.atbl.blhead[
+| n | 0 | 1 | 2 | 3 | 4 | ... | k |
+|---|---|---|---|---|---|---|-----|---|
+| **F(n)** | 1 | 1 | 2 | 3 | 5 | ... | F(k) |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### InfiniteList
+### Fibonacci
+#### Design
+#### Code
+]
+.ft88.oldsection[
+### Fibonacci
+#### Code
+
+.col100[
+<pre id="Q1A" class="text-editor editor20" style="height:450px">
+InfiniteList &lt;BigInteger&gt; fib(BigInteger a, BigInteger b) {
+  return null; // stub
+}
+</pre>
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### InfiniteList
+### Fibonacci
+### Zipping
+#### Design
+]
+.ft88.oldsection[
+### Zipping
+#### Design
+
+.col100.atbl.blhead[
+| list1<br>list2 | a<sub>0</sub><br>b<sub>0</sub> | a<sub>1</sub><br>b<sub>1</sub> | a<sub>2</sub><br>b<sub>2</sub> | a<sub>3</sub><br>b<sub>3</sub> | a<sub>4</sub><br>b<sub>4</sub> | ... | a<sub>k</sub><br>b<sub>k</sub> |
+|---|---|---|---|---|---|---|-----|---|
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### InfiniteList
+### Fibonacci
+### Zipping
+#### Design
+#### Code
+]
+.ft88.oldsection[
+### Zipping
+#### Code
+
+.col100[
+<pre id="Q1B" class="text-editor editor20" style="height:450px">
+public &lt;S, R&gt; InfiniteList&lt;R&gt; zipWith(
+    InfiniteList&lt;? extends S&gt; list,
+    Transformer&lt;? super T, ? extends Transformer&lt;? super S, ? extends R&gt;&gt; mapper) {
+  return null; // stub
+}
+</pre>
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Pipeline
+]
+.ft88.oldsection[
+### Pipeline
+#### Stream
+
+.col33[
+.card.bg-g[
+##### Data Source
+.content.tight[
+- `Stream::of`
+- `Stream::generate`
+- `Stream::iterate`
+- `Arrays::stream`
+- `Collection::stream`<br><br><br>
+]
+]
+]
+
+.col33[
+.card.bg-y[
+##### Intermediate Operation
+.content.tight[
+- `Stream::filter`
+- `Stream::map`
+- `Stream::flatMap`
+- `Stream::sorted`
+- `Stream::distinct`
+- `Stream::limit`
+- `Stream::takeWhile`
+]
+]
+]
+
+.col33[
+.card.bg-r[
+##### Terminal Operation
+.content.tight[
+- `Stream::forEach`
+- `Stream::reduce`
+- `Stream::count`
+- `Stream::allMatch`
+- `Stream::anyMatch`
+- `Stream::noneMatch`<br><br>
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Pipeline
+### Fibonacci
+#### Idea
+]
+.ft88.oldsection[
+### Fibonacci
+#### Idea
+
+.col100.atbl.blhead[
+| F(n) | 1 | 1 | 2 | 3 | 5 | ... | F(k) |
+|---|---|---|---|---|---|---|-----|---|
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+| <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | <input type="text" class="tight-editor editor20"></input> | ... | <input type="text" class="tight-editor editor20"></input> |
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Pipeline
+### Fibonacci
+#### Idea
+#### Code
+]
+.ft88.oldsection[
+### Fibonacci
+#### Code
+
+.col100[
+<pre id="Q2" class="text-editor editor20" style="height:450px">
+Stream&lt;BigInteger&gt; fib(int n) {
+  return null; // stub
+}
+</pre>
+]
+]
+
+---
+
+name: Question_3
+class: middle, sections
+
+# Question 3
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Cartesian
+#### Idea
+]
+.ft88.oldsection[
+### Cartesian
+#### Idea
+
+.col100.atbl[
+|           |.tbl-cell[tbl-bg-b].tbl-cspan[2] list2 |
+|:---------:|:-----:|:-:|
+|.tbl-cell[tbl-bg-g] **list1** |.tbl-cell[tbl-bg-b] **A** |.tbl-cell[tbl-bg-b] **B** |
+|.tbl-cell[tbl-bg-g] **1** | .hilite-g[**1**].hilite-b[**A**] | .hilite-g[**1**].hilite-b[**B**] |
+|.tbl-cell[tbl-bg-g] **2** | .hilite-g[**2**].hilite-b[**A**] | .hilite-g[**2**].hilite-b[**B**] |
+|.tbl-cell[tbl-bg-g] **3** | .hilite-g[**3**].hilite-b[**A**] | .hilite-g[**3**].hilite-b[**B**] |
+|.tbl-cell[tbl-bg-g] **4** | .hilite-g[**4**].hilite-b[**A**] | .hilite-g[**4**].hilite-b[**B**] |
+]
+
+.col100.vtbl.blhead[
+| [1A ; 1B] | [2A ; 2B] | [3A ; 3B] | [4A ; 4B] |
+|-----------|-----------|-----------|-----------|
+|           |           |           |           |
+]
+
+.col100.vtbl.blhead[
+| 1A | 1B | 2A | 2B | 3A | 3B | 4A | 4B |
+|----|----|----|----|----|----|----|----|
+|    |    |    |    |    |    |    |    |
+]
+]
+
+---
+
+# Question 3
+
+.ft10.subsections[
+### Cartesian
+#### Idea
+#### Code
+]
+.ft88.oldsection[
+### Cartesian
+#### Code
+
+.col100[
+<pre id="Q3" class="text-editor editor20" style="height:450px">
+&lt;T, U, R&gt; Stream&lt;R&gt; product(List&lt;? extends T&gt; list1,
+    List&lt;? extends U&gt; list2,
+    BiFunction&lt;? super T, ? super U, ? extends R&gt; func) {
+  return null; // stub
+}
+</pre>
+]
+]
+
+---
+
+name: Question_4
+class: middle, sections
+
+# Question 4
+
+---
+
+# Question 4
+
+.ft10.subsections[
+### Prime
+]
+.ft88.oldsection[
+### Prime
+#### Code
+
+.col100[
+<pre id="Q4A" class="text-editor editor20" style="height:450px">
+boolean isPrime(int n) {
+  return false; // stub
+  // Idea:
+  // - Number from 2 to n (exclusive)
+  // - Check divisor
+}
+</pre>
+]
+]
+
+---
+
+# Question 4
+
+.ft10.subsections[
+### Prime
+### Prime Factor
+]
+.ft88.oldsection[
+### Prime Factor
+#### Code
+
+.col100[
+<pre id="Q4B" class="text-editor editor20" style="height:450px">
+long primeFactor(int n) {
+  return 0L; // stub
+  // Idea:
+  // - Number from 2 to n (inclusive)
+  // - Check prime
+  // - Check divisor
+  // - Count?
+}
+</pre>
+]
+]
+
+---
+
+# Question 4
+
+.ft10.subsections[
+### Prime
+### Prime Factor
+### Omega
+]
+.ft88.oldsection[
+### Omega
+#### Code
+
+.col100[
+<pre id="Q4C" class="text-editor editor20" style="height:450px">
+Stream&lt;Long&gt; omega(int n) {
+  return null; // stub
+  // Idea:
+  // - Number from 1 to n (inclusive)
+  // - Get prime factor
+}
+</pre>
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]

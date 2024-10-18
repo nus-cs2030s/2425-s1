@@ -1,0 +1,610 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R02
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Specification
+]
+.ft88.oldsection[
+### Specification
+#### In English
+
+.col55[
+.card.bg-b[
+##### Rectangle
+.content.tight[
+If
+.nol[
+- the most recent call to `setWidth`.op0[`.`] is
+    - `r.setWidth`.op0[`.`]`(w)`
+- the most recent call to `setHeight` is
+    - `r.setHeight(h)`
+]
+then `r.getArea()` must return `w * h`.
+]
+]
+]
+
+.col45[
+.card.bg-b[
+##### Square
+.content.tight[
+A square must have all four sides to be of the same length.
+]
+]
+]
+
+.col100[]
+
+.col55[
+```java[copy=nones]
+Rectangle r = new Rectangle(5, 5)
+r.setHeight(5)
+r.setWidth(9)
+r.getArea() // 45.0
+```
+]
+.col45[
+```java[copy=nones]
+Square s = new Square(5, 5)
+r.setWidth(9)
+r.getArea() // 81.0
+```
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Specification
+### Code
+]
+.ft88.oldsection[
+### Code
+
+.col60[
+.font18[
+```java[copy=nones]
+public class Rectangle {
+  private double width;
+  private double height;
+
+  public Rectangle(double width, double height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  public double getArea() {
+    return this.width * this.height;
+  }
+
+  @Override
+  public String toString() {
+    return "Height: " + this.height
+        + " Width: " + this.width;
+  }
+}
+```
+]
+]
+.col40[
+#### Sample Run
+.font18[
+```jshell[copy=nones]
+jshell> new Square(5)
+$.. ==> Height: 5 Width: 5
+jshell> new Square(5).getArea()
+$.. ==> 25
+```
+]
+
+.card.bg-r[
+##### Question
+.content.tight[
+Can you identify the following
+
+- the fields of `Square`?
+- the methods of `Square`?
+.nol[
+- the method signature?
+]
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Specification
+### Code
+### Modification
+#### Rectangle
+]
+.ft88.oldsection[
+### Modification
+#### Rectangle
+
+.col60[
+.font18[
+```java[copy=nones]
+public class Rectangle {
+  private double width;
+  private double height;
+
+  // : code omitted
+
+  public void setHeight(double height) {
+    this.height = height;
+  }
+
+  public void setWidth(double width) {
+    this.width = width;
+  }
+}
+```
+]
+]
+.col40[
+
+
+.card.bg-r[
+##### Question
+.content.tight[
+Any failing test cases?<br>
+What does it signify?
+]
+]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Specification
+### Code
+### Modification
+#### Rectangle
+#### Square
+]
+.ft88.oldsection[
+### Modification
+#### Square
+
+.col60[
+.font18[
+```java[copy=nones]
+public class Square {
+  // : code omitted
+
+  @Override
+  public void setHeight(double height) {
+    super.setHeight(height);
+    super.setWidth(height);
+  }
+
+  @Override
+  public void setWidth(double width) {
+    super.setHeight(width);
+    super.setWidth(width);
+  }
+}
+```
+]
+]
+.col40[
+.card.bg-r[
+##### Question
+.content.tight[
+Any failing test cases?<br>
+What does it signify?
+]
+]
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+#### Compile-Time
+]
+.ft88.oldsection[
+### Type Casting
+
+.font18[
+```java[copy=nones]
+a = (C) b;
+```
+]
+
+#### Compile-Time
+
+1. Find CTT(`b`).
+2. Is there a ".uline[_possibility_]" of a type `T` <: CTT(`b`).cite[] to be converted to `C`?<br>.note20[Also consider potential classes to be added in the future.]
+.nol[
+- If yes, continue to step 3.
+- If no, compilation error.
+]
+3. Find CTT(`a`).
+4. Is `C` <: CTT(`a`)?
+.nol[
+- If yes, compile + add run-time check.
+- If no, compilation error.
+]
+]
+.abs.bot10.rt2.wt40.ft[
+.card.bg-y[
+##### Note
+.content.tight[
+- **Step 1 - 2:** Check Type Cast.
+- **Step 3 - 4:** Check Assignment.
+]
+]
+]
+.footnote[In the online notes, this is simply RTT(`b`) because by definition RTT(`b`) <: CTT(`b`).]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+#### Compile-Time
+#### Run-Time
+]
+.ft88.oldsection[
+### Type Casting
+
+.font18[
+```java[copy=nones]
+a = (C) b;
+```
+]
+
+#### Run-Time
+
+.col50[
+1. Find RTT(`b`).
+2. Is RTT(`b`) <: `C`?
+.nol[
+- If yes, OK.
+- If no, run-time error.
+]
+]
+
+.col50[
+```java[copy=nones]
+if (!(b instanceof C)) {
+  throw ClassCastException(...);
+}
+```
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+]
+.ft88.oldsection[
+### Type Check
+
+.col50[
+#### Code
+.font18[
+```java[copy=nones]
+interface Shape {
+  double getArea();
+}
+```
+```java[copy=nones]
+interface Printable {
+  void print();
+}
+```
+]
+]
+.col50[
+#### Usage
+.font18[
+```java[copy=nones]
+Circle c = new Circle(...);
+Shape s = c;
+Printable p = c;
+```
+
+.col50[
+```java[copy=nones]
+s.print();
+s.getArea();
+```
+]
+.col50[
+```java[copy=nones]
+p.print();
+p.getArea();
+```
+]
+]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which methods are **known** to be available at _compile-time_?
+]
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+### Abstract Class
+]
+.ft88.oldsection[
+### Abstract Class
+#### Code
+
+.col50[
+.font18[
+```java[copy=nones]
+abstract class Shape {
+  public abstract double getArea();
+}
+```
+```java[copy=nones]
+abstract class Printable {
+  public abstract void print();
+}
+```
+.op0[
+```java[copy=nones]
+interface PrintableShape
+  extends Shape, Printable { }
+```
+]
+]
+.card.bg-y[
+##### Circle
+.content.tight[
+.nol[
+- `Circle` <: `Shape`
+- `Circle` <: `Printable`
+]
+]
+]
+]
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Can we make `Shape` and `Printable` abstract class?
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+### Abstract Class
+### Multiple
+]
+.ft88.oldsection[
+### Multiple
+#### Code
+
+.col50[
+.font18[
+```java[copy=nones]
+interface Shape {
+  double getArea();
+}
+```
+```java[copy=nones]
+interface Printable {
+  void print();
+}
+```
+```java[copy=nones]
+interface PrintableShape
+    extends Shape, Printable { }
+```
+]
+.card.bg-y[
+##### Circle
+.content.tight[
+.nol[
+- `Circle` <: `Shape`
+- `Circle` <: `Printable`
+]
+]
+]
+]
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Can we define another interface called `PrintableShape`?
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+### Abstract Class
+### Multiple
+### Diamond
+#### Case #1
+]
+.ft88.oldsection[
+### Diamond
+#### Case #1
+
+.col38[
+![Diagram](https://nus-cs2030s.github.io/2324-s1/figures/ClassDiagram18.png)
+]
+.col62[
+.card.bg-r[
+##### Question
+.content.tight[
+Assume we can instantiate the following.
+
+```java[copy=nones]
+U u = new U(...);
+u.f();
+```
+
+Which method is invoked?
+1. `T1::f()`?
+1. `T2::f()`?<br><br>
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+### Abstract Class
+### Multiple
+### Diamond
+#### Case #1
+#### Case #2
+]
+.ft88.oldsection[
+### Diamond
+#### Case #2
+
+.col38[
+![Diagram](https://nus-cs2030s.github.io/2324-s1/figures/ClassDiagram19.png)
+]
+.col62[
+.card.bg-r[
+##### Question
+.content.tight[
+Assume we can instantiate the following.
+
+```java[copy=nones]
+U u = new U(...);
+u.f();
+```
+
+Which method is invoked?
+1. `T1::f()`?
+1. `T2::f()`?<br><br>
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Type Casting
+### Type Check
+### Abstract Class
+### Multiple
+### Diamond
+#### Case #1
+#### Case #2
+#### Case #3
+]
+.ft88.oldsection[
+### Diamond
+#### Case #3
+
+.col38[
+![Diagram](https://nus-cs2030s.github.io/2324-s1/figures/ClassDiagram20.png)
+]
+.col62[
+.card.bg-r[
+##### Question
+.content.tight[
+Assume we can instantiate the following.
+
+```java[copy=nones]
+U u = new U(...);
+u.f();
+```
+
+Which method is invoked?
+1. `T1::f()`?
+1. `T2::f()`?
+1. `U::f()`?
+]
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]

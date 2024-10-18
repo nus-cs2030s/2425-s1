@@ -1,0 +1,1295 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### R04
+
+---
+
+name: Question_1
+class: middle, sections
+
+# Question 1
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+#### Upper Bound
+]
+.ft88.oldsection[
+### Wild Cards
+#### Upper Bound
+
+.col60[
+.card.bg-g[
+##### Upper Bounded Wild Cards
+.content.tight[
+```java[show=2]
+class
+C<? extends T>
+```
+]
+
+###### Covariant
+.content.tight[
+.nol[
+- if `S` <: `T` then:
+    - `C<? extends S>` <: `C<? extends T>`
+- for any type `S`: `C<S>` <: `C<? extends S>`
+]
+]
+]
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which classes can be used to substitute `?` in<br>
+`C<? extends S1>`
+]
+]
+]
+
+.col40[
+.img85.right[![Diagram](img/R04-Q1A.png)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+#### Upper Bound
+#### Lower Bound
+]
+.ft88.oldsection[
+### Wild Cards
+#### Lower Bound
+
+.col60[
+.card.bg-g[
+##### Lower Bounded Wild Cards
+.content.tight[
+```java[show=2]
+class
+C<? super T>
+```
+]
+
+###### Contravariant
+.content.tight[
+.nol[
+- if `S` <: `T` then:
+    - `C<? super T>` <: `C<? super S>`
+- for any type `S`: `C<S>` <: `C<? super S>`
+]
+]
+]
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which classes can be used to substitute `?` in<br>
+`C<? super S1B>`
+]
+]
+]
+
+.col40[
+.img85.right[![Diagram](img/R04-Q1B.png)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+#### Upper Bound
+#### Lower Bound
+#### Unbounded
+]
+.ft88.oldsection[
+### Wild Cards
+#### Unbounded
+
+.col60[
+.card.bg-g[
+##### Unbounded Wild Cards
+.content.tight[
+```java[show=2]
+class
+C<?>
+```
+]
+
+###### Invariant
+.content.tight[
+.nol[
+- for any type `S`
+    - .op0[`..........`]`C<S>` <: `C<?>`
+    - `C<? extends S>` <: `C<?>`
+    - .op0[`..`]`C<? super S>` <: `C<?>`
+]
+]
+]
+
+.card.bg-r[
+##### Question
+.content.tight[
+Which classes can be used to substitute `?` in `C<?>`
+]
+]
+]
+
+.col40[
+.img85.right[![Diagram](img/R04-Q1.jpg)]
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+### Class Diagram
+]
+.ft88.oldsection[
+### Class Diagram
+
+.col40[
+![Diagram](img/R04-Q1.svg)
+]
+.col60[
+#### Classes
+
+```java[copy=nones]
+List<Integer>
+List<Object>
+List<Number>
+List<?>
+List<? super Integer>
+List<? extends Integer>
+List<? super Number>
+List<? extends Number>
+List<? super Object>
+List<? extends Object>
+ArrayList<Integer>
+ArrayList<Object>
+ArrayList<Number>
+```
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+### Class Diagram
+#### Answers
+]
+.ft88.oldsection[
+### Class Diagram
+#### Answers
+
+.col35[
+.card.bg-y[
+##### Steps
+.content.tight[
+1. Find the _type_ without supertype in the given set.
+2. Remove the _type_ from the set and place them on the answer set.
+    - Potentially you need to connect to existing answer that is a direct supertype.
+3. Repeat Step 1 until there are no more type in the set.
+]
+]
+]
+.col65[
+#### Classes
+
+![Classes](img/R04-Q1.png)
+]
+]
+
+---
+
+# Question 1
+
+.ft10.subsections[
+### Wild Cards
+### Class Diagram
+#### Answers
+#### Constraint
+]
+.ft88.oldsection[
+### Class Diagram
+#### Constraint
+
+.col100[
+.card.bg-g[
+##### Constraint Check
+.content.tight[
+To show that two types are related by subtyping, _i.e.,_ _C&lt;A&gt;_ &lt;: _D&lt;B&gt;_, we need to show that the following two constraints are satisfied:
+
+.center[**_C_ &lt;: _D_ &nbsp;&nbsp;&nbsp; & &nbsp;&nbsp;&nbsp; _A_ = _B_**]
+
+The constraint _A_ = _B_ comes from the fact that Java generic is **invariant**.
+]
+]
+]
+
+.col40[
+.card.bg-r[
+##### Example
+.content.tight[
+Show `ArrayList<Number>` is a subtype of `List<?super Integer>`.
+
+.note20[This is correct if we trace the arrow from the answer in the previous slide.]
+]
+]
+]
+
+.col60[
+##### Steps
+
+We need to show
+.center[`ArrayList<Number>` <: `List<? super Integer>`]
+
+.col65[
+- `ArrayList` <: `List`
+- `Number` = `? super Integer`
+.nol[
+- `?` = `Number`
+- `Integer` <: `Number`
+]
+]
+
+.col35.right.nol[
+- .note20[_(C <: D)_]
+- .note20[_(A = B)_]
+- .note20[_(Invariant)_]
+- .note20[_(? super Integer)_]
+]
+]
+]
+
+---
+
+name: Question_2
+class: middle, sections
+
+# Question 2
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+#### Classes
+]
+.ft88.oldsection[
+### Codes
+#### Classes
+
+.col75[
+##### Fruit
+```java
+class Fruit implements Comparable<Fruit> {
+  public int compareTo(Fruit f) {
+    return 0; // TODO: compare fruit
+  }
+}
+```
+
+##### Apple
+```java
+class Apple extends Fruit {
+  // TODO: write code
+}
+```
+]
+.col25[
+![Diagram](img/R04-Q2.svg)
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+#### Classes
+#### Fragments
+]
+.ft88.oldsection[
+### Codes
+#### Fragments
+##### max
+
+.col75[
+```java
+static <T extends Comparable<T>> T max(List<T> list) {
+  T max = list.get(0);
+  if (list.get(1).compareTo(max) > 0) {
+    return list.get(1);
+  }
+  return max;
+}
+```
+
+##### Main
+```java
+List<Fruit> fruits = List.of(new Fruit(), new Apple());
+List<Apple> apples = List.of(new Apple(), new Apple());  
+```
+]
+.col25[
+.card.bg-y[
+##### Types
+.content.tight[
+`fruits =`<br>
+.op0[...]`List<Fruit>`<br><br>
+`apples =`<br>
+.op0[...]`List<Apple>`
+]
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+#### Variant #1
+]
+.ft88.oldsection[
+### Inference
+#### Variant #1
+
+.col100[
+```java[copy=nones]
+Fruit f = max(fruits);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Fruit>` <: `List<T>`
+    - &rArr; `T` = `Fruit`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-y[
+##### Information
+.content.tight[
+`<T extends Comparable<T>> T max(List<T> list)`<br>
+`Apple <: Fruit`<br>
+`Fruit <: Comparable<Fruit>`<br>
+.op0[`...`]`fruits :: List<Fruit>`<br>
+  .op0[`...`]`apples :: List<Apple>`
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+#### Variant #1
+#### Variant #2
+]
+.ft88.oldsection[
+### Inference
+#### Variant #2
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - &rArr; `T` = `Apple`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> `Apple` <:
+    - `Comparable<Apple>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-y[
+##### Information
+.content.tight[
+`<T extends Comparable<T>> T max(List<T> list)`<br>
+`Apple <: Fruit`<br>
+`Fruit <: Comparable<Fruit>`<br>
+.op0[`...`]`fruits :: List<Fruit>`<br>
+  .op0[`...`]`apples :: List<Apple>`
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+#### Variant #1
+#### Variant #2
+#### Variant #3
+]
+.ft88.oldsection[
+### Inference
+#### Variant #3
+
+.col100[
+```java[copy=nones]
+Apple f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Apple`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - &rArr; `T` = `Apple`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Apple`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> `Apple` <:
+    - `Comparable<Apple>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-y[
+##### Information
+.content.tight[
+`<T extends Comparable<T>> T max(List<T> list)`<br>
+`Apple <: Fruit`<br>
+`Fruit <: Comparable<Fruit>`<br>
+.op0[`...`]`fruits :: List<Fruit>`<br>
+  .op0[`...`]`apples :: List<Apple>`
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+#### Variant #1
+#### Variant #2
+#### Variant #3
+#### Variant #4
+]
+.ft88.oldsection[
+### Inference
+#### Variant #4
+
+.col100[
+```java[copy=nones]
+Apple f = max(fruits);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Apple`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Fruit>` <: `List<T>`
+    - &rArr; `T` = `Fruit`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> `Fruit` <: `Apple`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-y[
+##### Information
+.content.tight[
+`<T extends Comparable<T>> T max(List<T> list)`<br>
+`Apple <: Fruit`<br>
+`Fruit <: Comparable<Fruit>`<br>
+.op0[`...`]`fruits :: List<Fruit>`<br>
+  .op0[`...`]`apples :: List<Apple>`
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+]
+.ft88.oldsection[
+### Flexible
+#### PECS
+
+.col100[
+.card.bg-b[
+.content.tight.font36[
+.center[_**P**roducer **E**xtends ; **C**onsumer **S**uper_]
+]
+]
+]
+.col75[
+##### max
+```java[lite=1,3]
+static <T extends Comparable<T>> T max(List<T> list) {
+  T max = list.get(0);
+  if (list.get(1).compareTo(max) > 0) {
+    return list.get(1);
+  }
+  return max;
+}
+```
+]
+.col25[
+##### Producer?
+<textarea class="text-editor editor20" style="height:100px">
+list.get(...)
+</textarea>
+
+##### Consumer?
+<textarea class="text-editor editor20" style="height:100px">
+compareTo(...)
+</textarea>
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+]
+.ft88.oldsection[
+### Flexible
+#### PECS
+
+.col100[
+.card.bg-b[
+.content.tight.font36[
+.center[_**P**roducer **E**xtends ; **C**onsumer **S**uper_]
+]
+]
+]
+.col100[
+##### max
+```java[lite=1]
+static <T extends Comparable<? super T>> T max(List<? extends T> list) {
+  T max = list.get(0);
+  if (list.get(1).compareTo(max) > 0) {
+    return list.get(1);
+  }
+  return max;
+}
+```
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+]
+.ft88.oldsection[
+### Flexible
+#### Reverse
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - &rArr; `T` = `Apple`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> `Apple` <:
+    - `Comparable<Apple>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #1
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - &rArr; `T` = `Apple`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #1
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - &rArr; `T` = `Apple`
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `T` <: `Comparable<? super T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #1
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Code
+.col66[
+```java[lite=1]
+static <T extends Comparable<? super T>>
+    T max(List<T> list) {
+  // :
+}
+```
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `T` <: `Comparable<? super T>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+#### Alternative #2
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #2
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- `List<Apple>` <: `List<T>`
+    - <i class="fa-solid fa-square-xmark drdtxt"></i> `T` = `Apple`.op0[&rArr;]
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+#### Alternative #2
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #2
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- <i class="fa-solid fa-square-xmark drdtxt"></i> .font20[`List<Apple>` <: `List<T>`]
+    - <i class="fa-solid fa-square-check dgntxt"></i> `T` = `Apple`.op0[&rArr;]
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+# Question 2
+
+.ft10.subsections[
+### Codes
+### Inference
+### Flexible
+#### PECS
+#### Reverse
+#### Alternative #1
+#### Alternative #2
+]
+.ft88.oldsection[
+### Flexible
+#### Alternative #2
+
+.col100[
+```java[copy=nones]
+Fruit f = max(apples);
+```
+]
+
+#### Constraints
+.col33[
+##### Target Typing
+
+.nol[
+- `T` <: `Fruit`
+]
+]
+.col33[
+##### Argument Typing
+
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `List<Apple>` <: `List<? extends T>`.op0[&rArr;]
+]
+]
+.col33[
+##### Type Parameter
+
+.nol[
+- `T` <: `Comparable<T>`
+]
+]
+
+.col100[
+#### Propagate Constraints
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Apple` <: `Fruit`
+]
+]
+.col33[
+.nol.op0[
+- .
+]
+]
+.col33[
+.nol[
+- <i class="fa-solid fa-square-check dgntxt"></i> `Fruit` <:
+    - `Comparable<Fruit>`
+]
+]
+]
+.abs.ft.rt2.top2.wt55[
+.card.bg-b[
+##### Idea
+.content.tight[
+- Start from the false statement.
+- Modify the statement to a true statement.
+- Work backwards to find the correct premise.
+- Use the correct premise to modify the code.
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`/exit`]
+
+
+.eol[`| Goodbye`]
