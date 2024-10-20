@@ -1,0 +1,964 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L02: Object-Oriented Programming
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Recap
+class: middle, sections
+
+# Recap
+
+---
+
+# Recap
+
+.ft10.subsections[
+### Recap
+]
+.ft88.oldsection[
+### Recap
+#### Circle
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col88[
+```java
+class Circle {
+  double x;
+  double y;
+  double r;
+  ​
+  // Function inside class
+  double getArea() {
+    return 3.14 * r * r;
+  }
+};
+```
+]
+]
+
+.col50[
+##### Usage
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col93[
+```c[copy=nones]
+Circle c = new Circle();
+c.x = 1.0; // set x to 1.0
+c.y = 2.0; // set y to 2.0
+c.r = 5.0; // set r to 5.0
+​
+double circle_area = c.getArea()
+```
+]
+
+##### Class Diagram
+.img70[![Circle](img/01-Circle.png)]
+]
+]
+
+---
+
+name: Encapsulation
+class: middle, sections
+
+# Encapsulation
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+]
+.ft88.oldsection[
+### Access
+
+.col50[
+#### Access Modifier
+
+.atbl.blhead[
+| Access by Code in ... | `private` | `public` |
+|-----------------------|:---------:|:--------:|
+| *the same class* | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+| *another class* | <i class="fa fa-square-xmark drdtxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+]
+
+<br>
+
+.img80[![Private](img/02-Private.jpg)]
+]
+
+.col50[
+#### Class Diagram
+
+![Private](img/02-Private2.svg)
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+#### Constructor
+]
+.ft88.oldsection[
+### Methods
+#### Constructor
+
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col93[
+```java
+public Circle(double x, double y, double r) {
+  this.x = x;
+  this.y = y;
+  this.r = r;
+}
+```
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+#### Constructor
+#### Setter/Getter
+]
+.ft88.oldsection[
+### Methods
+#### Setter/Getter
+
+.col50[
+##### Accessors
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+```
+]
+.col88[
+```java[copy=nones]
+public double getR() {
+  return this.r;
+}
+```
+]
+]
+
+.col50[
+##### Mutators
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+```
+]
+.col88[
+```java[copy=nones]
+public void setR(double r) {
+  this.r = r;
+}
+```
+]
+]
+]
+.footnote.note20[http://thecodelesscode.com/case/3]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+]
+.ft88.oldsection[
+### Tell, Don't Ask
+#### Contains
+
+.col5.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col95[
+```java
+​
+​
+  ​
+    double dX = x - c.getX();
+    double dY = y - c.getY();
+    double r = c.getR();
+    boolean isInCircle =  ((dX * dX) + (dY * dY)) <= r * r;
+    ​
+  ​
+```
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+]
+.ft88.oldsection[
+### Tell, Don't Ask
+#### Contains
+
+.col5.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+.col95[
+```java
+class Circle {
+  // : other code omitted
+  public boolean contains(x, y) {
+    double dX = x - this.x;
+    double dY = y - this.y;
+    double r = this.r;
+    return ((dX * dX) + (dY * dY)) <= r * r;
+  }
+};
+```
+]
+
+.col5.hljs-num[
+```txt[copy=nones]
+1
+```
+]
+.col95[
+```jshell[copy=nones]
+jshell> boolean isInCircle = c.contains(x. y);
+```
+]
+]
+.IMPORTANT[]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+]
+.ft88.oldsection[
+### Static
+
+#### Class Fields
+.col5.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col95[
+```java[lite=2-3]
+class Circle {
+  public static final double PI = 3.14;
+  private static int lastId = 0;
+  // : other code omitted
+}
+```
+]
+
+#### Class Methods
+.col5.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col95[
+```java[lite=3]
+class Circle {
+  // : other code omitted
+  public static int getNumOfCircles() {
+    return Circle.lastId;
+  }
+}
+```
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+### Main
+]
+.ft88.oldsection[
+### Main
+#### Program Entry Point
+.col5.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java
+public static void main(String[] args) {
+  System.out.println("Hello World!");
+}
+```
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+### Main
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col45[
+.card.bg-r[
+##### Question
+.content.tight[
+Given the class on the right, what is the result of the following code?
+]
+]
+
+.col12.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+```
+]
+]
+.col88[
+.font20[
+```java[copy=nones|lite=3]
+Complex a = new Complex(1, 2);
+Complex b = new Complex(1, 2);
+a.equals(b);
+```
+]
+]
+]
+
+.col55[
+.col8.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+]
+]
+.col92[
+.font20[
+```java[copy=nones|lite=7]
+class Complex {
+  private double a;
+  private double b;
+  // : constructor omitted
+  ​
+  public boolean equals(Complex c) {
+    return a == c.a && b == c.b;
+  }
+}
+```
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`true`] .quiz-ans[1] .quiz-hint[YES: the two fields are equal]
+2. .quiz-choice[`false`] .quiz-ans[0] .quiz-hint[NO: the two fields are equal]
+2. .quiz-choice[Compilation Error] .quiz-ans[0] .quiz-hint[NO: the code is inside `Complex` so it can access `private`]
+2. .quiz-choice[Runtime Error] .quiz-ans[0] .quiz-hint[NO: the code wil run correctly]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+### Main
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following is a constructor?
+]
+]
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col93[
+```java[copy=nones]
+public void Circle()   { /* code omitted */ }
+Circle()               { /* code omitted */ }
+public Circle Circle() { /* code omitted */ }
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[Line 1] .quiz-ans[0] .quiz-hint[NO: it has a return type `void`]
+2. .quiz-choice[Line 2] .quiz-ans[1] .quiz-hint[YES: access modifier is optional]
+3. .quiz-choice[Line 3] .quiz-ans[0] .quiz-hint[NO: it also has a return type `Circle`]
+4. .quiz-choice[_None of the above_] .quiz-ans[0] .quiz-hint[NO: there is an answer]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Encapsulation
+
+.ft10.subsections[
+### Access
+### Methods
+### Tell, Don't Ask
+### Static
+### Main
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #3
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following is the correct entry point to a Java program?
+]
+]
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones]
+public int main()                         { /* code omitted */ }
+public static final void main()           { /* code omitted */ }
+public static final void main(String[] s) { /* code omitted */ }
+public static void main(char[] args)      { /* code omitted */ }
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[Line 1] .quiz-ans[0] .quiz-hint[NO: not `void`, not `static`, no parameter]
+2. .quiz-choice[Line 2] .quiz-ans[0] .quiz-hint[NO: no parameter]
+3. .quiz-choice[Line 3] .quiz-ans[1] .quiz-hint[YES: you can ignore `final` for now]
+4. .quiz-choice[Line 4] .quiz-ans[0] .quiz-hint[NO: incorrect parameter]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Modelling
+class: middle, sections
+
+# Modelling
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+]
+.ft88.oldsection[
+### Complex Object
+
+#### Modelling Relationship
+
+.col50[
+.card.bg-b[
+##### Composition
+.content.tight[
+Models the ".uline[_has-a_]" relationship.
+]
+]
+
+.card.bg-y[
+##### Note
+.content.tight[
+Use other class as a field.
+]
+]
+]
+
+.col50[
+.card.bg-b[
+##### Inheritance
+.content.tight[
+Models the ".uline[_is-a_]" relationship.
+]
+]
+
+.card.bg-y[
+##### Note
+.content.tight[
+In Java, we use the `extends` keyword.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+]
+.ft88.oldsection[
+### Subtyping
+
+#### Subtyping Relationship
+.col100[
+.card.bg-g[
+##### Inheritance Subtyping Relationship
+.content.tight[
+If `S` inherits from `T`, then `S` <: `T`.
+]
+]
+]
+
+.col60[
+<iframe id="ifrm1" src="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" width="100%" height="345px" frameborder="0" ></iframe>
+]
+.col40[
+.card.bg-y.rel[
+##### The Mother of All Objects
+.content.tight.nol[
+Two important methods:
+
+<button class="btn" markdown onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()")'>**↩**</button> `toString()`
+<button class="btn" markdown onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)")'>**↩**</button> `equals(Object o)`
+
+<button class="btn abs top5 rt3" markdown onclick='_goto("ifrm1", "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html")'>**↑**</button> 
+]
+]
+]
+]
+.IMPORTANT[]
+.footnote.note20.lt65[[Java Documentation](https://docs.oracle.com/en/java/javase/21/docs/api/index.html)]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+]
+.ft88.oldsection[
+### Compile-Time
+#### Compilation Check
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+```
+```text[copy=nones]
+1
+2
+```
+```text[copy=nones]
+1
+2
+```
+]
+.col95[
+```java[copy=nones]
+public boolean takeCircle(Circle c) { ... }
+public boolean takeColoredCircle(ColoredCircle c) { ... }
+```
+```java[copy=nones|lite=2]
+ColoredCircle c1 = new Circle(p, 0);         // error
+Circle c2 = new ColoredCircle(p, 0, "blue"); // OK
+```
+```java[copy=nones|lite=1]
+takeCircle(new ColoredCircle(p, 0, "blue")); // OK
+takeColoredCircle(new Circle(p, 0));         // error
+```
+]
+
+#### Compile-Time Type vs Run-Time Type
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+```
+]
+.col95[
+```java[copy=nones]
+Circle c = new ColoredCircle(p, 0, "blue");
+c = new Circle(p, 0);
+```
+]
+]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+### Signature
+]
+.ft88.oldsection[
+### Signature
+
+.col100[
+#### Method Signature
+.card.bg-g[
+##### Definition
+.content.tight[
+The method name, type of arguments, order of arguments, and number of arguments.
+
+<br>
+
+E.g., `takeCircle(Circle)`
+]
+]
+
+<br>
+
+#### Method Descriptor
+.card.bg-g[
+##### Definition
+.content.tight[
+The method name, type of arguments, order of arguments, number of arguments, **and the return type**.
+
+<br>
+
+E.g., `boolean takeCircle(Circle)`
+]
+]
+]
+]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+### Signature
+### Override
+]
+.ft88.oldsection[
+### Override
+#### Method Overriding
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+**Method overriding** happens when a subclass defines an _instance method_ with the .uline[_same method descriptor_].cite[] as superclass.
+]
+.content.tight[
+As a good practice, use `@Override`.
+]
+]
+]
+]
+.IMPORTANT[]
+.footnote.note20[An exception: the overriding method can return the subclass.]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+### Signature
+### Override
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+.col60[
+### Quizzes
+#### Quiz #1
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class diagram on the right.
+Which of the following does **NOT** result in an error?
+]
+]
+]
+.col40[
+.img58[![Inheritance](img/02-Inheritance.svg)]
+]
+
+.mrq[
+1. .quiz-choice[`C2 x = new C1A();`] .quiz-ans[0] .quiz-hint[NO: they are incompatible]
+2. .quiz-choice[`C1A x = new C1B();`] .quiz-ans[0] .quiz-hint[NO: they are incompatible]
+3. .quiz-choice[`C1 x = new C2();`] .quiz-ans[0] .quiz-hint[NO: they are incompatible]
+4. .quiz-choice[`C x = new C1B();`] .quiz-ans[1] .quiz-hint[YES: `C1B` <: `C1` <: `C`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+### Signature
+### Override
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+What is the method signature of the following method?
+]
+]
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col93[
+```java[copy=nones]
+public int foo(double x, Point p) {
+  return 0; // STUB
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`int foo(double x, Point p)`] .quiz-ans[0] .quiz-hint[NO: return type & parameter names should not be included]
+2. .quiz-choice[`foo(double x, Point p)`] .quiz-ans[0] .quiz-hint[NO: parameter names should not be included]
+3. .quiz-choice[`foo(double, Point)`] .quiz-ans[1] .quiz-hint[YES: this is all that you need]
+4. .quiz-choice[`int foo(double, Point)`] .quiz-ans[0] .quiz-hint[NO: return type should not be included]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Modelling
+
+.ft10.subsections[
+### Complex Object
+### Subtyping
+### Compile-Time
+### Signature
+### Override
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #3
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the following classes below.
+Which of the following typing relationships is true?
+]
+]
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col93[
+```java[copy=nones]
+class P { /* code omitted */ }
+class Q extends P { /* code omitted */ }
+class R extends Q { /* code omitted */ }
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`P` <: `Q`] .quiz-ans[0] .quiz-hint[NO: `P` is the superclass of `Q`]
+2. .quiz-choice[`R` <: `P`] .quiz-ans[1] .quiz-hint[YES: `R` <: `Q` and `Q` <: `P`]
+3. .quiz-choice[`Q` <: `R`] .quiz-ans[0] .quiz-hint[NO: `Q` is the superclass of `R`]
+4. .quiz-choice[`P` <: `R`] .quiz-ans[0] .quiz-hint[NO: `P` is the superclass of `R`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]
