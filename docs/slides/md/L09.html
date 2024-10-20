@@ -57,7 +57,46 @@ class EagerList<T> {
 
 .col100[
 ##### Visualization
-![EagerList](img/09-Eager01.png)
+![EagerList](img/09-Eager01a.png)
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+#### Idea
+]
+.ft88.oldsection[
+### Class
+#### Idea
+
+.col5.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+]
+.col95[
+.font20[
+```java
+class EagerList<T> {
+  private final T head;
+  private final EagerList<T> tail;
+}
+```
+]
+]
+
+.col100[
+##### Visualization
+![EagerList](img/09-Eager01b.png)
 ]
 ]
 
@@ -124,6 +163,47 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+]
+.ft88.oldsection[
+### Methods
+#### Generate
+##### Visualization
+
+.col100[
+.img40[![Map](img/09-EagerA.png)]
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Generate
+#### Iterate
+]
+.ft88.oldsection[
+### Methods
+#### Iterate
+##### Visualization
+
+.col100[
+.img40[![Map](img/09-EagerB.png)]
+]
+]
+
+---
+
+# Eager List
+
+.ft10.subsections[
+### Class
+### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -143,6 +223,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -162,6 +244,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -181,6 +265,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -200,6 +286,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -219,6 +307,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 ]
 .ft88.oldsection[
@@ -238,6 +328,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 #### Filter
 ]
@@ -258,6 +350,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 #### Filter
 ]
@@ -278,6 +372,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 #### Filter
 ]
@@ -298,6 +394,8 @@ class EagerList<T> {
 .ft10.subsections[
 ### Class
 ### Methods
+#### Generate
+#### Iterate
 #### Map
 #### Filter
 ]
@@ -1106,8 +1204,8 @@ class: middle, sections
 | `BooleanCondition<T>::test` | [`Predicate<T>::test`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Predicate.html#test%28T%29) |
 | `Producer<T>::produce` | [`Supplier<T>::get`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Supplier.html#get%28%29) |
 | `Consumer<T>::consume` | [`Consumer<T>::accept`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Consumer.html#accept%28T%29) |
-| `Transformer<T,R>::transform` | [`Function<T,R>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html#apply%28T%29) |
-| `Transformer<T,T>::transform` | [`UnaryOperator<T>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/UnaryOperator.html) |
+| `Transformer<T, R>::transform` | [`Function<T, R>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html#apply%28T%29) |
+| `Transformer<T, T>::transform` | [`UnaryOperator<T>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/UnaryOperator.html) |
 | `Combiner<S, T, R>::combine` | [`BiFunction<S, T, R>::apply`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/BiFunction.html#apply%28T,U%29) |
 ]
 ]
