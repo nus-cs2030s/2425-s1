@@ -1871,6 +1871,956 @@ A `ForkJoinPool` is a _pool of threads_ for using `fork()` and `join()` such tha
 
 ---
 
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Examples
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Examples
+
+.col50[
+
+<br>
+
+<br>
+
+.img90[![Sum](img/11-Sum.png)]
+]
+.col50[
+.img90[![Sort](img/11-MargeSort.png)]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Examples
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Examples
+
+.col50[
+
+<br>
+
+<br>
+
+.img90[![Sum](img/11-Sum.png)]
+]
+.col50[
+##### Code
+.font18[
+```java[copy=nones]
+class Summer extends RecursiveTask<Integer> {
+    :
+  protected Integer compute() {
+    if (hi - lo < FORK_THRESHOLD) {
+      return sum(lo, hi, arr);
+    }
+    int mid = (lo + hi) / 2;
+    Summer lSum = new Summer(lo, mid, arr);
+    Summer rSum = new Summer(mid, hi, arr);
+    lSum.fork();
+    return rSum.compute() + lSum.join();
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01a.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=1]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01b.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=2]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01c.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01d.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01e.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=1]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01f.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=2]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01g.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01h.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=4]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01i.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=5]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01j.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01k.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=4]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01l.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01a.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=1]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01b.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=2]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01c.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ01d.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ02e.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ02f.png)
+]
+]
+
+---
+
+# Fork and Join
+
+.ft10.subsections[
+### Preliminary
+### Management
+### ForkJoinPool
+#### API
+#### Basic
+#### Example
+#### Order
+]
+.ft88.oldsection[
+### ForkJoinPool
+#### Order
+
+.col51[
+##### More Efficient
+.font20[
+```java[emph=0]
+lSum.fork();
+rSum.fork();
+rVal = rSum.join();
+lVal = lSum.join();
+return lVal + rVal;
+```
+]
+
+##### Less Efficient
+.font20[
+```java[emph=3]
+lSum.fork();
+rSum.fork();
+lVal = lSum.join();
+rVal = rSum.join();
+return lVal + rVal;
+```
+]
+]
+.ft49[
+##### Deque
+![FJ](img/11-FJ02g.png)
+]
+]
+
+
+---
+
 class: middle, end, fadein
 
 .eol[`jshell> /exit`]
