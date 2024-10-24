@@ -117,6 +117,10 @@ $ java Test0C
 
 ## Tasks
 
+!!! warning "Time Complexity"
+    In all of the tasks below, you do not have to worry too much about time complexity especially if you are taking or have taken CS2040.
+    There may not be an $O(n)$ solution and you may have to find an $O(n^2)$ solution instead.
+
 ### Task 1: Limit
 
 The `Sentinel` class is not only an indication of an empty list but because our idea of an `InfiniteList` is the value (_or value wrapped in_ `Lazy` _and_ `Maybe`, _i.e., the head_) and the rest of the list (_which is another_ `InfiniteList`), an empty list is also an indicator for the end of the list.  Given a `Sentinel`, we can now write two methods:
