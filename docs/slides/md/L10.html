@@ -920,11 +920,11 @@ class Pair<T,S> {
 .font20[
 ```java[copy=nones]
 Pair<Integer,String> incrWithLog(Pair<Integer,String> p) {
-  return Pair.of(incr(p.getFirst()), p.getSecond() + "; incr " + x);
+  return Pair.of(incr(p.getFirst()), p.getSecond() + "; incr " + p.getFirst());
 } // Pair<Integer, String> -> Pair<Integer, String>
 ​
 Pair<Integer,String> absWithLog(Pair<Integer,String> p) {
-  return Pair.of(abs(p.getFirst()), p.getSecond() + "; abs " + x);
+  return Pair.of(abs(p.getFirst()), p.getSecond() + "; abs " + p.getFirst());
 } // Pair<Integer, String> -> Pair<Integer, String>
 ```
 ]
@@ -2069,7 +2069,7 @@ List<String> list = new ArrayList<>(List.of("Luke", "Leia", "Han"));
 list.stream().peek(name -> { if (name.equals("Han")) {
                                 list.add("Chewie");
                               } })
-              .forEach(x -> {});  
+             .forEach(x -> {});  
 ```
 ]
 
@@ -2302,7 +2302,7 @@ list.stream().parallel().reduce(0, (acc, elem) -> acc + elem);
 
 ##### Length
 ```java
-List<String> list = List.of("CS", "2030", "S")
+List<String> list = List.of("CS", "2030", "S");
 list.stream().parallel().reduce(0,
     (acc, elem) -> acc + elem.length(),
     (acc1, acc2) -> acc1 + acc2);
