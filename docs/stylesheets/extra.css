@@ -21,6 +21,10 @@ p, li {
   text-justify: inter-word;
 }
 
+li.md-nav__item, li.md-nav__item--nested {
+  text-align: left;
+}
+
 /*nav.md-nav.md-nav--secondary {
   border-left: .4rem solid #990033;
 }
