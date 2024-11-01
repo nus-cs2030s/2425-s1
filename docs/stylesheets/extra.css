@@ -16,7 +16,7 @@ s {
   color: #900;
 }
 
-p {
+p, li {
   text-align: justify;
   text-justify: inter-word;
 }

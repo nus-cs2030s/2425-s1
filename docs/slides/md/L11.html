@@ -510,7 +510,7 @@ java.lang.IllegalThreadStateException
 .card.bg-r[
 ##### Problem
 .content.tight[
-Cannot call Thread::start on a completed thread.
+Cannot call `Thread::start` on a completed thread.
 
 <br>
 
@@ -1328,7 +1328,7 @@ A **fork and join** is a parallel divide-and-conquer model of computation where
 .font20[
 ```java
 Queue<Runnable> queue = new LinkedList<>();
-Thread newThread = new Thread( () -> {
+Thread runner = new Thread( () -> {
     while (true) {
       if (!queue.isEmpty()) {
         Runnable r = queue.remove();
