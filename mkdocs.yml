@@ -68,6 +68,7 @@ nav:
       - Ex5 Maybe: 'prog-ex/5-maybe.md'
       - Ex6 Lazy: 'prog-ex/6-lazy.md'
       - Ex7 InfiniteList: 'prog-ex/7-infinity.md'
+      - Ex8 Future: 'prog-ex/8-future.md'
   - Mini Lab:
       - Lab 01: 'labs/lab01.md'
       - Lab 02: 'labs/lab02.md'
