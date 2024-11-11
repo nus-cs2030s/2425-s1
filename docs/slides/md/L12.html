@@ -123,7 +123,7 @@ class: middle, sections
 .card.bg-g[
 ##### The Abstraction Principle
 .content.tight[
-_"Each significant piece of functionality in a program should be implemented in just one place in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to combine them into one by abstracting out the varying parts."_
+_"Each significant piece of functionality in a program should be **implemented in just one place** in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to **combine them into one by abstracting** out the varying parts."_
 
 .right[Benjamin C. Pierce]
 ]
@@ -698,7 +698,7 @@ void showName(String name) {
   show(name.toUpperCase());
 }
 ```
-```java[copy=nones]
+```java[copy=nones|lite=1,2]
 showName(user.getLastName());
 showName(user.getFirstName());
 ```
@@ -757,7 +757,7 @@ save(mobileNumber.toString());
 
 .col50[
 .font20[
-```java[copy=nones]
+```java[copy=nones|lite=3-6,10-13]
 PhoneNumber phoneNumber
     = user.getOfficeNum();
 if (phoneNumber == null) {
@@ -776,18 +776,18 @@ save(mobileNumber.toString());
 ]
 .col50[
 .font20[
-```java[copy=nones]
+```java[copy=nones|lite=3-6]
 void savePhone(PhoneNumber num,
     User user) {
   if (num == null) {
-    num = user.getMainLineNumber();
+    num = user.getMainLineNum();
   }
   save(num.toString());
 }
 ```
 ```java[copy=nones]
-savePhone(user.getOfficeNumber(), user);
-savePhone(user.getMobileNumber(), user);
+savePhone(user.getOfficeNum(), user);
+savePhone(user.getMobileNum(), user);
 ```
 ]
 ]
@@ -1460,7 +1460,7 @@ How to minimize moving parts?
 #### Moving Parts
 
 .col100[
-##### with Moving Parts
+##### with.op0[out] Moving Parts
 ```java[copy=nones]
       class Circle {
   private       double x;
@@ -1499,7 +1499,7 @@ final class Circle {
     :
   public Circle moveTo(double x, double y) {
     Circle res = new Circle(x, y, this.r);
-    return re
+    return res;
   }
 }
 ```
@@ -1779,6 +1779,7 @@ Integer app(Transformer<? super Integer, ? extends Integer> f, Integer x) {
 ![Composition](img/12-Comp06.png)
 ]
 ]
+.footnote[Here, `(g.f)(x)` is `f(g(x))` unlike our previous convention .note20[(as I have lost the source of this image)].]
 
 ---
 
@@ -2472,7 +2473,7 @@ Add a new abstract function `getPerimeter` into `Shape`.
 
 .col33[
 .font20[
-```java[name=Circle.java|copy=nones]
+```java[name=Circle.java|copy=nones|lite=7,8]
 class Circle <: Shape {
   double x;
   double y;
@@ -2487,7 +2488,7 @@ class Circle <: Shape {
 ]
 .col33[
 .font20[
-```java[name=Square.java|copy=nones]
+```java[name=Square.java|copy=nones|lite=7,8]
 class Square <: Shape {
   double x;
   double y;
@@ -2502,7 +2503,7 @@ class Square <: Shape {
 ]
 .col34[
 .font20[
-```java[name=Triangle.java|copy=nones]
+```java[name=Triangle.java|copy=nones|lite=7,8]
 class Triangle <: Shape {
   double x;
   double y;
@@ -2513,6 +2514,15 @@ class Triangle <: Shape {
     { .. }
 }
 ```
+]
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+You have to add on all subclasses if the behavior are all different!
+]
 ]
 ]
 ]
@@ -2590,6 +2600,7 @@ Add a new type called `Triangle`.
 ]
 
 .card.bg-y[
+##### Note
 .content.tight[
 We need to modify all existing functions that takes in `Shape`.
 ]
@@ -2673,6 +2684,15 @@ double getPerimeter(
   }
 }
 ```
+]
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+The advantage here is that `GetArea.java` need not be recompiled.
+]
 ]
 ]
 ]
