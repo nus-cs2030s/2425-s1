@@ -1,0 +1,1125 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L08: Lambda & Lazy
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Lambda
+class: middle, sections
+
+# Lambda
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+#### Pure
+]
+.ft88.oldsection[
+### Functions
+#### Pure
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **pure function** **_f_** .note20[(denoted by **_f : X &rarr; Y_**)] is a **mapping** from the _domain_ **_X_** to the _codomain_ **_Y_**:
+]
+.content.tight[
+- For every **_x_ &in; _X_**, there is **_y_ &in; _Y_** such that **_y_ = _f(x)_**.
+- **_f(x)_** is **referentially transparent** .note20[(i.e., deterministic and no side-effect)].
+]
+]
+]
+
+.col50[
+.card.bg-y[
+##### Referentially Transparent
+.content.tight[
+- Deterministic
+.nol[
+- **_f(x)_ &equiv; y** everywhere
+]
+- No Side-Effect
+.nol[
+- Only the .note20[(output)] value is relevant
+]
+
+&rArr; .font20[_all **_f(x)_** can be replaced by **_y_**_ .note20[(and vice versa)]].
+]
+]
+]
+
+.col50[
+.card.bg-y[
+##### Side-Effect
+.content.tight[
+- Print to the screen
+- Write to fields
+- Throw exceptions
+- Modify fields .note20[(reassignment/mutation)]
+- Modify the arguments .note20[(mutation)]
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+#### Pure
+#### Higher-Order
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Order
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A function **_F_** is a **higher-order function** if **_F_** behaves just like any other variable.
+]
+.content.tight[
+1. Can be assigned to another variable.
+2. Can be passed to a function as arguments.
+3. Can be returned fro a function as return value.
+4. Can be inserted into an array.
+]
+.content.tight[
+We can also say that the function is a **first-class** citizen.
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+]
+.ft88.oldsection[
+### Toward 1st
+#### Steps
+
+.col45[
+.card.bg-g[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+]
+.card.bg-g[
+##### Step 2: Interfacing
+.content.tight[
+Abstract as an interface.
+]
+]
+.card.bg-g[
+##### Step 3: Generify
+.content.tight[
+Generalize types using generic.
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+#### Convention
+]
+.ft88.oldsection[
+### Toward 1st
+#### Convention
+
+.col45[
+.card.bg-g[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+.content.tight[
+Agree on the name of the method to be invoked.
+]
+]
+]
+
+.col55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=1,2,7,8]
+class Methods       {
+  int call(int x) {
+    return x + 1;
+  }
+}
+class Application       {
+  int apply(Methods  f, int x) {
+    return f.call(x);
+  }
+}
+```
+]
+]
+
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3]
+Application app = new Application();
+Methods m = new Methods();
+app.apply(m    , 1);
+```
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+#### Convention
+]
+.ft88.oldsection[
+### Toward 1st
+#### Convention
+
+.col45[
+.card.bg-g[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+.content.tight[
+Agree on the name of the method to be invoked.
+]
+]
+
+.card.bg-r[
+##### Problem
+.content.tight[
+We need to create a new class for each method we want to make **higher-order**.
+]
+.content.tight[
+We may need a different `Application` class too.
+]
+]
+]
+
+.col55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3]
+class Methods       {
+  int call(int x) {
+    return x * x;
+  }
+}
+class Application       {
+  int apply(Methods  f, int x) {
+    return f.call(x);
+  }
+}
+```
+]
+]
+
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones]
+Application app = new Application();
+Methods m = new Methods();
+app.apply(m    , 1);
+```
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+#### Convention
+#### Interfacing
+]
+.ft88.oldsection[
+### Toward 1st
+#### Interfacing
+
+.col45[
+.card.bg-g.op20[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+]
+.card.bg-g[
+##### Step 2: Interfacing
+.content.tight[
+Abstract as an interface.
+]
+.content.tight[
+Only a single `Application` class is needed.
+]
+]
+]
+
+.col55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=1,2,7,8]
+interface Fun       {
+  int call(int x);
+  // the implementation is
+  // given by the user
+}
+class Application       {
+  int apply(Fun      f, int x) {
+    return f.call(x);
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+#### Convention
+#### Interfacing
+]
+.ft88.oldsection[
+### Toward 1st
+#### Interfacing
+
+.col45[
+.card.bg-g.op20[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+]
+.card.bg-g[
+##### Step 2: Interfacing
+.content.tight[
+Abstract as an interface.
+]
+]
+
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=1]
+class Incr implements Fun {
+  @Override
+  public int call(int x) {
+    return x + 1;
+  }
+}
+```
+]
+]
+]
+
+.col55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones]
+interface Fun       {
+  int call(int x);
+  // the implementation is
+  // given by the user
+}
+class Application       {
+  int apply(Fun      f, int x) {
+    return f.call(x);
+  }
+}
+```
+]
+]
+
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2]
+Application app = new Application();
+Methods m = new Incr();
+app.apply(m    , 1);
+```
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+#### Steps
+#### Convention
+#### Interfacing
+#### Generify
+]
+.ft88.oldsection[
+### Toward 1st
+#### Generify
+
+.col45[
+.card.bg-g.op20[
+##### Step 1: Convention
+.content.tight[
+Create a class .note20[(object is 1st-class)].
+]
+]
+.card.bg-g.op20[
+##### Step 2: Interfacing
+.content.tight[
+Abstract as an interface.
+]
+]
+.card.bg-g[
+##### Step 3: Generify
+.content.tight[
+Generalize types using generic.
+]
+]
+]
+
+.col55[
+
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=1,2]
+interface Fun<T, R> {
+  R   call(T   x);
+  // T: argument type
+  // R: return type
+} // Fun: T -> R
+class Application<T, R> {
+  R   apply(Fun<T,R> f, T   x) {
+    return f.call(x);
+  }
+}
+```
+]
+]
+
+.col100[
+.card.bg-y[
+##### Transformer!
+.content.tight[
+This is practically our `Transformer<T, U>`.
+]
+]
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+]
+.ft88.oldsection[
+### Library
+#### Function&lt;T, R&gt;
+
+<iframe width="100%" height="465px" src="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" frameborder="0"></iframe>
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+]
+.ft88.oldsection[
+### Lambda
+#### Functional
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **functional interface** is an interface with a **single abstract method**.
+]
+.content.tight[
+We can .note20[(and should)] annotate functional interface with `@FunctionalInterface`.
+]
+]
+
+```java[copy=nones]
+@FunctionalInterface
+public interface Transformer<T, U> {
+  U transform(T arg);
+}
+```
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+#### &lambda;-Expression
+]
+.ft88.oldsection[
+### Lambda
+#### &lambda;-Expression
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A **&lambda;-expression** is a syntactic sugar for **anonymous function**.
+]
+.content.tight[
+We can assign a &lambda;-expression to a functional interface.
+]
+]
+]
+
+.col4.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col48[
+.font20[
+```java[copy=nones]
+class Incr implements
+    Transformer<Integer, Integer> {
+  @Override
+  public Integer transform(Integer x) {
+    return x + 1;
+  }
+}
+```
+]
+]
+.col48[
+.font20[
+```java[copy=nones]
+Transformer<Integer, Integer> fn =
+    new Transformer<>() {
+  @Override
+  public Integer transform(Integer x) {
+    return x + 1;
+  }
+};
+```
+]
+]
+
+
+.col4.hljs-num[
+.font20[
+```text[copy=nones]
+1
+```
+]
+]
+.col96[
+.font20[
+```java[copy=nones]
+Transformer<Integer, Integer> f = x -> x + 1;
+```
+]
+]
+]
+.abs.rt0.top2.wt15[
+[![Lambda](img/08-Lambda.jpg)](https://www.pcgamesn.com/half-life-3/leaks-deadlock-details)
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+#### &lambda;-Expression
+#### Syntax
+]
+.ft88.oldsection[
+### Lambda
+#### Syntax
+
+.col50[
+##### No Parameters
+.font20[
+```java[copy=nones]
+() -> expr
+```
+]
+]
+
+.col50[
+##### Single Parameter
+.font20[
+```java[copy=nones]
+param -> expr
+```
+]
+]
+
+.col100[
+##### Multiple Parameters
+.font20[
+```java[copy=nones]
+(param1, param2) -> expr  // can have as many param as needed
+```
+]
+
+##### Multi-Line Body
+.font20[
+```java[copy=nones]
+(param1, param2, param3) -> {
+  body;
+  return expr;
+}
+```
+]
+]
+]
+.abs.rt0.top2.wt15[
+[![Lambda](img/08-Lambda.jpg)](https://screenrant.com/half-life-3-rumors-leaked-valve-project/)
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+#### &lambda;-Expression
+#### Syntax
+#### Currying
+]
+.ft88.oldsection[
+### Lambda
+#### Currying
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+**Currying** is a technique to convert a function that takes **multiple arguments** into a sequence of functions that **each takes a single argument**.
+]
+]
+
+##### Uncurried: Multiple Arguments
+```java[copy=nones]
+BiFunction<Integer, Integer, Integer> add = (x, y) -> x + y;
+add.apply(1, 2);
+```
+
+##### Curried: Single Arguments
+```java[copy=nones]
+Function<Integer, Function<Integer, Integer>> add = x -> y -> x + y;
+add.apply(1); // partially applied
+add.apply(1).apply(2);
+```
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+#### &lambda;-Expression
+#### Syntax
+#### Currying
+#### Closure
+]
+.ft88.oldsection[
+### Lambda
+#### Closure
+
+.col50[
+##### Point
+```java[copy=nones]
+class Point {
+  // : code omitted
+  public double distance(Point p) {
+      // : code omitted
+  }
+}
+```
+
+.atbl.rdhead.font18[
+| :: | Equivalent |
+|---|---|
+| `obj::f` | .op0[`.....`]`x -> obj.f(x)`<br>`(x, y) -> obj.f(x, y)` |
+| `Class::f` | .op0[`...`]`(x, y) -> x.f(y)`<br>`(x, y, z) -> x.f(y, z)`<br>.op0[`........`]`x -> Class.f(x)`<br>.op0[`...`]`(x, y) -> Class.f(x, y)` |
+]
+]
+
+.col50[
+##### Lambda
+```java[copy=nones]
+Point origin = new Point(0, 0);
+Transformer<Point, Double> dist =
+    p -> origin.distance(p);
+// `origin` is effectively final
+```
+
+##### Method Reference
+```java[copy=nones]
+Point origin = new Point(0, 0);
+Transformer<Point, Double> dist =
+    origin::distance
+// `origin` is NOT captured
+```
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+#### Functional
+#### &lambda;-Expression
+#### Syntax
+#### Currying
+#### Closure
+#### Barrier
+]
+.ft88.oldsection[
+### Lambda
+#### Barrier
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following is not a pure function?
+]
+]
+]
+
+.col33[
+.font20[
+```java[copy=nones]
+double sqrt(int i) {
+  return Math.sqrt(i);
+} // square root
+```
+]
+]
+.col33[
+.font20[
+```java[copy=nones]
+int div(int i, int j) {
+  return i / j;
+}
+```
+]
+]
+.col33[
+.font20[
+```java[copy=nones]
+int add(int i, int j) {
+  return i + j;
+}
+```
+]
+]
+.mrq[
+1. .quiz-choice[`sqrt`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[`div`] .quiz-ans[1] .quiz-hint[YES: may throw exception]
+1. .quiz-choice[`add`] .quiz-ans[0] .quiz-hint[NO: this is pure]
+1. .quiz-choice[_there are more than 1_] .quiz-ans[0] .quiz-hint[NO: only one]
+
+.quizzes-time[120]
+]
+]
+.abs.rt7.top2.wt55.ft[
+.card.bg-y[
+##### Note
+.content.tight[
+The code in class is `int sqrt(int)`.  If that is the case, the it is not pure because it is always an error .note20[(if it can even compile)].
+`double sqrt(int)` is weirdly has no error.
+]
+]
+]
+
+---
+
+# Lambda
+
+.ft10.subsections[
+### Functions
+### Toward 1st
+### Library
+### Lambda
+### Quiz
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #2
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Let `Fn<T, R>` be an interface for a function with **one** parameter `T` and **one** return type `R` .note20[(i.e., similar to `Transformer<T, R>` but shorter to write)].
+What is the interface .uline[definition] for function with **two** parameters `T1` and `T2` and **one** return type `R`?
+
+<br>
+
+Prefix the choices below with "`public interface ...`".
+]
+]
+]
+.mrq[
+1. .quiz-choice[`Fn<T1, R extends Fn<T2, R2>>`] .quiz-ans[0] .quiz-hint[NO: what are `T2` and `R2`?]
+1. .quiz-choice[`Fn<T1, Fn<T2, R>>`] .quiz-ans[0] .quiz-hint[NO: what are `T2` and `R`?]
+1. .quiz-choice[`Fn<T1, T2, R>`] .quiz-ans[1] .quiz-hint[YES: all three are type parameter declarations]
+1. .quiz-choice[`Fn<<T1, T2>, R>`] .quiz-ans[0] .quiz-hint[NO: this is a syntax error]
+
+.quizzes-time[120]
+]
+]
+.abs.rt7.top2.wt55.ft[
+.card.bg-y[
+##### Note
+.content.tight[
+`Fn<T, R>` defined in the question is different from the `Fn<...>` in the choices.  It is given because the last discussion for this was quite a while ago.
+]
+]
+]
+
+---
+
+name: Lazy
+class: middle, sections
+
+# Lazy
+
+---
+
+# Lazy
+
+.ft10.subsections[
+### How To
+]
+.ft88.oldsection[
+### How To
+#### Be Lazy
+
+.col100[
+.card.bg-b[
+##### Step 1: Procrastinate (Lazy)
+.content.tight[
+###### Procrastinate Until the Last Minute
+]
+]
+
+.card.bg-b[
+##### Step 2: Memoize (Memo)
+.content.tight[
+###### Never Repeat Yourself
+]
+]
+]
+]
+
+---
+
+# Lazy
+
+.ft10.subsections[
+### How To
+### Logger
+#### Eager
+]
+.ft88.oldsection[
+### Logger
+#### Eager
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+```
+]
+.col93[
+```java[copy=nones]
+class Logger {
+  enum LogLevel { INFO, WARNING, ERROR };
+  ​
+  public static LogLevel currLogLevel = LogLevel.WARNING;
+  ​
+  static void log(LogLevel level, String msg) {
+    if (level.compareTo(Logger.currLogLevel) >= 0) {
+      System.out.println(" [" + level + "] " + msg);
+    }
+  }
+}
+```
+]
+]
+
+---
+
+# Lazy
+
+.ft10.subsections[
+### How To
+### Logger
+### Isomorphism
+]
+.ft88.oldsection[
+### Isomorphism
+#### Maybe&lt;T&gt; &hArr; Lazy&lt;T&gt;
+
+<br>
+
+.col100[
+.img70.center[![Lazy](img/08-Lazy.png)]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

@@ -1,0 +1,1166 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L06: Wildcards
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Variance
+class: middle, sections
+
+# Variance
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+#### Array
+]
+.ft88.oldsection[
+### Contains
+#### Array
+
+.col100[
+```java[copy=nones]
+class A {
+  public static <T> boolean contains(T[] array, T obj) {
+    for (int i = 0; i < array.length; i += 1) {
+      T curr = array[i];
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+]
+.RECAP[]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+#### Array
+#### Seq
+]
+.ft88.oldsection[
+### Contains
+#### Seq
+
+.col100[
+```java[copy=nones]
+class B {
+  public static <T> boolean contains(Seq<T> seq, T obj) {
+    for (int i = 0; i < seq.getLength(); i += 1) {
+      T curr = seq.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+### Sequence
+#### Usage
+]
+.ft88.oldsection[
+### Sequence
+#### Usage
+
+.col100[
+```java[copy=nones]
+class B {
+  public static <T> boolean contains(Seq<T> seq, T obj) {
+    // : code omitted
+  }
+}
+```
+]
+
+.col35[
+##### Variables
+
+```java[copy=nones]
+Seq<Shape> shapeSeq;
+Seq<Circle> circleSeq;
+Shape shape;
+Circle circle;
+```
+]
+.col65[
+##### .dgntxt[OK]
+
+```java[copy=nones]
+B.<Shape>contains (shapeSeq , shape );
+// Seq<Shape> <: Seq<Shape> & Shape <: Shape
+B.<Circle>contains(circleSeq, circle);
+// Seq<Circle> <: Seq<Circle> & Circle <: Circle
+B.<Shape>contains (shapeSeq , circle);
+// Seq<Shape> <: Seq<Shape> & Circle <: Shape
+```
+]
+]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+### Sequence
+#### Usage
+]
+.ft88.oldsection[
+### Sequence
+#### Usage
+
+.col100[
+```java[copy=nones]
+class B {
+  public static <T> boolean contains(Seq<T> seq, T obj) {
+    // : code omitted
+  }
+}
+```
+]
+
+.col35[
+##### Variables
+
+```java[copy=nones]
+Seq<Shape> shapeSeq;
+Seq<Circle> circleSeq;
+Shape shape;
+Circle circle;
+```
+]
+.col65[
+##### .drdtxt[ERR]
+
+```java[copy=nones]
+B.<Circle>contains(circleSeq, shape);
+// Seq<Circle> <: Seq<Circle> & Shape </: Circle
+B.<Circle>contains(shapeSeq , shape);
+// Seq<Shape> </: Seq<Circle> & Shape </: Circle
+B.<Shape>contains (circleSeq, shape);
+// Seq<Circle> </: Seq<Shape> & Shape <: Circle
+```
+]
+]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+### Sequence
+### Invariant
+#### Definition
+]
+.ft88.oldsection[
+### Invariant
+#### Definition
+
+.col100[
+.card.bg-b[
+##### Variance
+.content.tight.flexcard[
+.col20[
+- Covariant.op0[`.`]
+- Contravariant.op0[`.`]
+- Invariant.op0[`.`]
+]
+.col80.nol[
+- if `S` <: `T` then `C<S>` <: `C<T>`
+- if `S` <: `T` then `C<T>` <: `C<S>`
+- if neither _covariant_ nor _contravariant_
+]
+]
+]
+
+<br>
+
+.card.bg-r[
+.content.tight[
+.font32.center[**_Java Generic is Invariant_**]
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+### Sequence
+### Invariant
+#### Definition
+#### Bound
+]
+.ft88.oldsection[
+### Invariant
+#### Bound
+
+.col100[
+```java[copy=nones]
+class B {
+  public static <S, T extends S> boolean contains(Seq<T> seq, S obj) {
+    for (int i = 0; i < seq.getLength(); i += 1) {
+      T curr = seq.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+]
+
+---
+
+# Variance
+
+.ft10.subsections[
+### Contains
+### Sequence
+### Invariant
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+.col40[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the variables
+.nol.font20[
+- `Seq<Shape>`.op0[`..`]`sSeq;`
+- `Seq<Circle> cSeq;`
+]
+
+Which of the following usage does not produce compilation error?
+]
+]
+]
+.col60[
+.col8.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col92[
+.font20[
+```java[copy=nones]
+class Seq<T> {
+  private T[] array;
+  // : omitted
+  // assume both code below compiles
+  public void copyFrom(Seq<T> src) { .. }
+  public void copyTo(Seq<T> dst) { .. }
+}
+```
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`sSeq.copyFrom(cSeq)`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
+1. .quiz-choice[`sSeq.copyTo(cSeq)`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
+1. .quiz-choice[`cSeq.copyFrom(sSeq)`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
+1. .quiz-choice[`cSeq.copyTo(sSeq)`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
+1. .quiz-choice[_None of the above_] .quiz-ans[1] .quiz-hint[YES: generic is invariant]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Wildcards
+class: middle, sections
+
+# Wildcards
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+#### Upper
+]
+.ft88.oldsection[
+### Bounded
+#### Upper
+
+.col60[
+.card.bg-g[
+##### Syntax/Semantics
+.content.tight[
+```java[copy=nones|show=2]
+class
+C<? extends S>
+```
+for some generic type `C` and simple type `S`.<br>
+`?` can be **substituted** with .uline[_subtypes_] of `S`.
+]
+]
+
+.card.bg-y[
+##### Properties
+.content.tight[
+- If `S` <: `T`, then 
+.nol[
+- `C<? extends S>` .op0[`.`] <: .op0[`.`] `C<? extends T>`
+    - .note20[Covariant]
+]
+- For any type `S`, `C<S>` <: `C<? extends S>`
+]
+]
+]
+
+.col40[
+.img90[![Bound](img/06-Bound.jpg)]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+#### Upper
+#### Lower
+]
+.ft88.oldsection[
+### Bounded
+#### Lower
+
+.col60[
+.card.bg-g[
+##### Syntax/Semantics
+.content.tight[
+```java[copy=nones|show=2]
+class
+C<? super S>
+```
+for some generic type `C` and simple type `S`.<br>
+`?` can be **substituted** with .uline[_supertypes_] of `S`.
+]
+]
+
+.card.bg-y[
+##### Properties
+.content.tight[
+- If `S` <: `T`, then 
+.nol[
+- `C<? super T>`.op0[`..`] .op0[`.`] <: .op0[`.`] `C<? super S>`
+    - .note20[Contravariant]
+]
+- For any type `S`, `C<S>` <: `C<? super S>`
+]
+]
+]
+
+.col40[
+.img90[![Bound](img/06-Bound.jpg)]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+#### Upper
+#### Lower
+#### Unbounded
+]
+.ft88.oldsection[
+### Bounded
+#### Unbounded
+
+.col60[
+.card.bg-g[
+##### Syntax/Semantics
+.content.tight[
+```java[copy=nones|show=2]
+class
+C<?>
+```
+for some generic type `C`.<br>
+`?` can be **substituted** with .uline[_any_].
+]
+]
+
+.card.bg-y[
+##### Properties
+.content.tight[
+For any type `S`,
+]
+.content.tight.nol[
+- .op0[`..........`]`C<S>` .op0[`.`] <: .op0[`.`] `C<?>`
+- `C<? extends S>` .op0[`.`] <: .op0[`.`] `C<?>`
+- .op0[`..`]`C<? super S>` .op0[`.`] <: .op0[`.`] `C<?>`
+]
+]
+]
+
+.col40[
+.img90[![Bound](img/06-Bound.jpg)]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+#### Seq
+]
+.ft88.oldsection[
+### PECS
+#### Seq
+.col7.hljs-num[
+.font18[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+```
+]
+]
+.col93[
+.font18[
+```java[copy=nones]
+class Seq<T> {
+  private T[] array;
+  // : omitted
+  public void copyFrom(Seq<? extends T> src) {
+    int len = Math.min(this.array.length, src.array.length);
+    for (int i = 0; i < len; i++) {
+      this.set(i, src.get(i));
+    }
+  }
+  public void copyTo(Seq<? super T> dst) {
+    int len = Math.min(this.array.length, dst.array.length);
+    for (int i = 0; i < len; i++) {
+      dst.set(i, this.get(i));
+    }
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+#### Seq
+#### Definition
+]
+.ft88.oldsection[
+### PECS
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+.center[.font36[**_P_**].font30[_roducer_] .font36[**_E_**].font30[_xtends_] .font36[**;**] .font36[**_C_**].font30[_onsumer_] .font36[**_S_**].font30[_uper_]]
+]
+]
+]
+
+##### Seq&lt;T&gt;
+
+.col50[
+.card.bg-y[
+##### Producer
+.content.tight[
+```java[copy=nones]
+copyFrom(Seq<? extends T> src)
+```
+.nol[
+- `this.set(i,`.op0[`.`].hilite-b[`src`]`.get(i))`
+    - is a **producer**.
+]
+]
+]
+]
+
+.col50[
+.card.bg-y[
+##### Consumer
+.content.tight[
+```java[copy=nones]
+copyTo(Seq<? super T> dst)
+```
+.nol[
+- .hilite-b[`dst`]`.set(i, this.get(i))`
+    - is a **consumer**.
+]
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+#### Seq
+#### Definition
+#### Derivation?
+]
+.ft88.oldsection[
+### PECS
+.col100[
+.card.bg-g[
+##### Derivation?
+.content.tight[
+.center[.font36[`R`] .font30[_<:_] .font36[`S`] .font30[_<:_] .font36[`T`]]
+]
+]
+]
+
+.col50[
+##### User Perspective
+
+```java[copy=nones]
+S foo(S arg) { .. } // fixed method
+```
+]
+
+.col50[
+##### Developer Perspective
+
+```java[copy=nones]
+s = foo(s); // fixed invocation
+```
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+#### Seq
+#### Definition
+#### Derivation?
+#### Contains
+]
+.ft88.oldsection[
+### PECS
+#### Contains
+
+.col100[
+```java[copy=nones]
+class B {
+  public static <T> boolean contains(Seq<? extends T> seq, T obj) {
+    for (int i = 0; i < seq.getLength(); i += 1) {
+      T curr = seq.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+]
+.ft88.oldsection[
+### Raw Types
+#### Revisiting
+.col100[
+.card.bg-r[
+##### Perma-Banned
+.content.tight[
+You cannot use **raw types** any more.cite[].
+]
+]
+
+##### Alternative
+```java[copy=nones]
+obj instanceof C<?>
+```
+```java[copy=nones]
+new C<?>[size];
+```
+
+]
+]
+.IMPORTANT[]
+.footnote[Not even in `instanceof` operators. Not even in generic array. Starting from Ex 4 onwards.]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the classes `S1`, `S2`, and `C<T>` such that `S1` <: `S2`.
+Select the correct subclass relationships?
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`C<S1>` <: `C<? super S2>`] .quiz-ans[0] .quiz-hint[NO: because `S1` <: `S2`]
+1. .quiz-choice[`C<S2>` <: `C<? extends S1>`] .quiz-ans[0] .quiz-hint[NO: because `S1` <: `S2`]
+1. .quiz-choice[`C<S1>` <: `C<S2>`] .quiz-ans[0] .quiz-hint[NO: generic is invariant]
+1. .quiz-choice[`C<S1>` <: `C<? extends S2>`] .quiz-ans[1] .quiz-hint[YES: `C<S1>` <: `C<? extends S1>` <: `C<? extends S2>`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+### Quiz
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #2
+.col70[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider a method that takes in a parameter `seq` of type `Seq<? super Apple>`.  The method contains the line
+.center[`item = seq.get(0);`]
+Select ALL the possible compile-time type of `item` so that the line above compiles **without** error.
+]
+]
+]
+.col30[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight.nol[
+- `Gala`.op0[`.`] <: `Apple`
+- `Apple` <: `Fruit`
+- _other in the future?_
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Gala`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Apple`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Fruit`] .quiz-ans[0] .quiz-hint[NO: `?` may be substituted with `Object`]
+1. .quiz-choice[`Object`] .quiz-ans[1] .quiz-hint[YES: this is the worst-case scenario]
+1. .quiz-choice[None of the above] .quiz-ans[0] .quiz-hint[NO: there is an answer]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Wildcards
+
+.ft10.subsections[
+### Bounded
+### PECS
+### Raw Types
+### Quiz
+#### Quiz #1
+#### Quiz #2
+#### Quiz #3
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #3
+.col70[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider a method that takes in a parameter `seq` of type `Seq<? extends Apple>`.  The method contains the line
+.center[`seq.set(0, item);`]
+Select ALL the possible compile-time type of `item` so that the line above compiles **without** error.
+]
+]
+]
+.col30[
+.card.bg-b[
+##### Class Hierarchy
+.content.tight.nol[
+- `Gala`.op0[`.`] <: `Apple`
+- `Apple` <: `Fruit`
+- _other in the future?_
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`Gala`] .quiz-ans[0] .quiz-hint[NO: `?` may be a subtype of `Gala`]
+1. .quiz-choice[`Apple`] .quiz-ans[0] .quiz-hint[NO: `?` may be `Gala`]
+1. .quiz-choice[`Fruit`] .quiz-ans[0] .quiz-hint[NO: `?` may be `Apple`]
+1. .quiz-choice[`Object`] .quiz-ans[0] .quiz-hint[NO: may be `Apple`]
+1. .quiz-choice[None of the above] .quiz-ans[1] .quiz-hint[YES: we need a subtype of ALL types]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Type_Inference
+class: middle, sections
+
+# Type Inference
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+]
+.ft88.oldsection[
+### Initiate
+#### Declaration
+
+.col100[
+.card.bg-g[
+##### The Diamond Operator
+.content.tight[
+The **diamond** operator (_i.e.,_ `<>`) can be used when instantiating generic type.
+Inside the diamond (_i.e.,_ `<>`), the type is inferred to be the **declared** type .note20[(_i.e.,_ compile-time type)].
+
+<br>
+
+```java[copy=nones]
+Pair<String, Integer> p1 = new Pair<>();
+Pair<Pair<String, Integer>, Pair<Double, Double>> p2 = new Pair<>();
+```
+]
+]
+
+#### Invocation
+
+```java[copy=nones]
+B.<String>contains(new Seq<String>(0), "CS2030S");
+B.contains(new Seq<String>(0), 2030); // Inferred to what?
+```
+]
+]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+]
+.ft88.oldsection[
+### Inference
+#### Algorithm
+
+.col100[
+1. Write down all **_local_** type constraints:
+    - **Target Typing:** return type must be the subtype of variable it is assigned to .note20[(if any)].
+    - **Argument Typing:** the type of argument must be the subtype of the parameter.
+    - **Type Parameter Bound:** from the declaration of the generic type.
+2. **_Solve_** the type constraint for the .uline[_declared generic type_] by using:
+    - **Reflexive** property of subtyping relationships.
+    - **Transitive** property of subtyping relationships.
+    - **Anti-Symmetric** property of subtyping relationships.
+3. If there are multiple possible solutions, choose **the most specific ones** from the type .uline[_specified in the constraints_].
+    - Ignore subclasses not specified in the constraints.
+    - The solution may be a .uline[_superclass_] of the types specified in the constraints.
+]
+]
+.IMPORTANT[]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+#### Examples
+]
+.ft88.oldsection[
+### Inference
+#### Examples
+##### Example #1
+
+.col100[
+```java[copy=nones]
+B.contains(cSeq, shape); // cSeq :: Seq<Circle>  &  shape :: Shape
+```
+```java[copy=nones]
+<T> boolean contains(Seq<? extends T> seq, T obj) { .. }
+```
+]
+
+.col33[
+##### Target Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Argument Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Type Parameter Bound
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+]
+.abs.ft.top2.rt1.wt30[
+.card.bg-y[
+##### Steps
+.content.tight[
+1. Write **local** constraints.
+2. **Solve** type constraints.
+3. Choose **most specific** type.
+.nol[
+- .note20[mentioned or superclass]
+]
+]
+]
+]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+#### Examples
+]
+.ft88.oldsection[
+### Inference
+#### Examples
+##### Example #2
+
+.col100[
+```java[copy=nones]
+A.contains(strArr, 2030); // strArr :: String[]
+```
+```java[copy=nones]
+<T> boolean contains(T[] array, T obj) { .. }
+```
+]
+
+.col33[
+##### Target Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Argument Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Type Parameter Bound
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+]
+.abs.ft.top2.rt1.wt30[
+.card.bg-y[
+##### Steps
+.content.tight[
+1. Write **local** constraints.
+2. **Solve** type constraints.
+3. Choose **most specific** type.
+.nol[
+- .note20[mentioned or superclass]
+]
+]
+]
+]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+#### Examples
+]
+.ft88.oldsection[
+### Inference
+#### Examples
+##### Example #3
+
+.col100[
+```java[copy=nones]
+Shape s = C.findLargest(new Seq<Circle>(0));
+```
+```java[copy=nones]
+<T extends GetAreable> T findLargest(Seq<? extends T> seq) { .. }
+```
+]
+
+.col33[
+##### Target Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Argument Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Type Parameter Bound
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+]
+.abs.ft.top2.rt1.wt30[
+.card.bg-y[
+##### Steps
+.content.tight[
+1. Write **local** constraints.
+2. **Solve** type constraints.
+3. Choose **most specific** type.
+.nol[
+- .note20[mentioned or superclass]
+]
+]
+]
+]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+#### Examples
+]
+.ft88.oldsection[
+### Inference
+#### Examples
+##### Example #4
+
+.col100[
+```java[copy=nones]
+C.findLargest(new Seq<Circle>(0)).getColor();
+```
+```java[copy=nones]
+<T extends GetAreable> T findLargest(Seq<? super T> seq) { .. }
+```
+]
+
+.col33[
+##### Target Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Argument Typing
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+.col33[
+##### Type Parameter Bound
+
+<textarea class="text-editor editor20" style="height:200px">
+</textarea>
+]
+]
+.abs.ft.top2.rt1.wt45[
+.card.bg-y[
+.font18[
+```java[copy=nones]
+class ColoredCircle extends Circle {
+  private String color;
+  // :
+  public String getColor() { return this.color; }
+}
+```
+]
+]
+]
+
+---
+
+# Type Inference
+
+.ft10.subsections[
+### Initiate
+### Inference
+#### Algorithm
+#### Examples
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+.col60[
+.card.bg-r[
+##### Question
+.content.tight[
+Given **only** the types on the right.
+Infer the type `T` in the highlighted line below.
+]
+]
+
+```java[copy=nones]
+I i = Main.foo(new C<A>());
+```
+```java[copy=nones]
+<T extends A> T foo(C<? super T> c) { .. }
+```
+]
+.col40[
+```java[copy=nones]
+interface I {}
+class A implements I {}
+class D extends A {}
+class C<T> {}
+```
+
+<textarea class="text-editor editor20" style="height:135px"></textarea>
+</textarea>
+]
+
+.mrq[
+1. .quiz-choice[`A`] .quiz-ans[1] .quiz-hint[YES: constraints are (`T` <: `A` & `T` <: `A` & `T` <: `I`) → `T` = `A`]
+1. .quiz-choice[`D`] .quiz-ans[0] .quiz-hint[NO: `D` is not mentioned in the type constraints at all]
+1. .quiz-choice[`I`] .quiz-ans[0] .quiz-hint[NO: (`T` <: `A` & `A` <: `I`) → `T` ≠ `I` as otherwise `I` <: `A`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

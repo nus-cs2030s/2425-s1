@@ -1,0 +1,1036 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L07: Immutability & Nested Class
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Immutability
+class: middle, sections
+
+# Immutability
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+]
+.ft88.oldsection[
+### Motivation
+#### Ease of Understanding
+
+.col100[
+.img85.center[![Immutable](img/07-Immutable.gif)]
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+#### Point
+]
+.ft88.oldsection[
+### Immutability
+#### Point
+
+.col45[
+##### Code
+
+.col8.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col92[
+.font20[
+```java[copy=nones]
+Point p0 = new Point(0, 0);
+Circle c1 = new Circle(p0, 1);
+​
+​
+Circle c2 = new Circle(p0, 4);
+​
+p0.moveTo(1, 1);
+```
+]
+]
+]
+
+.col55[
+##### Stack/Heap
+
+![StackHeap](img/StackHeap.png)
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+#### Point
+]
+.ft88.oldsection[
+### Immutability
+#### Point
+
+.col45[
+##### Code
+
+.col8.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+```
+]
+]
+.col92[
+.font20[
+```java[copy=nones]
+Point p1 = new Point(0, 0);
+Circle c1 = new Circle(p1, 1);
+​
+Point p2 = new Point(0, 0);
+Circle c2 = new Circle(p2, 4);
+​
+p1.moveTo(1, 1);
+```
+]
+]
+]
+
+.col55[
+##### Stack/Heap
+
+![StackHeap](img/StackHeap.png)
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+#### Point
+#### Immutable
+]
+.ft88.oldsection[
+### Immutability
+#### Immutable
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A class is considered an **immutable class** if the instance of the class .uline[_cannot have any visible changes outside its abstraction barrier_].
+]
+.content.tight[
+There are issues with generic.
+We use the terminology **immutable up to `T`** to mean `C<T>` is immutable as long as `T` is immutable.
+]
+]
+
+.card.bg-b[
+##### General Guidelines
+.content.tight[
+1. Add the modifier `final` to all the fields as well as the class .note20[(if possible)].cite[].
+2. Remove any assignments to the fields .note20[(cause compilation error due to `final`)].
+3. Change _setter_ from `void` to return a **new** instance.
+4. Copy array internally _unless_ it is safe to share.
+]
+]
+]
+]
+.footnote.note20[An alternative is `sealed` class.]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+#### Point
+#### Immutable
+#### Advantages
+]
+.ft88.oldsection[
+### Immutability
+#### Advantages
+
+.col100[
+.card.bg-b[
+##### Advantages of Immutable Classes
+.content.tight[
+- Ease of understanding.
+- Enabling safe sharing of objects.
+- Enabling safe concurrent execution.
+- Enabling safe sharing of internals.
+]
+]
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+### ImmutableSeq
+#### Slice
+]
+.ft88.oldsection[
+### ImmutableSeq
+#### Slice
+
+.col100[
+##### Idea
+.img80.center[![Slice](img/07-Slice.png)]
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+### ImmutableSeq
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+
+.col35[
+.card.bg-r[
+##### Question
+.content.tight[
+Is the class on the right an immutable class?
+]
+]
+]
+.col65[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3,7]
+public final class Box {
+  private final int x;
+  private int id;
+  private static int ctx = 0;
+  public Box(int x) {
+    this.x = x;
+    this.id = Box.ctx;
+    Box.ctx += 1;
+  }
+}
+```
+]
+]
+]
+.mrq[
+1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: no external change in behavior]
+1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: no external change in behavior]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Immutability
+
+.ft10.subsections[
+### Motivation
+### Immutability
+### ImmutableSeq
+### Quiz
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #2
+
+.col35[
+.card.bg-r[
+##### Question
+.content.tight[
+Is the class on the right an immutable class?
+]
+]
+]
+.col65[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3,7]
+public final class Box {
+  private final int[] x;
+  public Box(int[] x) {
+    this.x = x;
+  }
+}
+```
+]
+]
+]
+.mrq[
+1. .quiz-choice[Yes] .quiz-ans[1] .quiz-hint[YES: cannot even 'see'/access the internals]
+1. .quiz-choice[NO] .quiz-ans[0] .quiz-hint[NO: cannot even 'see'/access the internals]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Nested_Class
+class: middle, sections
+
+# Nested Class
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+]
+.ft88.oldsection[
+### Motivation
+
+.col43[
+![Nested](img/07-Nested.jpg)
+]
+
+.col57[
+#### Fine Grain Encapsulation
+.col50[
+.card.bg-b[
+##### Encapsulation
+.content.tight[
+- Combine data
+- Combine method
+]
+]
+]
+.col50[
+.card.bg-g[
+##### Information Hiding
+.content.tight[
+- Limit access
+- Tell, Don't Ask
+]
+]
+]
+
+.col100[
+.card.bg-r[
+##### Problem
+.content.tight[
+What if our class is not fine-grained enough?
+]
+.content.tight[
+.note20[E.g., `ArrivalEvent` can be a nested class of `Event`.]
+]
+]
+]
+]
+]
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+]
+.ft88.oldsection[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+]
+
+---
+name:Inner_Class
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+]
+.ft88.oldsection[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3,7]
+class A {
+  private int x;
+  static int y;
+  class B {
+    void foo() {
+      x = 1;
+      y = 1;
+    }
+  }
+}
+```
+]
+]
+]
+]
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+]
+.ft88.oldsection[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=7]
+class A {
+  private int x = 1;
+  ​
+  class B {
+    private int x = 2;
+    void foo() {
+      x = 3;
+    }
+  }
+}
+```
+]
+]
+]
+]
+
+---
+name:Static_Nested
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+#### Static Nested
+]
+.ft88.oldsection[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=4]
+class A {
+  private int x;
+  static int y;
+  static class B {
+    void foo() {
+      x = 1;
+      y = 1;
+    }
+  }
+}
+```
+]
+]
+]
+]
+
+---
+name:Local_Class
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.ft88.oldsection[
+### Kinds
+#### Classifications
+
+.col25[
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2-3]
+void sortNames(List<String> names) {
+  class NameComparator implements
+      Comparator<String> {
+    @Override
+    public int compare(String s1, String s2) {
+      return s1.length() - s2.length();
+    }
+  }
+  names.sort(new NameComparator());
+}
+// NameComparator not available outside
+```
+]
+]
+]
+]
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.ft88.oldsection[
+### Kinds
+
+.col25[
+#### Classifications
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+#### Variable Capture
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=3,5,8]
+interface I { void g(); }
+class A {
+  int x = 1;
+  I f() {
+    int y = 2;
+    class B implements I {
+      public void g() {
+        x = y; // accessing x and y are OK
+      }
+    }
+    B b = new B();
+    return b;
+  }
+}
+```
+]
+]
+]
+]
+.abs.top66.rt5.wt20.fc[
+.card.bg-y[
+##### Usage
+.font20[
+```java[copy=nones]
+A a = new A();
+I i = a.f();
+i.g();
+```
+]
+]
+]
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+#### Static Nested
+#### Local Class
+]
+.ft88.oldsection[
+### Kinds
+
+.col25[
+#### Classifications
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r.op20[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+#### Effectively Final
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2,6,13]
+void sortNames(List<String> names) {
+  boolean ascendingOrder = true;
+  class NameComparator implements
+      Comparator<String> {
+    public int compare(String s1, String s2) {
+      if (ascendingOrder) { // is it true or false?
+        return s1.length() - s2.length();
+      } else {
+        return s2.length() - s1.length();
+      }
+    }
+  }
+  ascendingOrder = false; // cannot be re-assigned!
+  names.sort(new NameComparator());
+}
+```
+]
+]
+]
+]
+
+---
+name:Anonymous_Class
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+#### Classifications
+#### Inner Class
+#### Static Nested
+#### Local Class
+#### Anonymous Class
+]
+.ft88.oldsection[
+### Kinds
+
+.col25[
+#### Classifications
+.card.bg-b.op20[
+##### [Inner Class](#Inner_Class)
+]
+
+.card.bg-g.op20[
+##### [Static Nested Class](#Static_Nested)
+]
+
+.card.bg-y.op20[
+##### [Local Class](#Local_Class)
+]
+
+.card.bg-r[
+##### [Anonymous Class](#Anonymous_Class)
+]
+]
+
+.col75[
+#### Nameless
+.font20[
+.col10.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2-7]
+void sortNames(List<String> names) {
+  names.sort(new Comparator<String>() {
+    @Override
+    public int compare(String s1, String s2) {
+      return s1.length() - s2.length();
+    }
+  });
+}
+```
+]
+]
+]
+]
+
+---
+
+# Nested Class
+
+.ft10.subsections[
+### Motivation
+### Kinds
+### Quiz
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quiz
+#### Quiz #1
+
+.col35[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the classes on the right.
+Which variables are **captured** due to the constructor of `F`?
+]
+]
+]
+.mrq[
+1. .quiz-choice[`w`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`x`] .quiz-ans[1] .quiz-hint[YES: a variable and re-assigned]
+1. .quiz-choice[`y`] .quiz-ans[0] .quiz-hint[NO: not a variable]
+1. .quiz-choice[`z`] .quiz-ans[0] .quiz-hint[NO: not accessible]
+
+.quizzes-time[120]
+]
+]
+.abs.top15.rt0.wt55[
+.col10.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+]
+.col90[
+.font20[
+```java[copy=nones|lite=2,4,6,7,11]
+class E {
+  int w;
+  void doTask() {
+    int x;
+    class F {
+      int y;
+      F() { w = 1;  x = 1;  y = 1;  z = 1; }
+    }
+    F f = new F();
+  }
+  class G { int z; }
+}
+```
+]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

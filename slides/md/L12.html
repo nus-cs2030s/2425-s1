@@ -1,0 +1,2937 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L12: Putting Things Together
+
+---
+
+name: Overview
+class: middle, sections
+
+# Overview
+
+---
+
+# Overview
+
+.ft10.subsections[
+### Priority
+]
+.ft88.oldsection[
+### Priority
+#### Problem Solving
+
+.col100[
+.card.bg-b[
+##### CS1101/S: Correctness
+.content.tight[
+**Highest Priority:** Write Correct Program.
+]
+]
+]
+
+.col50[
+.card.bg-g[
+##### CS2030/S: Maintainability
+.content.tight[
+Maintainable Program
+- More human-friendly
+- Fewer code duplication
+- Fewer crashes
+]
+]
+]
+.col50[
+.card.bg-r[
+##### CS2040/S: Efficiency
+.content.tight[
+Efficient Program
+- Use better algorithm
+- Use different data structure
+- Use compiled language
+]
+]
+]
+]
+
+---
+
+# Overview
+
+.ft10.subsections[
+### Priority
+]
+.ft88.oldsection[
+### Priority
+#### Problem Solving
+
+.col100[
+.card.bg-b.op25[
+##### CS1101/S: Correctness
+.content.tight[
+**Highest Priority:** Write Correct Program.
+]
+]
+]
+
+.col50[
+.img75.center[![Design](img/12-Design.jpg)]
+]
+.col50.op25[
+.card.bg-r[
+##### CS2040/S: Efficiency
+.content.tight[
+Efficient Program
+- Use better algorithm
+- Use different data structure
+- Use compiled language
+]
+]
+]
+]
+
+---
+
+name: Object
+class: middle, sections
+
+# The Way of the Object
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+]
+.ft88.oldsection[
+### Abstraction
+#### Principle
+
+.col100[
+.card.bg-g[
+##### The Abstraction Principle
+.content.tight[
+_"Each significant piece of functionality in a program should be **implemented in just one place** in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to **combine them into one by abstracting** out the varying parts."_
+
+.right[Benjamin C. Pierce]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Composition
+.content.tight[
+**Composition** captures the **has a** relationship. It allows building more complex objects by separating the responsibilities.
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Inheritance
+.content.tight[
+**Inheritance** captures the **is a** relationship. It allows building more complex objects by extending the capabilities, etc.
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+]
+.ft88.oldsection[
+### Abstraction
+#### Composition
+
+.col50[
+```java[name=Point.java|lite=1]
+class Point {
+  private double x;
+  private double y;
+}
+```
+
+.card.bg-y[
+##### Responsibilities
+.content.tight[
+X- and Y-coordinates
+- Compute distance
+- Coordinate transformation
+- .note20[etc]
+]
+.content.tight.op0[
+&rArr; Delegate to `Point` if needed
+]
+]
+]
+.col50[
+```java[name=Circle.java|lite=2]
+class Circle {
+  private Point center;
+  private double radius;
+}
+```
+
+.card.bg-y[
+##### Responsibilities
+.content.tight[
+Area around center point
+- Compute area
+- Check if inside
+- .note20[etc]
+]
+.content.tight[
+&rArr; Delegate to `Point` if needed
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+]
+.ft88.oldsection[
+### Abstraction
+#### Inheritance
+
+.col50[
+```java[name=ColoredCircle.java|lite=1]
+class ColoredCircle extends Circle {
+  private Color color;
+  // Others are inherited!
+}
+```
+
+.card.bg-y[
+##### Responsibilities
+.content.tight[
+Colors
+- Change color
+- Check color
+- .note20[etc]
+]
+.content.tight[
+&rArr; Delegate to `Circle` if needed
+]
+]
+]
+.col50[
+```java[name=Circle.java|lite=1]
+class Circle {
+  private Point center;
+  private double radius;
+}
+```
+
+.card.bg-y[
+##### Responsibilities
+.content.tight[
+Area around center point
+- Compute area
+- Check if inside
+- .note20[etc]
+]
+.content.tight.op0[
+&rArr; Delegate to `Point` if needed
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+.font20[
+```java[copy=nones]
+void say(Object obj) {
+  if (obj instanceof Point) {
+    Point pt = (Point) obj;
+    System.out.println("Hi, I am " + "(" + pt.getX() + ", " + pt.getY() + ")");
+  } else if (obj instanceof Circle) {
+    Circle circ = (Circle) obj;
+    // ... code omitted ...
+  }
+}
+```
+]
+.card.bg-r[
+##### Symptom
+.content.tight[
+Containing `if`-`else` related to type (e.g., `instanceof` or `obj.tag == TAG`).
+Here, `TAG` is typically just an integer.
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+.font20[
+```java[copy=nones|lite=2,5]
+void say(Object obj) {
+  if (obj instanceof Point) {
+    Point pt = (Point) obj;
+    System.out.println("Hi, I am " + "(" + pt.getX() + ", " + pt.getY() + ")");
+  } else if (obj instanceof Circle) {
+    Circle circ = (Circle) obj;
+    // ... code omitted ...
+  }
+}
+```
+]
+.card.bg-y[
+##### Step #1
+.content.tight[
+Identify types involved (e.g., `Point` and `Circle` but may come from `TAG`).
+Create a .note20[(potentially abstract)] class for each type .note20[(if not already)].
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+.font20[
+```java[copy=nones|lite=1]
+void say(Object obj) {
+  if (obj instanceof Point) {
+    Point pt = (Point) obj;
+    System.out.println("Hi, I am " + "(" + pt.getX() + ", " + pt.getY() + ")");
+  } else if (obj instanceof Circle) {
+    Circle circ = (Circle) obj;
+    // ... code omitted ...
+  }
+}
+```
+]
+.card.bg-y[
+##### Step #2
+.content.tight[
+Identify common superclass .note20[(if any)] or create one if not already present.
+Create a .note20[(potentially abstract)] common method in the superclass.
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+.font20[
+```java[copy=nones|lite=3,4,6,7]
+void say(Object obj) {
+  if (obj instanceof Point) {
+    Point pt = (Point) obj;
+    System.out.println("Hi, I am " + "(" + pt.getX() + ", " + pt.getY() + ")");
+  } else if (obj instanceof Circle) {
+    Circle circ = (Circle) obj;
+    // ... code omitted ...
+  }
+}
+```
+]
+.card.bg-y[
+##### Step #3
+.content.tight[
+Override the common method in identified subclass.
+The behavior is as identified in the non-polymorphic code.
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+.font20[
+```java[copy=nones|lite=2]
+void say(Object obj) {
+  System.out.println("Hi, I am " + obj.toString());
+}
+```
+]
+]
+
+##### Related Concepts
+.col50[
+.card.bg-y[
+##### Dynamic Binding
+.content.tight[
+Which method is invoked?
+- Compile-time steps
+- Run-time steps
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Overriding
+.content.tight[
+Redefining methods in subclass.
+- Satisfy LSP
+- May return subtype
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+#### Principle
+#### Composition
+#### Inheritance
+#### Polymorphism
+]
+.ft88.oldsection[
+### Abstraction
+#### Polymorphism
+
+.col100[
+##### Generality of Abstract Classes
+```py[copy=nones]
+from abc import ABC, abstractmethod
+# abc is abstract base class
+
+class Shape():
+  @abstractmethod
+  def getArea(self):
+    pass
+```
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+]
+.ft88.oldsection[
+### Generalization
+#### Principle
+
+.col100[
+.card.bg-g[
+##### The Generalization Principle
+.content.tight[
+**Generalization** extracts common components such that the code can be written in one place.
+Changes in functionalities .note20[(i.e., specialization)] can be done via parameterization and .note20[(if possible)] changes should only happen in one place.
+]
+]
+
+.card.bg-b[
+##### Boilerplate Reduction
+.content.tight[
+Both **composition** and **inheritance** also reduces boilerplate codes.
+Other techniques includes:
+]
+.content.tight.flexcard[
+.col15[
+- **Variable**
+- **Function**
+- **Generic**
+- **Lambda**
+]
+.col85.nol[
+- Generalization of values.
+- Generalization of simple computations.
+- Generalization of types.
+- Higher-order generalizations.
+]
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones]
+String lsName = user.getLastName();
+if (lsName == null) {
+  lsName = "";
+}
+show(lsName.toUpperCase());
+​
+String fsName = user.getFirstName();
+if (fsName == null) {
+  fsName = "";
+}
+show(fsName.toUpperCase());
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones|emph=2-5,8-11]
+String lsName = user.getLastName();
+if (lsName == null) {
+  lsName = "";
+}
+show(lsName.toUpperCase());
+​
+String fsName = user.getFirstName();
+if (fsName == null) {
+  fsName = "";
+}
+show(fsName.toUpperCase());
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones|emph=2-5,8-11]
+String lsName = user.getLastName();
+if (lsName == null) {
+  lsName = "";
+}
+show(lsName.toUpperCase());
+​
+String fsName = user.getFirstName();
+if (fsName == null) {
+  fsName = "";
+}
+show(fsName.toUpperCase());
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=1,7]
+String var = user.getLastName();
+if (var == null) {
+  var = "";
+}
+show(var.toUpperCase());
+​
+String var = user.getFirstName();
+if (var == null) {
+  var = "";
+}
+show(var.toUpperCase());
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones|emph=2-5,8-11]
+String lsName = user.getLastName();
+if (lsName == null) {
+  lsName = "";
+}
+show(lsName.toUpperCase());
+​
+String fsName = user.getFirstName();
+if (fsName == null) {
+  fsName = "";
+}
+show(fsName.toUpperCase());
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+void showName(String name) {
+  if (name == null) {
+    name = "";
+  }
+  show(name.toUpperCase());
+}
+```
+```java[copy=nones|lite=1,2]
+showName(user.getLastName());
+showName(user.getFirstName());
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones]
+PhoneNumber phoneNumber
+    = user.getOfficeNum();
+if (phoneNumber == null) {
+  phoneNumber = user.getMainLineNum();
+}
+save(phoneNumber.toString());
+​
+PhoneNumber mobileNumber
+    = user.getMobileNum();
+if (mobileNumber == null) {
+  mobileNumber = user.getMainLineNum();
+}
+save(mobileNumber.toString());
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+]
+.ft88.oldsection[
+### Generalization
+#### Var &rArr; Func
+
+.col50[
+.font20[
+```java[copy=nones|lite=3-6,10-13]
+PhoneNumber phoneNumber
+    = user.getOfficeNum();
+if (phoneNumber == null) {
+  phoneNumber = user.getMainLineNum();
+}
+save(phoneNumber.toString());
+​
+PhoneNumber mobileNumber
+    = user.getMobileNum();
+if (mobileNumber == null) {
+  mobileNumber = user.getMainLineNum();
+}
+save(mobileNumber.toString());
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones|lite=3-6]
+void savePhone(PhoneNumber num,
+    User user) {
+  if (num == null) {
+    num = user.getMainLineNum();
+  }
+  save(num.toString());
+}
+```
+```java[copy=nones]
+savePhone(user.getOfficeNum(), user);
+savePhone(user.getMobileNum(), user);
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+#### Type &rArr; &lt;T&gt;
+]
+.ft88.oldsection[
+### Generalization
+#### Type &rArr; &lt;T&gt;
+
+.col50[
+.font20[
+```java[copy=nones]
+class NameDefaultPair {
+  private String name;
+  private String defName;
+}
+​
+class UserPhonePair {
+  private User user;
+  private PhoneNumber num;
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+#### Type &rArr; &lt;T&gt;
+]
+.ft88.oldsection[
+### Generalization
+#### Type &rArr; &lt;T&gt;
+
+.col50[
+.font20[
+```java[copy=nones]
+class NameDefaultPair {
+  private String name;
+  private String defName;
+}
+​
+class UserPhonePair {
+  private User user;
+  private PhoneNumber num;
+}
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+class Pair<T, S> {
+  private T first;
+  private S second;
+}
+```
+```java[copy=nones]
+new Pair<String, String>(..);
+new Pair<User, PhoneNumber>(..);
+```
+]
+]
+
+.col100[
+.card.bg-r[
+##### Limitation
+.content.tight[
+After generalization, we cannot perform operations specific to the classes.
+
+**Relevant Concepts:** .note22[invariance], .note22[covariance], .note22[contravariance], .note22[PECS], .note22[type erasure], .note20[etc].
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+#### Type &rArr; &lt;T&gt;
+#### Ops &rArr; .math[&lambda;]
+]
+.ft88.oldsection[
+### Generalization
+#### Ops &rArr; .math[&lambda;]
+
+.col50[
+.font20[
+```java[copy=nones]
+void showName(String name,
+    String defName) {
+  if (name == null) {
+    name = defName;
+  }
+  show(name.toUpperCase());
+}
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+void savePhone(PhoneNumber num,
+    User user) {
+  if (num == null) {
+    num = user.getMainLineNum();
+  }
+  save(num.toString());
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+#### Type &rArr; &lt;T&gt;
+#### Ops &rArr; .math[&lambda;]
+]
+.ft88.oldsection[
+### Generalization
+#### Ops &rArr; .math[&lambda;]
+
+.col50[
+.font20[
+```java[copy=nones]
+void showName(String name,
+    String defName) {
+  if (name == null) {
+    name = defName;
+  }
+  show(name.toUpperCase());
+}
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+void savePhone(PhoneNumber num,
+    User user) {
+  if (num == null) {
+    num = user.getMainLineNum();
+  }
+  save(num.toString());
+}
+```
+]
+]
+
+.col100[
+.font20[
+```java[copy=nones]
+void handle(T item, Producer<T> p, Transformer<T, String> t, Consumer<String> c) {
+  if (item == null) {
+    item = p.produce();
+  }
+  c.consumer(t.transform(item));
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+#### Principle
+#### Var &rArr; Func
+#### Type &rArr; &lt;T&gt;
+#### Ops &rArr; .math[&lambda;]
+]
+.ft88.oldsection[
+### Generalization
+#### Ops &rArr; .math[&lambda;]
+
+.col50[
+.font20[
+```java[copy=nones]
+void showName(String name,
+    String defName) {
+  handle(name,
+      () -> "",
+      nm -> nm.toUpperCase(),
+      nm -> show(nm));
+}
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+void savePhone(PhoneNumber num,
+    User user) {
+  handle(num,
+      () -> user.getMainLineNum(),
+      us -> us.toString(),
+      us -> save(us));
+}
+```
+]
+]
+
+.col100[
+.font20[
+```java[copy=nones]
+void handle(T item, Producer<T> p, Transformer<T, String> t, Consumer<String> c) {
+  if (item == null) {
+    item = p.produce();
+  }
+  c.consumer(t.transform(item));
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+#### Principle
+]
+.ft88.oldsection[
+### Minimization
+#### Principle
+
+.col100[
+.card.bg-g[
+##### Principle of Minimization of Effect of Changing Implementation
+.content.tight[
+When the client does not know the implementation details of a class/method, they are not dependent on the specific way it has been implemented.
+
+.note20[&rArr; You can make a change to how something is computed and the client is none the wiser.]
+]
+]
+]
+
+.col33[
+.card.bg-b[
+##### Information Hiding
+.content.tight[
+Information details should be hidden from the client.
+Any functionalities should be codified as API .note20[(i.e., public methods)].
+]
+]
+]
+.col33[
+.card.bg-b[
+##### LSP
+.content.tight[
+A subclass should not break the expectation of the superclass.
+
+We need to be clear on what is the **"desirable property"**.
+]
+]
+]
+.col34[
+.card.bg-r[
+##### Interface as Types
+.content.tight[
+In short, we can use interface as a contract between client and implementer.
+
+<br>
+
+**Out of Scope**
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+#### Principle
+#### Information Hiding
+]
+.ft88.oldsection[
+### Minimization
+#### Information Hiding
+
+.col50[
+.atbl.blhead.font20[
+| Keyword | from Class | Other Class |
+|---|:-:|:-:|
+| `private` | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-xmark drdtxt"></i> |
+| `public` | <i class="fa fa-square-check dgntxt"></i> | <i class="fa fa-square-check dgntxt"></i> |
+]
+
+.card.bg-b[
+##### Good Practice
+.content.tight[
+- Whenever possible, set everything to `private`.
+    - Decide carefully if a field/method needs to be `public`.
+- Whenever possible, do not provide accessors/mutators.
+]
+]
+]
+.col50[
+![Private](img/02-Private.jpg)
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+#### Principle
+#### Information Hiding
+#### LSP
+]
+.ft88.oldsection[
+### Minimization
+#### LSP
+
+.col100[
+.card.bg-r[
+##### Common Mistake
+.content.tight[
+Substitutability does **NOT** simply mean "has a subtype relationship".
+
+Just because a class inherits from another class, does not mean it is substitutable.
+]
+]
+]
+
+##### Example
+.col50[
+```java[copy=nones]
+Rectangle r1 = new Rectangle(3, 3);
+Rectangle r2 = new Square(3, 3);
+r1.setHeight(2);
+r2.setHeight(2);
+```
+]
+.col50[
+.card.bg-y[
+##### Desirable Property
+.content.tight.nol[
+- Rectangle can change height/weight independently.
+- Square must have both the same value.
+]
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+### Others
+#### Comments
+]
+.ft88.oldsection[
+### Others
+#### Comments
+
+.col100[
+![Comment](img/12-Comments.jpg)
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+### Others
+#### Comments
+]
+.ft88.oldsection[
+### Others
+#### Comments
+
+.col50.op0[
+.font20[
+```java[copy=nones]
+int start = 0;
+int end = array.length - 1;
+
+while (start <= end) {
+  int mid = (start + end) / 2;
+
+  if (value == array[mid]) {
+    return mid;
+  } else if (value < array[mid]) {
+    end = mid;
+  } else {
+    start = mid;
+  }
+}
+return -1;
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+// initial range of [startn, end] is
+// [0, array.length-1]
+
+// while [start, end] is not empty
+  // compute mid-point
+
+  // if value equal to mid-point
+    // we found the value
+  // if value smaller than mid-point
+    // value is in [start, mid]
+  // if value larger than mid-point
+    // value is in [mid, end]
+    ​
+    ​
+// not found
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+### Others
+#### Comments
+]
+.ft88.oldsection[
+### Others
+#### Comments
+
+.col50[
+.font20[
+```java[copy=nones]
+int start = 0;
+int end = array.length - 1;
+
+while (start <= end) {
+  int mid = (start + end) / 2;
+
+  if (value == array[mid]) {
+    return mid;
+  } else if (value < array[mid]) {
+    end = mid;
+  } else {
+    start = mid;
+  }
+}
+return -1;
+```
+]
+]
+.col50[
+.font20[
+```java[copy=nones]
+// initial range of [startn, end] is
+// [0, array.length-1]
+
+// while [start, end] is not empty
+  // compute mid-point
+
+  // if value equal to mid-point
+    // we found the value
+  // if value smaller than mid-point
+    // value is in [start, mid]
+  // if value larger than mid-point
+    // value is in [mid, end]
+    ​
+    ​
+// not found
+```
+]
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+### Others
+#### Comments
+#### Compiler
+]
+.ft88.oldsection[
+### Others
+#### Compiler
+
+.col50[
+.card.bg-g[
+##### Compiler is Your Friend
+.content.tight[
+Compilers can catch errors early
+]
+.content.tight[
+.nol[
+- but only errors related to types according to _compile-time_ type
+]
+]
+.content.tight[
+.nol[
+- and errors related to dynamic features .note20[(explicit type casting, etc)] cannot be completely checked
+]
+]
+]
+]
+.col50[
+![Compiler](img/12-Compiler.jpg)
+]
+]
+
+---
+
+# The Way of the Object
+
+.ft10.subsections[
+### Abstraction
+### Generalization
+### Minimization
+### Others
+#### Comments
+#### Compiler
+#### Motto
+]
+.ft88.oldsection[
+### Others
+#### Motto
+
+.col100[
+.card.bg-b[
+##### Useful Quote
+.content.tight[
+_"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live"_
+
+.right[John Woods]
+]
+]
+
+.card.bg-y[
+##### Other Relevant Skills
+.content.tight[
+Always cultivate good habit to help with programming.
+]
+]
+]
+]
+
+---
+
+name: Stone
+class: middle, sections
+
+# The Way of the Stone
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+#### Immutable
+]
+.ft88.oldsection[
+### Immutability
+#### Immutable
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+An **immutable class** is a class for which there cannot be any visible changes outside of its abstraction barrier.
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Isolating Moving Parts
+.content.tight[
+How to minimize moving parts?
+.nol[
+- &rArr; Have no moving parts.
+- Be like stone, _unchanging_.
+]
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Benefits
+.content.tight[
+- Allows sharing of internals
+- Allows easy concurrency
+- Allows easy reasoning
+]
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+#### Immutable
+#### Moving Parts
+]
+.ft88.oldsection[
+### Immutability
+#### Moving Parts
+
+.col100[
+##### with.op0[out] Moving Parts
+```java[copy=nones]
+      class Circle {
+  private       double x;
+  private       double y;
+  private       double r;
+    :
+  public void   moveTo(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+```
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+#### Immutable
+#### Moving Parts
+]
+.ft88.oldsection[
+### Immutability
+#### Moving Parts
+
+.col100[
+##### without Moving Parts
+```java[copy=nones]
+final class Circle {
+  private final double x;
+  private final double y;
+  private final double r;
+    :
+  public Circle moveTo(double x, double y) {
+    Circle res = new Circle(x, y, this.r);
+    return res;
+  }
+}
+```
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+]
+.ft88.oldsection[
+### Functions
+#### Pure
+
+.col100[
+.card.bg-g[
+##### Definition
+.content.tight[
+A pure function .note20[(denoted mathematically as `f` : `X` &rarr; `Y`)] is a mapping from the domain `X` to the codomain `Y`.
+For each `x` ∈ `X`, there is `y` ∈ `Y` such that `y` = `f(x)`.
+
+.note20[&rArr; Deterministic ; Referentially Transparent ; No Side-Effect]
+]
+]
+
+.card.bg-r[
+##### Side-Effect
+.content.tight[
+1. Print to monitor
+2. Write to files
+3. Throw exceptions
+4. Assign or mutate fields
+5. .note22[... any other effects visible by the caller]
+
+]
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Order
+
+.col100[
+##### Step #1: Convention
+.font20[
+```java[copy=nones]
+class AddOne {
+  Integer transform(Integer x) { return x + 1; }
+}
+```
+.op0[
+```java[copy=nones]
+class AddOne implements Transformer {
+  Integer transform(Integer x) { return x + 1; }
+}
+```
+]
+```java[copy=nones]
+Integer app(AddOne f, Integer x) {
+  return f.transform(x);
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Order
+
+.col100[
+##### Step #2: Interface
+.font20[
+```java[copy=nones]
+interface Transformer {
+  Integer transform(Integer x);
+}
+```
+```java[copy=nones]
+class AddOne implements Transformer {
+  Integer transform(Integer x) { return x + 1; }
+}
+```
+```java[copy=nones]
+Integer app(Transformer f, Integer x) {
+  return f.transform(x);
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Order
+
+.col100[
+##### Step #3: Generic
+.font20[
+```java[copy=nones]
+interface Transformer<T, R> {
+  R transform(T x);
+}
+```
+```java[copy=nones]
+class AddOne implements Transformer<Integer, Integer> {
+  Integer transform(Integer x) { return x + 1; }
+}
+```
+```java[copy=nones]
+Integer app(Transformer<? super Integer, ? extends Integer> f, Integer x) {
+  return f.transform(x);
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp01.png)
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp02.png)
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp03.png)
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp04.png)
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp05.png)
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+
+.col100[
+##### Abstraction of Computation
+![Composition](img/12-Comp06.png)
+]
+]
+.footnote[Here, `(g.f)(x)` is `f(g(x))` unlike our previous convention .note20[(as I have lost the source of this image)].]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+##### Abstraction of Dependency
+
+.col40[
+![Composition](img/12-Comp07.png)
+]
+.col60[
+```java[copy=nones]
+public static Box  <Z> foo(Box  <X> x) {
+  Box  <Y> y = x.map(f);
+  Box  <Z> z = y.map(g);
+  return z;
+}
+```
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+##### Abstraction of Dependency
+
+.col40[
+![Composition](img/12-Comp07.png)
+]
+.col60[
+```java[copy=nones]
+public static Maybe<Z> foo(Maybe<X> x) {
+  Maybe<Y> y = x.map(f);
+  Maybe<Z> z = y.map(g);
+  return z;
+}
+```
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+##### Abstraction of Dependency
+
+.col40[
+![Composition](img/12-Comp07.png)
+]
+.col60[
+```java[copy=nones]
+public static Lazy <Z> foo(Lazy <X> x) {
+  Lazy <Y> y = x.map(f);
+  Lazy <Z> z = y.map(g);
+  return z;
+}
+```
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+##### Abstraction of Dependency
+
+.col40[
+![Composition](img/12-Comp07.png)
+]
+.col60[
+```java[copy=nones]
+public static Monad<Z> foo(Monad<X> x) {
+  Monad<Y> y = x.map(f);
+  Monad<Z> z = y.map(g);
+  return z;
+}
+```
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+This is actually a **functor** as we are using `map`.
+Adaptation to **monad** can be easily made.
+]
+]
+]
+]
+]
+
+---
+
+# The Way of the Stone
+
+.ft10.subsections[
+### Immutability
+### Functions
+#### Pure
+#### Higher-Order
+#### Higher-Abstraction
+]
+.ft88.oldsection[
+### Functions
+#### Higher-Abstraction
+##### Abstraction of Dependency
+
+.col40[
+![Composition](img/12-Comp07.png)
+]
+.col60[
+
+.col50[
+```java[copy=nones]
+​
+  return x
+          .map(f)
+          .map(g);
+ ​
+```
+]
+.col50[
+```java[copy=nones]
+​
+  y = f(x);
+  z = g(y);
+  return z;
+ ​
+```
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+We focus on the **essence** of computation .uline[_with respect to_] the dependencies.
+]
+]
+]
+]
+]
+
+---
+
+name: Stream
+class: middle, sections
+
+# The Way of the Stream
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+#### as Context
+]
+.ft88.oldsection[
+### Abstraction
+#### as Context
+
+.col100[
+.atbl.blhead[
+| Monad | Context .op0[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX] |
+|---|---|
+| `Maybe<T>` | The answer may be missing |
+| `Lazy<T>` | The answer is computed when needed and memoized |
+| `Stream<T>` | The answer is one of the item in the stream |
+| `CompletableFuture<T>` | The answer will be available when you need it .note20[(no control over when it is actually ready)] |
+]
+]
+]
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+#### as Context
+#### as Abstraction
+]
+.ft88.oldsection[
+### Abstraction
+#### as Abstraction
+
+.col100[
+.atbl.blhead[
+| Monad | Context .op0[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX] |
+|---|---|
+| `Maybe<T>` | Abstracting conditionals |
+| `Lazy<T>` | Abstracting lazy evaluation |
+| `Stream<T>` | Abstracting loops |
+| `CompletableFuture<T>` | Abstracting asynchronous computation<br><br> |
+]
+]
+]
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+### Unloop
+#### Trace
+]
+.ft88.oldsection[
+### Unloop
+#### Trace
+
+.col50[
+##### Code
+.font20[
+```java[copy=nones]
+// Sum of square of odd number up to n
+sum = 0;
+for (int i = 0; i < n; i++) {
+  if (i % 2 == 1) {
+    sum += i * i;
+  }
+}
+```
+]
+]
+.col50[
+##### Trace Table
+.atbl.blhead.font20[
+| Iter | | `i` | `sum` | | `i * i` | `sum += i * i` |
+|---|---|---|---|---|---|---|
+| 1 | | 0 | 0 | |.tbl-cell[tbl-bg-r] - |.tbl-cell[tbl-bg-r] - |
+| 2 | | 1 | 0 | | 1 | 1 |
+| 3 | | 2 | 1 | |.tbl-cell[tbl-bg-r] - |.tbl-cell[tbl-bg-r] - |
+| 4 | | 3 | 1 | | 9 | 10 |
+| 5 | | 4 | 10 | |.tbl-cell[tbl-bg-r] - |.tbl-cell[tbl-bg-r] - |
+| : | | : | : | | : | : |
+]
+]
+]
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+### Unloop
+#### Trace
+]
+.ft88.oldsection[
+### Unloop
+#### Trace
+
+.col50[
+##### Code
+.font20[
+```java[copy=nones]
+// Sum of square of odd number up to n
+sum = 0;
+for (int i = 0; i < n; i++) {
+  if (i % 2 == 1) {
+    sum += i * i;
+  }
+}
+```
+]
+]
+.col50[
+##### Transposed
+.atbl.blhead.font20[
+| Iter | 1 | 2 | 3 | 4 | 5 | ... |
+|---|---|---|---|---|---|---|
+|.tbl-row[tbl-bg-k] | | | | | | |
+| `i` | 0 | 1 | 2 | 3 | 4 | ... |
+| `sum` | 0 | 0 | 1 | 1 | 10 | ... |
+|.tbl-row[tbl-bg-k] | | | | | | |
+| `i * 1` |.tbl-cell[tbl-bg-r] - | 1 |.tbl-cell[tbl-bg-r] - | 9 |.tbl-cell[tbl-bg-r] - | ... |
+| `sum += i * i` |.tbl-cell[tbl-bg-r] - | 1 |.tbl-cell[tbl-bg-r] - | 10 |.tbl-cell[tbl-bg-r] - | ... |
+]
+]
+]
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+### Unloop
+#### Trace
+]
+.ft88.oldsection[
+### Unloop
+#### Trace
+
+.col50[
+##### Code
+.font20[
+```java[copy=nones]
+// Sum of square of odd number up to n
+sum = 0;
+for (int i = 0; i < n; i++) {
+  if (i % 2 == 1) {
+    sum += i * i;
+  }
+}
+```
+]
+]
+.col50[
+##### Stream
+.atbl.blhead.font20[
+| Iter | 1 | 2 | 3 | 4 | ... |
+|---|---|---|---|---|---|
+| `.iterate(...)` | 0 | 1 | 2 | 3 | ... |
+| `.filter(...)` |.tbl-cell[tbl-bg-r] - | 1 | .tbl-cell[tbl-bg-r] - | 3 | ... |
+| `.map(...)` |.tbl-cell[tbl-bg-r] - | 1 | .tbl-cell[tbl-bg-r] - | 9 | ... |
+| `.reduce(...)` | _sum_ |
+]
+]
+]
+
+---
+
+# The Way of the Stream
+
+.ft10.subsections[
+### Abstraction
+### Unloop
+#### Trace
+]
+.ft88.oldsection[
+### Unloop
+#### Trace
+
+.col50[
+##### Code
+.font20[
+```java[copy=nones]
+// Sum of square of odd number up to n
+sum = 0;
+for (int i = 0; i < n; i++) {
+  if (i % 2 == 1) {
+    sum += i * i;
+  }
+}
+```
+]
+]
+.col50[
+##### Stream
+.font20[
+```java[copy=nones]
+// Sum of square of odd number up to n
+Stream.iterate(0,
+          i -> i < n,
+          i -> i + 1)
+      .filter(i -> i % 2 == 1)
+      .map(i -> i * i)
+      .reduce(0,
+          (acc, elem) -> acc + elem,
+          (ac1, ac2) -> ac1 + ac2);
+```
+]
+]
+]
+
+---
+
+name: Function
+class: middle, sections
+
+# The Way of the Function
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+]
+.ft88.oldsection[
+### FP
+#### Comparison
+
+.col50[
+.card.bg-y[
+##### Functional
+.content.tight[
+- Functions are first-class citizen
+- Avoids side-effect
+- Referentially transparent
+    - Easy to reason
+- Focus on computation
+- Data as thin containers
+]
+]
+]
+.col50[
+.card.bg-y[
+##### Object-Oriented
+.content.tight[
+- Objects are first-class citizen
+- Objects are mutable
+- Polymorphism
+    - Easy to extend
+- Focus on state
+- Data contains functionalities
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+]
+.ft88.oldsection[
+### FP
+#### Comparison
+
+.col50[
+##### Functional
+.font20[
+```java[copy=nones]
+int fact(int n) {
+  return Stream
+    .iterate(1, i -> i <= n, i -> i+1)
+    .reduce(1, (res, i) -> res * i);
+}
+// Stream as an abstraction of loop
+//   (more correctly, non-determinism)
+```
+]
+]
+.col50[
+##### Object-Oriented
+.font20[
+```java[copy=nones]
+int fact(int n) {
+  int res = 1;
+  for (int i=1; i<=n; i=i+1) {
+    res = res * i;
+  }
+  return res;
+}
+```
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+]
+.ft88.oldsection[
+### FP
+#### OOP Problem
+
+.col33[
+.font20[
+```java[name=Circle.java|copy=nones]
+class Circle <: Shape {
+  double x;
+  double y;
+  double r; // radius
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col33[
+.font20[
+```java[name=Square.java|copy=nones]
+class Square <: Shape {
+  double x;
+  double y;
+  double s; // side
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.card.bg-r[
+##### Question
+.content.tight[
+Add a new type called `Triangle`.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+]
+.ft88.oldsection[
+### FP
+#### OOP Problem
+
+.col33[
+.font20[
+```java[name=Circle.java|copy=nones]
+class Circle <: Shape {
+  double x;
+  double y;
+  double r; // radius
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col33[
+.font20[
+```java[name=Square.java|copy=nones]
+class Square <: Shape {
+  double x;
+  double y;
+  double s; // side
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.font20[
+```java[name=Triangle.java|copy=nones]
+class Triangle <: Shape {
+  double x;
+  double y;
+  double z;
+    :
+  double getArea() {
+      :
+  }
+} // Easy!!!
+```
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+]
+.ft88.oldsection[
+### FP
+#### OOP Problem
+
+.col33[
+.font20[
+```java[name=Circle.java|copy=nones]
+class Circle <: Shape {
+  double x;
+  double y;
+  double r; // radius
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col33[
+.font20[
+```java[name=Square.java|copy=nones]
+class Square <: Shape {
+  double x;
+  double y;
+  double s; // side
+    :
+  double getArea() {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.font20[
+```java[name=Triangle.java|copy=nones]
+class Triangle <: Shape {
+  double x;
+  double y;
+  double z;
+    :
+  double getArea() {
+      :
+  }
+} // Easy!!!
+```
+]
+]
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Add a new abstract function `getPerimeter` into `Shape`.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+]
+.ft88.oldsection[
+### FP
+#### OOP Problem
+
+.col33[
+.font20[
+```java[name=Circle.java|copy=nones|lite=7,8]
+class Circle <: Shape {
+  double x;
+  double y;
+  double r; // radius
+    :
+  double getArea() { .. }
+  double getPerimeter()
+    { .. }
+}
+```
+]
+]
+.col33[
+.font20[
+```java[name=Square.java|copy=nones|lite=7,8]
+class Square <: Shape {
+  double x;
+  double y;
+  double s; // side
+    :
+  double getArea() { .. }
+  double getPerimeter()
+    { .. }
+}
+```
+]
+]
+.col34[
+.font20[
+```java[name=Triangle.java|copy=nones|lite=7,8]
+class Triangle <: Shape {
+  double x;
+  double y;
+  double z;
+    :
+  double getArea() { .. }
+  double getPerimeter()
+    { .. }
+}
+```
+]
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+You have to add on all subclasses if the behavior are all different!
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+]
+.ft88.oldsection[
+### FP
+#### FP Problem
+
+.col66[
+.font20[
+```java[name=GetArea.java|copy=nones]
+double getArea(Shape shape) {
+  if (shape instanceof Circle) {
+      :
+  } else if (shape instanceof Square) {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.card.bg-r[
+##### Question
+.content.tight[
+Add a new type called `Triangle`.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+]
+.ft88.oldsection[
+### FP
+#### FP Problem
+
+.col66[
+.font20[
+```java[name=GetArea.java|copy=nones]
+double getArea(Shape shape) {
+  if (shape instanceof Circle) {
+      :
+  } else if (shape instanceof Square) {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.card.bg-r[
+##### Question
+.content.tight[
+Add a new type called `Triangle`.
+]
+]
+
+.card.bg-y[
+##### Note
+.content.tight[
+We need to modify all existing functions that takes in `Shape`.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+]
+.ft88.oldsection[
+### FP
+#### FP Problem
+
+.col66[
+.font20[
+```java[name=GetArea.java|copy=nones]
+double getArea(Shape shape) {
+  if (shape instanceof Circle) {
+      :
+  } else if (shape instanceof Square) {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.card.bg-r[
+##### Question
+.content.tight[
+Add a new function `getPerimeter` taking in `Shape`.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+]
+.ft88.oldsection[
+### FP
+#### FP Problem
+
+.col66[
+.font20[
+```java[name=GetArea.java|copy=nones]
+double getArea(Shape shape) {
+  if (shape instanceof Circle) {
+      :
+  } else if (shape instanceof Square) {
+      :
+  }
+}
+```
+]
+]
+.col34[
+.font20[
+```java[name=GetPerimeter.java|copy=nones]
+double getPerimeter(
+    Shape s) {
+  if (s <: Circle) {
+      :
+  } else if(s <: Square) {
+      :
+  }
+}
+```
+]
+]
+
+.col100[
+.card.bg-y[
+##### Note
+.content.tight[
+The advantage here is that `GetArea.java` need not be recompiled.
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+]
+.ft88.oldsection[
+### FP
+#### Dual Problem
+
+.col50[
+##### OOP
+.atbl[
+|   |.tbl-cell[tbl-bg-b] getArea |.tbl-cell[tbl-bg-r] new Function |
+|---|:-:|:-:|
+|.tbl-cell[tbl-bg-y] **Circle** | .dbltxt[**✔**] | 😱 |
+|.tbl-cell[tbl-bg-y] **Square** | .dbltxt[**✔**] | 😱 |
+|.tbl-cell[tbl-bg-g] **new Type** | 😃 |.tbl-cell[tbl-bg-k] |
+]
+]
+.col50[
+##### FP
+.atbl[
+|   |.tbl-cell[tbl-bg-b] getArea |.tbl-cell[tbl-bg-g] new Function |
+|---|:-:|:-:|
+|.tbl-cell[tbl-bg-y] **Circle** | .dbltxt[**✔**] | 😃 |
+|.tbl-cell[tbl-bg-y] **Square** | .dbltxt[**✔**] | 😃 |
+|.tbl-cell[tbl-bg-r] **new Type** | 😱 |.tbl-cell[tbl-bg-k] |
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+]
+.ft88.oldsection[
+### FP
+#### Dual Problem
+##### Choose the Right Tool for the Job
+
+.col100[
+<iframe width="100%" height="430" src="https://www.youtube-nocookie.com/embed/6pDH66X3ClA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+#### OOP & FP
+]
+.ft88.oldsection[
+### FP
+#### OOP & FP
+
+.col33[
+![FP](img/12-FP01.jpg)
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+#### OOP & FP
+]
+.ft88.oldsection[
+### FP
+#### OOP & FP
+
+.col33[
+![FP](img/12-FP01.jpg)
+]
+.col33[
+![FP](img/12-FP02.jpg)
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+#### OOP & FP
+]
+.ft88.oldsection[
+### FP
+#### OOP & FP
+
+.col33[
+![FP](img/12-FP01.jpg)
+]
+.col33[
+![FP](img/12-FP02.jpg)
+]
+.col34[
+.card.bg-b[
+##### Quote
+.content.tight[
+_"OO programming is good, when you know what it is. Functional programming is good, when you know what it is. And functional OO programming is also good, once you know what it is."_
+
+.right[Uncle Bob]
+]
+]
+]
+]
+
+---
+
+# The Way of the Function
+
+.ft10.subsections[
+### FP
+#### Comparison
+#### OOP Problem
+#### FP Problem
+#### Dual Problem
+#### OOP & FP
+#### Other Choices
+]
+.ft88.oldsection[
+### FP
+#### Other Choices
+
+.col100[
+.atbl.blhead[
+| Paradigms | Languages |
+|---|---|
+| Parallel/Concurrent | Erlang, Go, etc |
+| Functional | Haskell, Erlang, OCaml, F#, etc |
+| OO Functional | JavaScript, Kotlin, Scala, OCaml, Groovy, Swift, etc |
+]
+]
+]
+
+---
+
+name: Future
+class: middle, sections
+
+# The Way of the Future
+
+---
+
+# The Way of the Future
+
+.ft10.subsections[
+### CS2103<sub>T</sub>
+]
+.ft88.oldsection[
+### CS2103<sub>T</sub>
+#### Intro to Software Engineering
+- Work in teams
+- Version control
+- Program analysis
+.nol[
+-   :
+]
+]
+
+---
+
+# The Way of the Future
+
+.ft10.subsections[
+### CS2103<sub>T</sub>
+### CS2104.op0[<sub>T</sub>]
+]
+.ft88.oldsection[
+### CS2104.op0[<sub>T</sub>]
+#### Programming Language Concepts
+- Implementations of language
+- Compilation
+- Interpretation
+.nol[
+-   :
+]
+]
+
+---
+
+# The Way of the Future
+
+.ft10.subsections[
+### CS2103<sub>T</sub>
+### CS2104.op0[<sub>T</sub>]
+### CS3210.op0[<sub>T</sub>]
+]
+.ft88.oldsection[
+### CS3210.op0[<sub>T</sub>]
+#### Parallel Computing
+- Designing and programming multi-threaded programs
+- Debugging multi-threaded programs
+- Parallelization with CPU/CUDA
+.nol[
+-   :
+]
+]
+
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

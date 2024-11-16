@@ -1,0 +1,2615 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2030s.github.io/2425-s1/prog-ex/3-simulation3.html">
+      
+      
+        <link rel="prev" href="2-simulation2.html">
+      
+      
+        <link rel="next" href="4-some.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>Ex3 Simulation III - CS2030S Programming Methodology II</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ex-3-simulation-iii" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="CS2030S Programming Methodology II" class="md-header__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2030S Programming Methodology II
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ex3 Simulation III
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="CS2030S Programming Methodology II" class="md-nav__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS2030S Programming Methodology II
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0. Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-compiler.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Program and Compiler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-type.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Variables and Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-function.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-encapsulation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Encapsulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-infohiding.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Information Hiding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-tell-dont-ask.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Tell, Don't Ask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-static-field.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    7. Class Fields
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-static-method.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    8. Class Methods
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-composition.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    9. Composition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-heap-stack.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. Heap and Stack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-inheritance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. Inheritance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-overriding.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. Overriding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-overloading.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13. Overloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-polymorphism.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14. Polymorphism
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-dynamic-binding.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15. Method Invocation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-lsp.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. LSP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-abstract.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17. Abstract Class
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18. Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-wrapper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19. Wrapper Class
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-casting.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20. Run-Time Class Mismatch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-variance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21. Variance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-exception.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22. Exceptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-generics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23. Generics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-erasure.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24. Type Erasure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-unchecked.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25. Unchecked Warnings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-wildcard.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26. Wildcards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-inference.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    27. Type Inference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-immutability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    28. Immutability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-nested-classes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    29. Nested Class
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-functions.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30. Side Effect-Free Programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-box-maybe.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31. Box and Maybe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-lazy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    32. Lazy Evaluation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-infinitelist.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    33. Infinite List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-stream.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    34. Streams in Java
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-logger.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    35. Loggable
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-monad.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36. Monad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-parallel.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37. Parallel Streams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-thread.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38. Threads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-async.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39. Asynchronous Programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-forkjoin.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40. Fork and Join
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lab Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environments.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programming Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitHub Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Unix CLI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Unix CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix/background.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Background
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix/essentials.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Essentials
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix/advanced.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vim
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vim
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/philosophy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Background
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/setup.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/quick-lessons.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lessons
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/tips.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/plugins.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vim/cheatsheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cheat Sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Java Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../style.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Coding Style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javadoc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaDoc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exercises
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Exercises
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0-circle.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex0 Circle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="1-simulation1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex1 Simulation I
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2-simulation2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex2 Simulation II
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ex3 Simulation III
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="3-simulation3.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Ex3 Simulation III
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tasks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-address-the-concern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Address the Concern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-extend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Extend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 2: Extend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-1-queueing-with-the-barista" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension 1: Queueing with the Barista
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-2-custom-orders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension 2: Custom Orders
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-3-changes-to-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension 3: Changes to Input
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extension 3: Changes to Input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-4-changes-to-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension 4: Changes to Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-incorporate-generic-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Incorporate Generic Queue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-creating-generic-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 4: Creating Generic Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-5-comparable-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 5: Comparable Counter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-6-updating-the-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 6: Updating the Simulation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skeleton-for-programming-exercise-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skeleton for Programming Exercise 3
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skeleton for Programming Exercise 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-on-programming-exercise-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building on Programming Exercise 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-testing-and-debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling, Testing, and Debugging
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compiling, Testing, and Debugging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running and Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation (Optional)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4-some.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex4 Some
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="5-maybe.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex5 Maybe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="6-lazy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex6 Lazy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="7-infinity.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex7 InfiniteList
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="8-future.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex8 Future
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="9-parallel.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ex9 Parallel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Mini Lab
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Mini Lab
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab01.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab02.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab03.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab04.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 04
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab05.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab06.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labs/lab07.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab 07
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ex-3-simulation-iii">Ex 3: Simulation III</h1>
+<div class="admonition abstract">
+<p class="admonition-title">Basic Information</p>
+<ul>
+<li><strong>Deadline:</strong> 17 September 2024, Tuesday, 23:59 SGT</li>
+<li><strong>Difficulty:</strong> ★★★★★★★</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Prerequisite</p>
+<ul>
+<li>Completed <a href="2-simulation2.html">Programming Exercise 2</a>.</li>
+<li>Caught up to <a href="../25-unchecked.html">Unit 25</a> of Lecture Notes.</li>
+<li>Familiar with <a href="../style.html">CS2030S Java style guide</a>.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Goal</p>
+<p>This is a continuation of Programming Exercise 2. Programming Exercise 3 extends some of the requirements of Programming Exercise 2 and adds new entities to the world that we are simulating.  The goal is to demonstrate that, when OO principles are applied properly, we can adapt our code to changes in the requirements with less effort.</p>
+<p>Programming Exercise 3 also involves writing your generic classes.</p>
+</div>
+<hr />
+<h2 id="tasks">Tasks</h2>
+<p>We have two extensions that we want to do on our coffee shop.  Before we do that, we need to make sure that your Ex 1 code are sufficiently good.</p>
+<h3 id="task-1-address-the-concern">Task 1: Address the Concern</h3>
+<p>Hopefully, by now your friendly TA should have written comments about your submission.  You should address the concerns pointed by your TA.  If those concerns remained unaddressed, the same deductions will be applied to the current submission too.</p>
+<h3 id="task-2-extend">Task 2: Extend</h3>
+<h4 id="extension-1-queueing-with-the-barista">Extension 1: Queueing with the Barista</h4>
+<p>The coffee shop has now decided to streamline its operations.  It rearranges the layout and makes some space for queues at the counters with the barista.  With that, customers can now wait at individual barista.</p>
+<p>In this exercise, we will modify the simulation to add a queue to each barista/counter.  Remember that each counter has exactly one barista so we can use counter and barista interchangeably.  For simplicity, we will refer to the queue at the counter as barista queue.</p>
+<p>The maximum queue length for each barista queue is <span class="arithmatex">\(l\)</span>. All barista queues are independent.  Recall from Exercise 2 that the maximum queue length for the entrance queue is denoted as <span class="arithmatex">\(m\)</span>. <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(l\)</span> may be different.</p>
+<p>When a customer arrives, a few scenarios could happen:</p>
+<ul>
+<li>If more than one counter is available, a customer will go to the counter with the smallest id (<em>just like in Exercise 2</em>).</li>
+<li>If none of the counters is available, but at least one of the barista queues is not full, the customer will join the counter with the shortest barista queue.  If there are two counters with the same queue length, we break ties by going to the counter with the smaller id.</li>
+<li>If every barista queue has reached its maximum capacity of
+<span class="arithmatex">\(l\)</span>, but the entrance queue is not full, then the customer will join the entrance queue.</li>
+<li>If every barista queue has reached its maximum capacity of
+<span class="arithmatex">\(l\)</span>, and the entrance queue has reached its maximum capacity of <span class="arithmatex">\(m\)</span>, then the customer will leave.</li>
+</ul>
+<p>When a counter is done serving a customer and becomes available, the customer at the front of its barista queue will proceed to the counter for service.  This event frees up a slot in the barista queue.  One customer from the entrance queue may join the barista queue of that counter.  It takes 0.05 time unit for a customer to move from the entrance queue to the barista queue.</p>
+<p>Note that, the entrance queue is empty unless all barista queues have reached the maximum length. Furthermore, a counter cannot "steal" a customer from another barista queue. Once a customer joins a barista queue, it cannot switch to another barista queue.</p>
+<h4 id="extension-2-custom-orders">Extension 2: Custom Orders</h4>
+<p>Recall that a customer comes into the coffee shop with an order.  We will now add custom instructions on the orders.  For simplicity, assume that all barista can accommodate all instructions.  The custom instructions are always a single word (<em>i.e.,</em> not separated by a space).</p>
+<h4 id="extension-3-changes-to-input">Extension 3: Changes to Input</h4>
+<ol>
+<li>
+<p>There is an additional input parameter, an integer <span class="arithmatex">\(l\)</span>, indicating the maximum allowed length of the barista queue. This input parameter should be read immediately after reading the number of coffee shop counters and before the maximum allowed length of the entrance queue.</p>
+</li>
+<li>
+<p>There is an additional input parameter at the end of each line in the input file that indicates the custom instructions for the order.  This new input is always a string consisting only of alphabets.  You should read the input using <code>Scanner::next()</code>.</p>
+</li>
+</ol>
+<h5 id="changes">Changes</h5>
+<div class="grid">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Ex2.1.in</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>3 1 2
+1.0 1.0 0
+3.0 1.0 1
+5.0 1.0 0
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Ex3.1.in</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>3 1 0 2
+1.0 1.0 0 Small
+3.0 1.0 1 Medium
+5.0 1.0 0 Large
+</code></pre></div></td></tr></table></div>
+</div>
+<p>In <code>Ex3.1.in</code>, the first line of the input has an additional integer input <code>0</code> as the third input on the first line.  This specifies the length of the barista queue.</p>
+<p>Additionally, for subsequent lines we have additional String inputs for each line.</p>
+<ul>
+<li>Line 2: The customer wants a "Small" order.</li>
+<li>Line 3: The customer wants a "Medium" order.</li>
+<li>Line 4: The customer wants a "Large" order.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Assumptions</p>
+<p>We assume that no two events involving two different customers ever occur at the same time (<em>except when a customer departs and another customer begins their order</em>).  As per all exercises, we assume that the input is correctly formatted.</p>
+</div>
+<h4 id="extension-4-changes-to-output">Extension 4: Changes to Output</h4>
+<ol>
+<li>
+<p>Whenever we print a counter/barista, we also print its barista queue.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">From Ex3.13.out</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>1.700: C7 joined barista queue (at B1 [ C4 ])
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Whenever we print an order, we print the custom instructions before the order.  The custom instruction is enclosed within a parentheses.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">From Ex3.13.out</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>3.100: C7 ordered (Medium) Coffee Espresso (by B1 [ ])
+4.000: C3 served (Hot) Coffee Latte (by B0 [ C6 C9 ])
+</code></pre></div></td></tr></table></div>
+</li>
+</ol>
+<h3 id="task-3-incorporate-generic-queue">Task 3: Incorporate Generic Queue</h3>
+<div class="admonition failure">
+<p class="admonition-title">Do NOT Edit</p>
+<p>You are not allowed to edit <code>CoffeeQueue.java</code>.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Delete Queue.java</p>
+<p>Please completely delete <code>Queue.java</code> before submitting.</p>
+</div>
+<p>We have given you a generic <code>CoffeeQueue&lt;T&gt;</code> class as an improvement to <code>Queue</code> class in Exercise 2 because <code>Queue</code> stores its elements as <code>Object</code> and is not type-safe.  Update your program to incorporate <code>CoffeeQueue&lt;T&gt;</code> instead of <code>Queue</code>.  You should not longer use <code>Queue</code> and you should delete <code>Queue.java</code>.</p>
+<p>Our <code>CoffeeQueue&lt;T&gt;</code> is comparable to other <code>CoffeeQueue&lt;T&gt;</code>.  This is done by implementing the interface <code>Comparable&lt;CoffeeQueue&lt;T&gt;&gt;</code> and providing an implementation of <code>compareTo</code>.  We compare two <code>CoffeeQueue&lt;T&gt;</code> according to their sizes.  Consider the method invocation below.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">queue1</span><span class="p">.</span><span class="na">compareTo</span><span class="p">(</span><span class="n">queue2</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>If the result is negative, then <code>queue1</code> &lt; <code>queue2</code>.</li>
+<li>If the result is positive, then <code>queue1</code> &gt; <code>queue2</code>.</li>
+<li>Otherwise, <code>queue1</code> = <code>queue2</code>.</li>
+</ul>
+<h3 id="task-4-creating-generic-sequence">Task 4: Creating Generic Sequence</h3>
+<p>Let's call the class that encapsulates the counter/barista as <code>CoffeeCounter</code> (<em>you may name it differently</em>).  We have been using an array to store the <code>CoffeeCounter</code> objects.  In Exercise 3, you should replace that with a generic wrapper around an array. In other words, we want to replace <code>CoffeeCounter[]</code> with <code>Seq&lt;BankCounter&gt;</code>. You may build upon the <code>Seq&lt;T&gt;</code> class from the notes — <a href="../25-unchecked.html">Unit 25</a>.</p>
+<p>The <code>Seq&lt;T&gt;</code> class should support the following:</p>
+<ul>
+<li>
+<p><code>Seq&lt;T&gt;</code> takes in only a subtype of <code>Comparable&lt;T&gt;</code> as its type argument.  That is, we want to parameterize <code>Seq&lt;T&gt;</code> with only a <code>T</code> that can compare with itself.  Note that in implementing <code>Seq&lt;T&gt;</code>, you will find another situation where using raw type is necessary.  You may, for this case, use <code>@SuppressWarnings("rawtypes")</code> at the <em>smallest scope possible</em> to suppress the warning about raw types.  If you need to suppress multiple warnings, you may use <code>@SuppressWarnings({"warning1", "warning2"})</code>.</p>
+</li>
+<li>
+<p><code>Seq&lt;T&gt;</code> must support the <code>min</code> method, with the following descriptor:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">T</span><span class="w"> </span><span class="nf">min</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p><code>min</code> returns the minimum element (<em>based on the order defined by the</em> <code>compareTo</code> <em>method of the</em> <code>Comparable&lt;T&gt;</code> <em>interface</em>).  Recap the specification of <code>compareTo</code>.  If <code>x.compareTo(y)</code> returns</p>
+<ul>
+<li><em>any negative value</em>, then <code>x</code> &lt; <code>y</code>.</li>
+<li><em>zero</em>, then <code>x</code> = <code>y</code>.</li>
+<li><em>any positive value</em>, then <code>x</code> &gt; <code>y</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>Seq&lt;T&gt;</code> supports a <code>toString</code> method.  The code has been given to you in <code>Seq.java</code>.</p>
+</li>
+</ul>
+<p>You are encouraged to test your <code>Seq&lt;T&gt;</code> in jshell yourself.  A sample test sequence is as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code>jshell&gt; /open Seq.java
+jshell&gt; Integer i
+jshell&gt; String s
+jshell&gt; Seq&lt;Integer&gt; a;
+jshell&gt; a = new Seq&lt;Integer&gt;(4);
+jshell&gt; a.set(0, 3);
+jshell&gt; a.set(1, 6);
+jshell&gt; a.set(2, 4);
+jshell&gt; a.set(3, 1);
+jshell&gt; a.set(0, &quot;huat&quot;);
+|  Error:
+|  incompatible types: java.lang.String cannot be converted to java.lang.Integer
+|  a.set(0, &quot;huat&quot;);
+|           ^----^
+jshell&gt; i = a.get(0)
+jshell&gt; i
+i ==&gt; 3
+jshell&gt; i = a.get(1)
+jshell&gt; i
+i ==&gt; 6
+jshell&gt; i = a.get(2)
+jshell&gt; i
+i ==&gt; 4
+jshell&gt; i = a.get(3)
+jshell&gt; i
+i ==&gt; 1
+jshell&gt; s = a.get(0)
+|  Error:
+|  incompatible types: java.lang.Integer cannot be converted to java.lang.String
+|  s = a.get(0)
+|      ^------^
+jshell&gt; i = a.min()
+jshell&gt; i
+i ==&gt; 1
+jshell&gt; a.set(3,9);
+jshell&gt; i = a.min()
+jshell&gt; i
+i ==&gt; 3
+jshell&gt; // try something not comparable
+jshell&gt; class A {}
+jshell&gt; Seq&lt;A&gt; a;
+|  Error:
+|  type argument A is not within bounds of type-variable T
+|  Seq&lt;A&gt; a;
+|        ^
+jshell&gt; class A implements Comparable&lt;Long&gt; { public int compareTo(Long i) { return 0; } }
+jshell&gt; Seq&lt;A&gt; a;
+|  Error:
+|  type argument A is not within bounds of type-variable T
+|  Seq&lt;A&gt; a;
+|        ^
+jshell&gt; // try something comparable
+jshell&gt; class A implements Comparable&lt;A&gt; { public int compareTo(A a) { return 0; } }
+jshell&gt; Seq&lt;A&gt; a;
+jshell&gt; 
+</code></pre></div></td></tr></table></div>
+<p>The file <code>SeqTest.java</code> helps to test your <code>Seq&lt;T&gt;</code> class.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>username@pe111:~/ex3-username$ javac -Xlint:unchecked -Xlint:rawtypes SeqTest.java
+username@pe111:~/ex3-username$ java SeqTest
+</code></pre></div></td></tr></table></div>
+<h3 id="task-5-comparable-counter">Task 5: Comparable Counter</h3>
+<p>Your class that encapsulates coffee counters must now implement <code>Comparable&lt;T&gt;</code> interface so that it can be compared with another instance of the same type.  This way, it can also be used as type argument for <code>Seq&lt;T&gt;</code>.</p>
+<p>You should implement <code>compareTo</code> in such a way that <code>counters.min()</code> returns the counter that a customer should join (<em>unless all the barista queues have reached maximum length</em>).</p>
+<h3 id="task-6-updating-the-simulation">Task 6: Updating the Simulation</h3>
+<p>By incorporating <code>CoffeeQueue&lt;T&gt;</code> and <code>Seq&lt;T&gt;</code>, your simulation will need to be updated.  This potentially includes modifying <code>CoffeeCounter</code> (<em>the name may be different</em>) as well as adding new subclass of <code>Event</code>.</p>
+<p>Finally, ensure that all your files can be compiled without warning even with <code>-Xlint:unchecked</code> and <code>-Xlint:rawtypes</code>.</p>
+<h2 id="skeleton-for-programming-exercise-3">Skeleton for Programming Exercise 3</h2>
+<p>We provide three classes for Exercise 3, the main <code>Ex3.java</code> (<em>which is simply</em> <code>Ex2.java</code> <em>renamed</em>), <code>CoffeeQueue.java</code> (<em>which is simply a generic version of</em> <code>Queue.java</code>), and <code>Seq.java</code>.  You should not edit <code>Ex3.java</code> and <code>CoffeeQueue.java</code> but you need to fill in the blanks (<em>i.e.,</em> <code>// TODO</code>) for <code>Seq.java</code> as described above.</p>
+<p>We also provide two new classes for testing: <code>CS2030STest.java</code> (<em>which you should be familiar with from Programming Exercise 0</em>) and <code>SeqTest.java</code>.</p>
+<div class="admonition failure">
+<p class="admonition-title">Do NOT Edit</p>
+<p>You should <strong>NOT</strong> edit <code>Ex3.java</code>, <code>CoffeeQueue.java</code>, <code>CS2030STest.java</code>, or <code>SeqTest.java</code>.  However, you may change the <code>@author</code> tag of these two files if you wish.</p>
+<p>Additionally, if you have made changes to <code>Event.java</code>, <code>Simulation.java</code>, or <code>Simulator.java</code>, you will need to use the original file given for Programming Exercise 1 as those are not supposed to be edited.</p>
+</div>
+<h3 id="building-on-programming-exercise-2">Building on Programming Exercise 2</h3>
+<p>You are required to build on top of your Programming Exercise 2 submission for this exercise.</p>
+<p>Assuming you have <code>ex2-username</code> and <code>ex3-username</code> under the same directory, and <code>ex3-username</code> is your current working directory, you can run </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>username@pe111:~/ex3-username$ cp -i ../ex2-username/*.java .
+username@pe111:~/ex3-username$ rm -i Ex2.java
+</code></pre></div></td></tr></table></div>
+<p>to copy all your Java code over and remove the main file for <code>Ex2</code>.</p>
+<p>If you are still unfamiliar with Unix commands to navigate the file system and manage files, please review our <a href="../unix/essentials.html">Unix guide</a>.</p>
+<p>You are encouraged to consider your tutor's feedback and fix any issues with your design for your Programming Exercise 2 submission before you embark on your Programming Exercise 3.</p>
+<h2 id="compiling-testing-and-debugging">Compiling, Testing, and Debugging</h2>
+<h3 id="compiling">Compiling</h3>
+<p>To compile your code, you can compile all the Java file.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>username@pe111:~/ex3-username$ javac -Xlint:unchecked -Xlint:rawtypes *.java
+</code></pre></div></td></tr></table></div>
+<p>To check for style,</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>username@pe111:~/ex3-username$ java -jar ~cs2030s/bin/checkstyle.jar -c ex3_style.xml *.java
+</code></pre></div></td></tr></table></div>
+<h3 id="running-and-testing">Running and Testing</h3>
+<p>You may test your simulation code similarly to how you test your Programming Exercise 3.</p>
+<p>Note that test cases 1 to 11 set <span class="arithmatex">\(l\)</span> to 0, so there is no barista queue.  Test cases 12 and 14 set <span class="arithmatex">\(l\)</span> to non-zero and <span class="arithmatex">\(m\)</span> to 0, so there is no entrance queue.  Test cases 15 and 16 test scenarios with both entrance and barista queues.</p>
+<h2 id="documentation-optional">Documentation (Optional)</h2>
+<p>Documenting your code with Javadoc is optional for Programming Exercise 3.  It is, however, always a good practice to include comments to help readers understand your code.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright by Department of Computer Science, National University of Singapore 2023
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "toc.integrate", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

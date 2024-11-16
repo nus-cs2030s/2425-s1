@@ -1,0 +1,1346 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L05: Generics
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Generics
+class: middle, sections
+
+# Generics
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+]
+.ft88.oldsection[
+### Class
+#### Integer Pairs
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+```
+]
+.col93[
+```java
+class IntPair {
+  private int first;
+  private int second;
+  ​
+  public IntPair(int first, int second) {
+    this.first = first;
+    this.second = second;
+  }
+  ​
+  public int getFirst() { return this.first; }
+  ​
+  public int getSecond() { return this.second; }
+}
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+#### Boilerplate Pairs
+]
+.ft88.oldsection[
+### Class
+#### Boilerplate Pairs
+
+.img65[![Boilerplate](img/05-Boilerplate.jpg)]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+#### Boilerplate Pairs
+#### Object Pairs
+]
+.ft88.oldsection[
+### Class
+#### Object Pairs
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+```
+]
+.col93[
+```java
+class Pair {
+  private Object first;
+  private Object second;
+  ​
+  public Pair(Object first, Object second) {
+    this.first = first;
+    this.second = second;
+  }
+  ​
+  public Object getFirst() { return this.first; }
+  ​
+  public Object getSecond() { return this.second; }
+}
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+#### Boilerplate Pairs
+#### Object Pairs
+]
+.ft88.oldsection[
+### Class
+#### Object Pairs
+
+.col55[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones]
+Pair p
+    = new Pair("hello", 4);
+Integer i = (Integer) p.getFirst(); 
+// run-time ClassCastException
+```
+]
+]
+
+.col45[
+![Pair01](img/05-Pair01.svg)
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+#### Boilerplate Pairs
+#### Object Pairs
+#### Generic Pairs
+]
+.ft88.oldsection[
+### Class
+#### Generic Pairs
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+```
+]
+.col93[
+```java
+class Pair<S, T> {
+  private S first;
+  private T second;
+  ​
+  public Pair(S first, T second) {
+    this.first = first;
+    this.second = second;
+  }
+  ​
+  public S getFirst() { return this.first; }
+  ​
+  public T getSecond() { return this.second; }
+}
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+#### Integer Pairs
+#### Boilerplate Pairs
+#### Object Pairs
+#### Generic Pairs
+]
+.ft88.oldsection[
+### Class
+#### Generic Pairs
+
+.col70[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones]
+Pair<String,Integer> p
+    = new Pair<String, Integer>("hello", 4);
+Integer i = (Integer) p.getFirst();
+// compile-time error
+```
+]
+]
+
+.col30[
+![Pair02](img/05-Pair02.svg)
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+]
+.ft88.oldsection[
+### Subclass
+#### Extending Generic Class
+
+.col70[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones]
+class DictionaryEntry<T>
+    extends Pair<String, T> {
+  // : code omitted
+}
+```
+]
+
+
+.col100[<br>]
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones|lite=5-6]
+DictionaryEntry<Object> obj;
+obj = new DictionaryEntry<String>("K", "V");
+DictionaryEntry<String> str;
+str = new DictionaryEntry<Object>("K", "V");
+```
+]
+]
+
+.col30[
+![Pair03](img/05-Pair03.svg)
+]
+]
+.footnote[Java Generic is **Invariant** (more to come next week).]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+#### Generic Method
+]
+.ft88.oldsection[
+### Method
+#### Generic Method
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+```
+]
+.col95[
+```java[copy=nones]
+public static <T> boolean contains(T[] array, T obj) {
+  for (T curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+#### Generic Method
+#### Generic Invocation
+]
+.ft88.oldsection[
+### Method
+#### Generic Invocation
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col95[
+```java[copy=nones]
+String[] strArray = new String[] { "hello", "world" };
+Contains.<String>contains(strArray, 123);
+// type mismatch error
+```
+]
+
+.col100[
+<br>
+]
+
+.col5.hljs-num[
+```text[copy=nones]
+1
+2
+```
+]
+.col95[
+```java[copy=nones]
+String[] strArray = new String[] { "hello", "world" };
+Contains.contains(strArray, 123);
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+#### Initial Design
+]
+.ft88.oldsection[
+### Bound
+#### Initial Design
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col93[
+```java[copy=nones|lite=5]
+public static <T> T findLargest(T[] array) {
+  double maxArea = 0;
+  T maxObj = null;
+  for (T curr : array) {
+    double area = curr.getArea();
+    if (area > maxArea) {
+      maxArea = area;
+      maxObj = curr;
+    }
+  }
+  return maxObj;
+}
+```
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+#### Initial Design
+#### Bounded Type
+]
+.ft88.oldsection[
+### Bound
+#### Bounded Type
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col93[
+```java[copy=nones|lite=1,5]
+public static <T extends GetAreable> T findLargest(T[] array) {
+  double maxArea = 0;
+  T maxObj = null;
+  for (T curr : array) {
+    double area = curr.getArea();
+    if (area > maxArea) {
+      maxArea = area;
+      maxObj = curr;
+    }
+  }
+  return maxObj;
+}
+```
+]
+]
+.footnote.note20[Unfortunately, even if `GetAreable` is an interface, we still use `extends` keyword.]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+#### Documentation
+]
+.ft88.oldsection[
+### Comparable
+#### Documentation
+
+.col65[
+<iframe src="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html#method-summary" frameborder="0" width="100%" height="450px"></iframe>
+]
+.col35[
+.card.bg-y[
+##### compareTo(T o)
+.content.tight.flexcard[
+.col30.nol[
+- .center[**-ve**]
+- .center[**zero**]
+- .center[**+ve**]
+]
+.col70.nol[
+- if `this`.op0[`..`]`< o`
+- if `this == o`
+- if `this`.op0[`..`]`> o`
+]
+]
+]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+#### Documentation
+#### Comparable Pair
+]
+.ft88.oldsection[
+### Comparable
+#### Comparable Pair
+
+.col7.hljs-num[
+.font20[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+```
+]
+]
+.col93[
+.font20[
+```java[copy=nones]
+class Pair<S extends Comparable<S>,T> implements Comparable<Pair<S,T>> {
+  // : code omitted
+  ​
+  @Override
+  public int compareTo(Pair<S,T> s1) {
+      return this.first.compareTo(s1.first)
+  }
+  ​
+  @Override
+  public String toString() {
+    return this.first + " " + this.second;
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+#### Documentation
+#### Comparable Pair
+#### Sorting
+]
+.ft88.oldsection[
+### Comparable
+#### Sorting
+
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col93[
+```java[copy=nones]
+Object[] array = new Object[] {
+  new Pair<String, Integer>("Alice", 1),
+  new Pair<String, Integer>("Carol", 2),
+  new Pair<String, Integer>("Bob", 3),
+  new Pair<String, Integer>("Dave", 3),
+};
+​
+java.util.Arrays.sort(array);
+​
+for (Object o : array) {
+  System.out.println(o);
+}
+```
+]
+]
+.footnote.font20[https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+.col40[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the classes on the right.
+Which of the following generic type is declared in `R`?
+Note that there may be other classes besides these classes.
+]
+]
+]
+.col60[
+.col8.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col92[
+```java
+class P { }
+class Q<U, V> { }
+class R<T> extends Q<S, T> {
+  static <P> void foo(P p, T t) { }
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`P`] .quiz-ans[1] .quiz-hint[YES: declared in line 4]
+2. .quiz-choice[`Q`] .quiz-ans[0] .quiz-hint[NO: this is the superclass that is also generic]
+3. .quiz-choice[`R`] .quiz-ans[0] .quiz-hint[NO: this is the class we are defining]
+3. .quiz-choice[`S`] .quiz-ans[0] .quiz-hint[NO: there is no declaration of `S`]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Class
+### Subclass
+### Method
+### Bound
+### Comparable
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col50[
+.font16[
+```java[copy=nones]
+class A implements Comparable<String> {
+  @Override
+  public int compareTo(T t) { return 0; }
+}
+```
+
+```java[copy=nones]
+class C implements Comparable<String> {
+  @Override
+  public int compareTo(String s) { return 0; }
+}
+```
+]
+]
+
+.col50[
+.font16[
+```java[copy=nones]
+class B implements Comparable<String> {
+  @Override
+  public int compareTo(B b) { return 0; }
+}
+```
+
+```java[copy=nones]
+class D implements Comparable<String> {
+  @Override
+  public int compareTo(Object o) { return 0; }
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`A`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+2. .quiz-choice[`B`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+3. .quiz-choice[`C`] .quiz-ans[1] .quiz-hint[YES: need `compareTo(String)`]
+3. .quiz-choice[`D`] .quiz-ans[0] .quiz-hint[NO: need `compareTo(String)`]
+
+.quizzes-time[120]
+]
+]
+.abs.fc.top2.rt7.wt50[
+.card.bg-r[
+##### Question
+.content.tight[
+Which of the following class compiles?
+]
+]
+]
+
+---
+
+name: Type_Erasure
+class: middle, sections
+
+# Type Erasure
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+#### Specialization
+]
+.ft88.oldsection[
+### Implementation
+#### Specialization
+
+.col100[
+.card.bg-r[
+##### Code Specialization
+.content.tight[
+Generate a new class for every new type argument .note20[(e.g., C#, C++, Rust)].
+]
+]
+]
+
+.col50[
+##### Usage
+```java[copy=nones]
+Pair<String, Integer> p1;
+Pair<Double, Double>  p2;
+Pair<Integer, Double> p3;
+```
+]
+.col50[
+##### Generated Code
+```java[copy=nones]
+class Pair_String_Integer { ... }
+class Pair_Double_Double  { ... }
+class Pair_Integer_Double { ... }
+```
+]
+]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+#### Specialization
+#### Sharing
+]
+.ft88.oldsection[
+### Implementation
+#### Sharing
+
+.col100[
+.card.bg-g[
+##### Code Sharing
+.content.tight[
+Erase type arguments and type parameters after type checking .note20[(e.g., Java)].
+]
+]
+]
+
+.col50[
+##### Usage
+```java[copy=nones]
+Pair<String, Integer> p;
+p = new Pair<String, Integer>(...);
+Integer i = p.getSecond();
+```
+]
+.col50[
+##### Generated Code
+```java[copy=nones]
+Pair p;
+p = new Pair(...);
+Integer i = (Integer) p.getSecond();
+```
+]
+]
+.IMPORTANT[]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+#### Basic
+]
+.ft88.oldsection[
+### Type Erasure
+#### Basic
+
+.col45[
+##### Generic Pair
+
+.font18[
+```java[copy=nones]
+class Pair<S, T> {
+  private S first;
+  private T second;
+  public Pair(S first, T second) {
+      this.first = first;
+      this.second = second;
+  }
+  public S getFirst() {
+    return this.first;
+  }
+  public T getSecond() {
+    return this.second;
+  }
+}
+```
+]
+]
+
+.col55[
+##### Generated Class
+
+.font18[
+```java[copy=nones]
+class Pair {
+  private Object first;
+  private Object second;
+  public Pair(Object first, Object second) {
+      this.first = first;
+      this.second = second;
+  }
+  public Object getFirst() {
+    return this.first;
+  }
+  public Object getSecond() {
+    return this.second;
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+#### Basic
+#### Bounded
+]
+.ft88.oldsection[
+### Type Erasure
+#### Bounded
+
+.col45[
+##### Generic Pair
+
+.font18[
+```java[copy=nones|lite=1]
+class Pair<S, T extends GetAreable> {
+  private S first;
+  private T second;
+  public Pair(S first, T second) {
+      this.first = first;
+      this.second = second;
+  }
+  public S getFirst() {
+    return this.first;
+  }
+  public T getSecond() {
+    return this.second;
+  }
+}
+```
+]
+]
+
+.col55[
+##### Generated Class
+
+.font18[
+```java[copy=nones|lite=3,4,11]
+class Pair {
+  private Object first;
+  private GetAreable second;
+  public Pair(Object first, GetAreable second) {
+      this.first = first;
+      this.second = second;
+  }
+  public Object getFirst() {
+    return this.first;
+  }
+  public GetAreable getSecond() {
+    return this.second;
+  }
+}
+```
+]
+]
+]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+#### Basic
+#### Bounded
+#### Usage
+]
+.ft88.oldsection[
+### Type Erasure
+#### Usage
+
+.col100[
+##### Generic Usage
+
+```java[copy=nones]
+Pair<String,Integer> p = new Pair<String,Integer>("hello", 4);
+Integer i = p.getSecond();
+```
+
+<br>
+
+##### Generated Code
+
+```java[copy=nones|lite=2]
+Pair p = new Pair("hello", 4);
+Integer i = (Integer) p.getSecond();
+```
+]
+]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+### Limitation
+#### Generic Array
+]
+.ft88.oldsection[
+### Limitation
+#### Generic Array
+
+.col55[
+##### Original Code
+.col10[
+.font18[
+.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+]
+]
+.col90[
+.font18[
+```java[copy=nones]
+Pair<String,Integer>[] pairArray;
+Object[] objArray;
+​
+pairArray = new Pair<String,Integer>[2];
+objArray = pairArray;
+​
+objArray[0]
+    = new Pair<Double,Boolean>(3.14, true);
+String str
+    = pairArray[0].getFirst();
+```
+]
+]
+]
+
+.col45[
+##### Type Erased Code
+<pre class="text-editor editor16" id="pair_editor" style="height:400px">
+Pair&lt;String,Integer&gt;[] pairArray;
+Object[] objArray;
+
+pairArray = new Pair&lt;String,Integer&gt;[2];
+objArray = pairArray;
+
+objArray[0]
+    = new Pair&lt;Double,
+               Boolean&gt;(3.14, true);
+String str
+    = pairArray[0].getFirst();
+</pre>
+]
+]
+
+---
+
+# Type Erasure
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+### Limitation
+#### Generic Array
+]
+.ft88.oldsection[
+### Limitation
+#### Generic Array
+
+.col100[
+.card.bg-r[
+##### Cannot Instantiate Generic Array
+.content.tight.flexcard[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col93[
+```java[copy=nones]
+new Pair<String, Integer>[2];   // ERROR
+new Pair<S, T>[2];              // ERROR
+new T[2];                       // ERROR
+```
+]
+]
+]
+
+.card.bg-b[
+##### Can Still Declare Generic Array
+.content.tight.flexcard[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+```
+]
+.col93[
+```java[copy=nones]
+Pair<String, Integer>[] arr1; // OK
+Pair<S, T>[] arr2;            // OK
+T[] arr3;                     // OK
+```
+]
+]
+]
+]
+]
+
+---
+
+# Generics
+
+.ft10.subsections[
+### Implementation
+### Type Erasure
+### Limitation
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+.col40[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the class `B` on the right.
+What is the compile-time type of `U` after type erasure?
+]
+]
+]
+.col60[
+.col8.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col92[
+```java
+class A {}
+class B<T extends A, U extends T> {
+  private T t;
+  private U u;
+}
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`Object`] .quiz-ans[1] .quiz-hint[NO: not the upper-bound`]
+2. .quiz-choice[`A`] .quiz-ans[0] .quiz-hint[YES: because the upper-bound of `T` is `A`]
+3. .quiz-choice[`T`] .quiz-ans[0] .quiz-hint[NO: cannot have generic anymore]
+3. .quiz-choice[`U`] .quiz-ans[0] .quiz-hint[NO: cannot have generic anymore]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Generic_Sequence
+class: middle, sections
+
+# Generic Sequence
+
+---
+
+# Generic Sequence
+
+.ft10.subsections[
+### Seq&lt;T&gt;
+]
+.ft88.oldsection[
+### Seq&lt;T&gt;
+]
+
+---
+
+# Generic Sequence
+
+.ft10.subsections[
+### Seq&lt;T&gt;
+### Suppress
+]
+.ft88.oldsection[
+### Suppress
+#### Suppressing Unchecked Warning
+
+.col100[
+##### @SuppressWarnings
+
+```java[copy=nones|lite=2-6]
+public Seq(int size) {
+  // The only way we can put an object into 
+  // array is through the method set() and we 
+  // only put object of type T inside.
+  // So it is safe to cast `Object[]` to `T[]`.
+  @SuppressWarnings("unchecked")
+  T[] temp = (T[]) new Object[size];
+  this.array = temp;
+}
+```
+]
+]
+.footnote.note20[This is only truly safe if we have already removed `getArray`.]
+
+---
+
+# Generic Sequence
+
+.ft10.subsections[
+### Seq&lt;T&gt;
+### Suppress
+### Problem?
+]
+.ft88.oldsection[
+### Problem?
+
+#### Is This Safe?
+```java[copy=nones]
+Seq<String> strSeq = new Seq<String>(2);
+Object[] objArray = strSeq.getArray();
+
+objArray[0] = 5;
+String s = strSeq.get(0);  
+```
+]
+
+---
+
+# Generic Sequence
+
+.ft10.subsections[
+### Seq&lt;T&gt;
+### Suppress
+### Problem?
+### Warning
+]
+.ft88.oldsection[
+### Warning?
+
+#### Do NOT Use Raw Types
+
+.col100[
+.card.bg-r[
+##### Not OK
+.content.tight.flexcard[
+.col7.hljs-num[
+```text[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```java[copy=nones|lite=1]
+Seq strArray = new Seq(2);
+void setSeq(Seq s) {
+  s.set(0, 1234);
+}
+```
+]
+]
+]
+
+.card.bg-b[
+##### Still OK.cite[]
+.content.tight.flexcard[
+.col7.hljs-num[
+```text[copy=nones]
+1
+```
+]
+.col93[
+```java[copy=nones]
+obj instanceof Pair
+```
+]
+]
+]
+]
+]
+.footnote.note20[Only for this exercise, next week we will learn a better way.]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]

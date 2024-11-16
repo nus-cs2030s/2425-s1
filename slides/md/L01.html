@@ -1,0 +1,1105 @@
+layout: true
+class: basic, layout, imaging, fonts, lists, cards, fadein, tabler
+name: content
+<div class="basic header"></div>
+<div class="basic footer"><p>CS2030S: Programming Methodology II -- Adi Yoga Sidi Prabawa</p></div>
+
+---
+
+name: Introduction
+class: bottom, titles
+
+# CS2030S
+## Programming Methodology II
+### L01: Introduction
+
+.abs.top2.rt4[.img120[![QR](img/dcsaysp.png)]]
+
+---
+
+name: Java_Basic
+class: middle, sections
+
+# Java Basic
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+]
+.ft88.oldsection[
+### Tombstone
+
+.col65[
+#### Compilation
+![Compilation](img/01-TS-Java.png)
+]
+.col35[
+#### Interpretation
+![Interpretation](img/01-TS-Jshell.png)
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+]
+.ft88.oldsection[
+### Workflow
+#### Edit-Compile-Execute Cycle
+
+.img85[![Workflow](img/01-Workflow.png)]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+]
+.ft88.oldsection[
+### Compilation
+#### Principle
+
+.col55[
+.card.bg-b[
+##### Design Principle
+.content.tight[
+A well-designed programming language should help us catch errors during compilation phase as soon as possible.
+]
+]
+
+|.tbl-cell[tbl-bg-k] |.tbl-cell[tbl-bg-k] |.tbl-cspan[2].tbl-cell[tbl-bg-g] Compile Time |
+|:-:|:-:|:-:|:-:|
+|.tbl-cell[tbl-bg-k] |.tbl-cell[tbl-bg-k] |.tbl-cell[tbl-bg-b] **No Error** |.tbl-cell[tbl-bg-b] **Error** |
+|.tbl-rspan[2].tbl-cell[tbl-bg-g] **Run Time** |.tbl-cell[tbl-bg-b] **No Error** | True Negative |.tbl-cell[tbl-bg-y] *False Positive* |
+|.tbl-cell[tbl-bg-b] **Error** |.tbl-cell[tbl-bg-r] *False Negative* | True Positive |
+]
+
+.col45[
+![Error](img/01-Error.jpg)
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+#### Basic
+]
+.ft88.oldsection[
+### Type System
+#### Basic
+
+.col50[
+.card.bg-y[
+##### Type
+.content.tight[
+The ***type*** decides the computation that can be performed.
+]
+]
+]
+.col50[
+.card.bg-b[
+##### Type System
+.content.tight[
+A ***type system*** is a set of rules about types and their interactions.
+]
+]
+]
+
+.col100[
+![Type System](img/01-TypeSystem.png)
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+#### Basic
+#### Dynamic/Static
+]
+.ft88.oldsection[
+### Type System
+#### Dynamic/Static
+
+.col50[
+##### Dynamic (in Python)
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```py[copy=nones]
+x = 4;
+x = "5";
+```
+]
+]
+.col50[
+##### Static (in Java)
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```java[copy=nones]
+int x = 4;
+x = "5";
+```
+]
+]
+
+.col100[
+##### Problem (in Python)?
+.col4.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col96[
+```py[copy=nones]
+i = 0
+while i < 100:
+  i = something_slow()
+print("i is " + i)
+```
+]
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+#### Basic
+#### Dynamic/Static
+#### Weak/Strong
+]
+.ft88.oldsection[
+### Type System
+#### Weak/Strong
+
+.col50[
+##### Weak (in C)
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```c[copy=nones]
+int x = 4;
+x = (int) "5";
+```
+]
+]
+.col50[
+##### Static (in Java)
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```java[copy=nones]
+int x = 4;
+x = (int) "5";
+```
+]
+]
+
+##### Problem (in Java)?
+.col50[
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```c[copy=nones]
+int x = 5;
+double y = x + x;
+```
+]
+]
+.col50[
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col87[
+```java[copy=nones]
+double x = 5;
+int y = x + x;
+```
+]
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+### Subtyping
+#### Basic
+]
+.ft88.oldsection[
+### Subtyping
+#### Basic
+
+.card.bg-b[
+##### Subtype and Supertype
+.content.tight[
+A type *T* is a ***subtype*** of *S* .note20[(denoted *T* <: *S*)] if
+]
+.content.tight[
+.nol[
+- A code written for variable of type *S* can also be safely used on variables of type *T*
+]
+]
+.content.tight[
+We say that *S* is a ***supertype*** of *T*.
+]
+]
+
+.col70[
+.card.bg-g[
+##### Properties
+.content.tight.flexcard[
+.col35[
+- **Reflexive**
+- **Transitive**
+- **Anti-Symmetric**
+]
+.nol.col65[
+- *T* <: *T*
+- if *T* <: *S* and *S* <: *U*, then *T* <: *U*
+- if *T* <: *S* and *S* <: *T*, then *T* = *S*<br>.note20[(prevents cyclic subtyping)]
+]
+]
+]
+]
+.col30[
+![Diagram](img/01-Subtype.jpg)
+]
+]
+
+---
+
+# Java Basic
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+### Subtyping
+#### Basic
+#### Primitive
+]
+.ft88.oldsection[
+### Subtyping
+#### Primitive
+
+.col50[
+.card.bg-b[
+##### Java Primitive Subtyping
+.content.tight[
+- `byte` <: `short` <: `int` <: `long`
+- `long` <: `float` <: `double`
+- `char` <: `int`
+]
+]
+]
+.col50[
+![Primitive Subtyping](img/01-Primitive.jpg)
+]
+
+.col100[
+.card.bg-g[
+##### Widening
+.content.tight[
+Java allows putting a value of type *T* into a variable of type *S* if and only if *T* <: *S*.
+]
+]
+]
+]
+
+---
+
+# Type System
+
+.ft10.subsections[
+### Tombstone
+### Workflow
+### Compilation
+### Type System
+### Subtyping
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col100[
+.card.bg-r[
+##### Question
+.content.tight[
+Let `c`, `i`, and `d` be a variable of type `char`, `int`, and `double` respectively.
+Which of the following assignments are allowed in Java?
+]
+]
+]
+
+.mrq[
+1. .quiz-choice[`double x = c;`] .quiz-ans[1] .quiz-hint[YES: `char` ___<:___ `int` ___<:___ `long` ___<:___ `float` ___<:___ `double`]
+2. .quiz-choice[`float  x = d;`] .quiz-ans[0] .quiz-hint[NO: it should be the other way around]
+3. .quiz-choice[`short  x = i;`] .quiz-ans[0] .quiz-hint[NO: it should be the other way around]
+4. .quiz-choice[`short  x = c;`] .quiz-ans[0] .quiz-hint[NO: they are simply "incompatible"]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+name: Abstraction
+class: middle, sections
+
+# Abstraction
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+]
+.ft88.oldsection[
+### Functions
+#### Abstraction over Computation
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col88[
+```js[copy=nones]
+let i; let fac;
+i = 10; fac = 1;
+while (i >= 0) {
+  fac = fac * i;
+  i = i - 1;
+}
+i = 10; fac = 1;
+while (i >= 0) {
+  fac = fac * i;
+  i = i - 1;
+}
+const fac5 = fac;
+```
+]
+]
+
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col88[
+```js[copy=nones]
+function fact(i) {
+  let fac = 1;
+  while (i >= 0) {
+    fac = fac * i;
+    i = i - 1;
+  }
+  return fac;
+}
+/* --- Abstraction --- */
+/* ----- Barrier ----- */
+const fac10 = fact(10);
+const fac5  = fact(5);
+```
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+#### List
+]
+.ft88.oldsection[
+### Composite
+#### List
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+```
+]
+.col88[
+```py
+def Circle(x, y, r):
+  return (x, y, r)
+```
+]
+]
+
+.col50[
+##### Instantiation
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```py[copy=nones]
+c = Circle(1, 2, 5);
+c[0]; # returns 1
+c[1]; # returns 2
+c[2]; # returns 5
+```
+]
+
+##### Functions
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```py[copy=nones]
+def getArea(c):
+  return 3.14 * c[0] * c[0]
+  ​
+circle_area = getArea(c);
+```
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+#### List
+#### Dispatch
+]
+.ft88.oldsection[
+### Composite
+#### Dispatch
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+```
+]
+.col88[
+```js
+function Circle(x, y, r) {
+  function dispatch(q) {
+    if (q === "x") {
+      return x;
+    } else  if (q === "y") {
+      return y;
+    } else  if (q === "r") {
+      return r;
+    }
+  }
+  return dispatch;
+}
+```
+]
+]
+
+.col50[
+##### Instantiation
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```js[copy=nones]
+const c = Circle(1, 2, 5);
+c("x"); // returns 1
+c("y"); // returns 2
+c("r"); // returns 5
+```
+]
+
+##### Functions
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```js[copy=nones]
+function getArea(c) {
+  return 3.14 * c("r") * c("r");
+}
+const circle_area = getArea(c);
+```
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+#### List
+#### Dispatch
+#### Struct
+]
+.ft88.oldsection[
+### Composite
+#### Struct
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col88[
+```c
+typedef struct {
+  double x;
+  double y;
+  double r;
+} Circle;
+```
+]
+]
+
+.col50[
+##### Instantiation
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```c[copy=nones]
+Circle c;  // creation w/o value
+c.x = 1.0; // set x to 1.0
+c.y = 2.0; // set y to 2.0
+c.r = 5.0; // set r to 5.0
+```
+]
+
+##### Functions
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col93[
+```c[copy=nones]
+double getArea(Circle c) {
+  return 3.14 * c.r * c.r;
+}
+double circle_area = getArea(c);
+```
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+#### List
+#### Dispatch
+#### Struct
+#### Class
+]
+.ft88.oldsection[
+### Composite
+#### Class
+.col50[
+.col12.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+]
+.col88[
+```java[lite=6-9]
+class Circle {
+  double x;
+  double y;
+  double r;
+  ​
+  // Function inside class
+  double getArea() {
+    return 3.14 * r * r;
+  }
+}
+```
+]
+]
+
+.col50[
+##### Instantiation
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+6
+```
+]
+.col93[
+```c[copy=nones|lite=6]
+Circle c = new Circle();
+c.x = 1.0; // set x to 1.0
+c.y = 2.0; // set y to 2.0
+c.r = 5.0; // set r to 5.0
+​
+double circle_area = c.getArea();
+```
+
+.card.bg-g[
+##### Single Responsibility
+.content.tight[
+Design your class such that it should have a single responsibility.
+]
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+]
+.ft88.oldsection[
+### Barrier
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+]
+.ft88.oldsection[
+### Terminology
+.card.bg-b[
+##### Object-Oriented Terminology
+.content.tight.flexcard[
+.col17[
+- **Encapsulation**
+- **Methods**
+- **Fields**
+- **Instances**
+]
+.nol.col83[
+- Bundle of variables .note20[(called fields)] and functions .note20[(called methods)]
+- Functions inside a class
+- Bundled data inside the class .note20[(or members, or states, or attributes)]
+- Actual instantiation of the class .note20[(or objects)]
+]
+]
+]
+
+.col50[
+##### Class
+.img80[![Blueprint](img/01-Blueprint.png)]
+]
+.col50[
+##### Instance
+.img50[![Instance](https://media.ldlc.com/ld/products/00/05/44/00/LD0005440098_2_0005440176.jpg)]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+]
+.ft88.oldsection[
+### Terminology
+.card.bg-b[
+##### Object-Oriented Terminology
+.content.tight.flexcard[
+.col17[
+- **Encapsulation**
+- **Methods**
+- **Fields**
+- **Instances**
+]
+.nol.col83[
+- Bundle of variables .note20[(called fields)] and functions .note20[(called methods)]
+- Functions inside a class
+- Bundled data inside the class .note20[(or members, or states, or attributes)]
+- Actual instantiation of the class .note20[(or objects)]
+]
+]
+]
+
+.col50[
+##### Class Diagram
+![Class](img/01-Circle.png)
+]
+.col50[
+##### Stack/Heap Diagram
+![Stack/Heap](img/01-Instance.png)
+
+.card.bg-y[
+##### Reference Type
+.content.tight[
+Anything that are **not** primitive types.
+]
+]
+]
+]
+.IMPORTANT[]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+]
+.ft88.oldsection[
+### Stack/Heap
+#### Diagram
+
+.col40[
+.col10.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+```
+]
+.col90[
+```java[copy=nones]
+Circle c1 = new Circle();
+Circle c2 = c1;
+c1.r = 10.0;
+// c2.r?
+```
+]
+]
+.col60[
+![StackHeap](img/StackHeap.png)
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+### Paradigm
+]
+.ft88.oldsection[
+### Paradigm
+#### OOP Paradigm
+
+.col47[
+.card.bg-b[
+##### Object-Oriented Programming
+.content.tight[
+- Instantiate objects .note20[(different classes)].
+- Interact by invoking each others' methods.
+]
+]
+
+.col30[
+![Bank01](img/01-Bank01.png)
+
+![Bank03](img/01-Bank03.png)
+]
+.col30[
+![Bank02](img/01-Bank02.png)
+
+![Bank04](img/01-Bank04.png)
+]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+### Paradigm
+### Quizzes
+#### Quiz #1
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #1
+
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the Java code snippet on the right.
+Which of the following would be printed by the code snippet on the right?
+]
+]
+]
+.col50[
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col93[
+```c[copy=nones]
+Circle c1;
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+System.out.println(c1.r);
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`0.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+2. .quiz-choice[`3.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+3. .quiz-choice[`10.0`] .quiz-ans[0] .quiz-hint[NO: variable must be initialized]
+4. .quiz-choice[Compilation Error] .quiz-ans[1] .quiz-hint[YES: line 2 is an error because `c1` is uninitialized]
+5. .quiz-choice[Runtime Error] .quiz-ans[0] .quiz-hint[NO: cannot even compile]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+# Abstraction
+
+.ft10.subsections[
+### Functions
+### Composite
+### Barrier
+### Terminology
+### Stack/Heap
+### Paradigm
+### Quizzes
+#### Quiz #1
+#### Quiz #2
+]
+.ft88.oldsection[
+### Quizzes
+#### Quiz #2
+
+.col50[
+.card.bg-r[
+##### Question
+.content.tight[
+Consider the Java code snippet on the right.
+Which of the following would be printed by the code snippet on the right?
+]
+]
+]
+.col50[
+.col7.hljs-num[
+```txt[copy=nones]
+1
+2
+3
+4
+5
+```
+]
+.col93[
+```c[copy=nones]
+Circle c1 = new Circle();
+Circle c2 = c1;
+c1.r = 10.0;
+c2.r = 3.0;
+System.out.println(c1.r);
+```
+]
+]
+
+.mrq[
+1. .quiz-choice[`0.0`] .quiz-ans[0] .quiz-hint[NO: no longer default]
+2. .quiz-choice[`3.0`] .quiz-ans[1] .quiz-hint[YES: `c1.r` and `c2.r` are aliased]
+3. .quiz-choice[`10.0`] .quiz-ans[0] .quiz-hint[NO: `c1.r` and `c2.r` are aliased]
+4. .quiz-choice[Compilation Error] .quiz-ans[0] .quiz-hint[NO: no error]
+5. .quiz-choice[Runtime Error] .quiz-ans[0] .quiz-hint[NO: no error]
+
+.quizzes-time[120]
+]
+]
+
+---
+
+class: middle, end, fadein
+
+.eol[`jshell> /exit`]
+
+
+.eol[`| Goodbye`]
